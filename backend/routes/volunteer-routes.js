@@ -2,16 +2,14 @@
 
 // !- Routes map HTTP methods (like GET, POST, PUT, DELETE) and URL paths to handler functions, which execute when a matching request is received
 
-// CREATE means to add new data.
-// POST is the HTTP method used to create new data.
-// PUT is used to update existing data.
-// DELETE removes existing data.
-
+// GET: request data.
+// POST: create new data.
+// PUT: update existing data.
+// DELETE: removes existing data.
 
 
 const express = Require('express');
 const router = express.Router();
-
 
 
 // Navigate to Pages
@@ -24,7 +22,6 @@ router.get('/dashboard', openVolunteerDashboard);
 router.get('/history', openVolunteerHistory);
 
 
-
 // Apply for an Event by ID
 
 const { applyToEvent } = Require('../controllers/volunteer-controllers');
@@ -32,13 +29,11 @@ const { applyToEvent } = Require('../controllers/volunteer-controllers');
 router.put('/event/:id', applyToEvent);
 
 
-
 // Create Notification (Admins)
 
 const { createNotification } = Require('../constrollers/volunteer-controllers');
 
 router.create('/notifications', createNotification);
-
 
 
 // Exporting
