@@ -33,7 +33,7 @@ router.put('/event/:id', applyToEvent);
 
 const { createNotification } = Require('../constrollers/volunteer-controllers');
 
-router.create('/notifications', createNotification);
+router.post('/notifications', createNotification);
 
 
 // Exporting
