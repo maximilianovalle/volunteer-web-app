@@ -4,6 +4,8 @@
 
 
 const errorMsg = response.json({ my: "Error: page not found." });
+const successMsg = response.json({ my: "Successfully completed." });
+let notifications = [];
 
 
 // Navigate to Pages
@@ -20,25 +22,27 @@ Exports.openEventPage = (request, response) => {
 };
 
 Exports.openNotificationPage = (request, response) => {
-    readFile("../frontend/volunteer/notification-page.html", "utf-8", (err, html) => {
+    // readFile("../frontend/volunteer/notification-page.html", "utf-8", (err, html) => {
 
-        if (err) {
-            response.status(500).json(errorMsg);
-        }
+    //     if (err) {
+    //         response.status(500).json(errorMsg);
+    //     }
 
-        response.send(html);
-    });
+    //     response.send(html);
+    // });
+    response.json(notifications);
 };
 
 Exports.openVolunteerDashboard = (request, response) => {
-    readFile("../frontend/volunteer/volunteer-dashboard.html", "utf-8", (err, html) => {
+    // readFile("../frontend/volunteer/volunteer-dashboard.html", "utf-8", (err, html) => {
 
-        if (err) {
-            response.status(500).json(errorMsg);
-        }
+    //     if (err) {
+    //         response.status(500).json(errorMsg);
+    //     }
 
-        response.send(html);
-    });
+    //     response.send(html);
+    // });
+    response.json(adminEvents); // shows events created by admins from adminController.js
 };
 
 Exports.openVolunteerHistory = (request, response) => {
@@ -57,15 +61,18 @@ Exports.openVolunteerHistory = (request, response) => {
 // Apply for an Event by ID
 
 Exports.applyToEvent = (request, response) => {
-    const eventId = parseInt(req.params.id);
-    // WIP
+    const eventID = request.params.id;
+    const volunteerID = request.params.id;
+
+    const myEvent = findByID(eventID);
+    myEvent.volunteer_list.append(volunteerID);
+    response.json(successMsg);
 };
 
 
 // Create Notification (Admins)
 
 const crypto = Require("crypto");  // generates unique id
-let notifications = [];
 
 Exports.createNotification = (request, response) => {
     const { header, description } = req.body;

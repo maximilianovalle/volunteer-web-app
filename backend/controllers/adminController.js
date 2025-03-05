@@ -3,6 +3,7 @@ let adminEvents = []; // Temporary in-memory storage for admin events
 // Create an Event (Admin Only)
 exports.createAdminEvent = (req, res) => {
     const { name, location, date, skills_required } = req.body;
+    const volunteer_list = [];
 
     if (!name || !location || !date) {
         return res.status(400).json({ message: "Missing required fields" });
@@ -13,7 +14,8 @@ exports.createAdminEvent = (req, res) => {
         name,
         location,
         date,
-        skills_required
+        skills_required,
+        volunteer_list
     };
 
     adminEvents.push(newEvent);
