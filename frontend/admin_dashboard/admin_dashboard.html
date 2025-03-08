@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="admin_dashboard.css">
+    <link rel="stylesheet" href="../admin_dashboard/admin_dashboard.css">
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="admin_dashboard.js"></script>
+    <script defer src="../admin_dashboard/admin_dashboard.js"></script>
 </head>
 <body>
 
@@ -33,8 +33,9 @@
             <div class="card">
                 <h3>💰 Economic Impact</h3>
                 <p>$4,477.53</p>
-            </div>
+            </div>       
         </div>
+
 
         <!-- Charts Section -->
         <div class="charts">
@@ -48,10 +49,20 @@
             </div>
         </div>
 
+        <!-- Popup Section -->
+        <div id="eventPopup" class="popup">
+            <div class="popup-content">
+                <h2>📅 Scheduled Events</h2>
+                <ul id="eventList"></ul>
+                <button onclick="closePopup()">Close</button>
+            </div>
+        </div>
+        
+
         <!-- Dashboard Buttons -->
         <div class="dashboard-buttons">
-            <button onclick="redirectTo('event_management.html')">📅 Manage Events</button>
-            <button onclick="redirectTo('volunteer_matching.html')">🤝 Match Volunteers</button>
+            <button onclick="openManageEvents()">📋 Manage Events</button>
+            <button onclick="redirectTo('../admin_form/admin_form.html')">🤝 Match Volunteers</button>
             <button onclick="redirectTo('settings.html')" class="notification">
                 ⚙️ Settings <span class="badge">!</span>
             </button>

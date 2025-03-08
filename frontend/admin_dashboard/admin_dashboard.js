@@ -39,3 +39,44 @@ new Chart(volunteerCtx, {
         }]
     }
 });
+
+function openManageEvents() {
+    document.getElementById("eventPopup").style.display = "block";
+    loadAdminEvents(); 
+}
+
+function closePopup() {
+    document.getElementById("eventPopup").style.display = "none";
+}
+
+// Fetch and display events inside the popup
+async function loadAdminEvents() {
+    try {
+        const response = await fetch("http://localhost:3000/api/admin/events");
+        const events = await response.json();
+
+        const eventList = document.getElementById("eventList");
+        eventList.innerHTML = ""; 
+
+        events.forEach(event => {
+            const eventItem = document.createElement("li");
+            eventItem.innerHTML = `
+                <strong>${event.name}</strong> - ${event.location} - ${event.date}
+                <button onclick="deleteEvent(${event.id})">❌ Delete</button>
+            `;
+            eventList.appendChild(eventItem);
+        });
+    } catch (error) {
+        console.error("Error loading events:", error);
+    }
+}
+
+// Delete event function
+async function deleteEvent(eventId) {
+    try {
+        await fetch(`http://localhost:3000/api/admin/events/${eventId}`, { method: "DELETE" });
+        loadAdminEvents(); 
+    } catch (error) {
+        console.error("Error deleting event:", error);
+    }
+}

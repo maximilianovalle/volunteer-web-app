@@ -1,5 +1,6 @@
 const express = require('express');
-const { createAdminEvent, getAdminEvents, deleteAdminEvent } = require('../controllers/adminController');
+const { createAdminEvent, getAdminEvents, deleteAdminEvent, matchVolunteersToEvent, getVolunteers } = require("../controllers/adminController");
+
 
 const router = express.Router();
 
@@ -11,5 +12,11 @@ router.get('/events', getAdminEvents);
 
 // Delete an event by ID
 router.delete('/events/:id', deleteAdminEvent);
+
+// Match volunteers to an event
+router.post("/match-volunteer", matchVolunteersToEvent);
+
+router.get("/volunteers", getVolunteers);
+
 
 module.exports = router;

@@ -19,10 +19,10 @@ body {
 /* Dashboard Container */
 .dashboard-container {
     width: 60%;
-    margin: 3% auto; /* Reduce from 5% to 3% */
+    margin: 3% auto; 
     background: white;
     color: black;
-    padding: 20px; /* Reduce padding */
+    padding: 20px; 
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     animation: fadeIn 1s ease-in-out;
@@ -34,8 +34,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 10px; /* Reduce space below logo */
-    margin-top: -10px; /* Move logo & title up */
+    margin-bottom: 10px; 
+    margin-top: -10px; 
 }
 
 .admin-header img {
@@ -54,44 +54,44 @@ body {
 .stats {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Reduce spacing */
-    margin-bottom: 15px; /* Reduce margin */
+    gap: 15px; 
+    margin-bottom: 15px; 
 }
 
 .card {
     background: #ff6b00;
     color: white;
-    padding: 10px; /* Reduce padding */
+    padding: 10px; 
     border-radius: 8px;
-    width: 100px; /* Reduce width */
+    width: 100px; 
     text-align: center;
-    font-size: 14px; /* Reduce text size */
+    font-size: 14px; 
     transition: transform 0.3s;
 }
 
 .card:hover {
-    transform: scale(1.05); /* Slightly smaller hover effect */
+    transform: scale(1.05); 
 }
 
 /* Charts (Smaller) */
 .charts {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Reduce space between charts */
-    margin-bottom: 20px; /* Reduce bottom margin */
+    gap: 15px; 
+    margin-bottom: 20px; 
 }
 
 .chart-container {
     background: white;
-    padding: 15px; /* Reduce padding */
+    padding: 15px; 
     border-radius: 10px;
-    width: 35%; /* Reduce width */
+    width: 35%; 
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Chart Headings */
 .chart-container h3 {
-    font-size: 16px; /* Reduce heading size */
+    font-size: 16px; 
     margin-bottom: 10px;
 }
 /* Dashboard Buttons */
@@ -146,6 +146,7 @@ button:hover {
     background: linear-gradient(to right, #ff4500, #ff6b00);
 }
 
+
 /* Fade-in Animation */
 @keyframes fadeIn {
     from {
@@ -156,4 +157,37 @@ button:hover {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+/* Popup stuff*/
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; 
+    max-width: 90%; 
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}
+
+.popup-content {
+    text-align: center;
+    font-size: 16px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.popup button {
+    background: linear-gradient(to right, #ff4500, #ff6b00);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
 }

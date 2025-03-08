@@ -5,7 +5,9 @@ const cors = require("cors");
 
 app.use(cors()); // Enable CORS for frontend-backend communication
 app.use(express.json()); // Parse incoming JSON requests
+app.use(express.static(path.join(__dirname, "../frontend")));
 
+/*
 app.use(express.static(path.join(__dirname, 'frontend')));
 app.use(express.static(path.join(__dirname, 'frontend', 'admin_dashboard')));
 app.use(express.static(path.join(__dirname, 'frontend', 'admin_form')));
@@ -13,13 +15,37 @@ app.use(express.static(path.join(__dirname, 'frontend', 'icon-images')));
 app.use(express.static(path.join(__dirname, 'frontend', 'Login')));
 app.use(express.static(path.join(__dirname, 'frontend', 'usermanageprofile')));
 app.use(express.static(path.join(__dirname, 'frontend', 'volunteer')));
+*/
 
-const apiEndpoints = require("./backend/api/loginRoutes.js");
+const apiEndpoints = require("./api/loginRoutes.js");
 app.use("/api", apiEndpoints);
 
+const adminRoutes = require("./routes/adminRoutes"); 
+app.use("/api/admin", adminRoutes);
+
+app.get("/admin-form", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/admin_form/admin_form.html"));
+});
+
+app.get("/admin-dashboard", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/admin_dashboard/admin_dashboard.html"));
+});
+
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/Login/index.html"));
+});
+
+
+app.get("/signup", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/Login/sign-up.html"));
+});
+
+/*
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "Login", "index.html", "sign-up.html"));
 });
+*/
 
 app.use((req, res) => {
     res.status(404);
