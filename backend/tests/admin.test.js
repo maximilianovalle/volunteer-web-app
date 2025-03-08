@@ -16,7 +16,7 @@ const testEvent = {
 
 describe("Admin API - Event Management", () => {
 
-    // ✅ Test 1: Create an Event
+    //  Test 1: Create an Event
     it("should create a new event", async () => {
         const response = await request(app)
             .post("/api/admin/events")
@@ -27,7 +27,7 @@ describe("Admin API - Event Management", () => {
         expect(response.body.name).toBe(testEvent.name);
     });
 
-    // ✅ Test 2: Get All Events
+    //  Test 2: Get All Events
     it("should retrieve all events", async () => {
         const response = await request(app).get("/api/admin/events");
         
@@ -35,7 +35,7 @@ describe("Admin API - Event Management", () => {
         expect(Array.isArray(response.body)).toBe(true);
     });
 
-    // ✅ Test 3: Delete an Event
+    //  Test 3: Delete an Event
     it("should delete an event", async () => {
         const response = await request(app)
             .post("/api/admin/events")
@@ -52,7 +52,7 @@ describe("Admin API - Event Management", () => {
 
 describe("Admin API - Volunteer Matching", () => {
 
-    // ✅ Test 4: Match a Volunteer to an Event
+    //  Test 4: Match a Volunteer to an Event
     it("should match a volunteer to an event", async () => {
         const matchResponse = await request(app)
             .post("/api/admin/match-volunteer")
@@ -62,7 +62,7 @@ describe("Admin API - Volunteer Matching", () => {
         expect(matchResponse.body).toHaveProperty("matchedEvent");
     });
 
-    // ✅ Test 5: Validation - Missing Event Name
+    //  Test 5: Validation - Missing Event Name
     it("should return an error for missing event name", async () => {
         const response = await request(app)
             .post("/api/admin/events")
