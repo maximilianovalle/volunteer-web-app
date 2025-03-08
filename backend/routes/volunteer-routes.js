@@ -14,12 +14,12 @@ const router = express.Router();
 
 // Navigate to Pages
 
-const { openEventPage, openNotificationPage, openVolunteerDashboard, openVolunteerHistory } = require('../controllers/volunteer-controllers');
+// const { openEventPage, openNotificationPage, openVolunteerDashboard, openVolunteerHistory } = require('../controllers/volunteer-controllers');
 
-router.get('/event/:id', openEventPage);
-router.get('/notifications', openNotificationPage);
-router.get('/dashboard', openVolunteerDashboard);
-router.get('/history', openVolunteerHistory);
+// router.get('/event/:id', openEventPage);
+// router.get('/notifications', openNotificationPage);
+// router.get('/dashboard', openVolunteerDashboard);
+// router.get('/history', openVolunteerHistory);
 
 
 // Apply for an Event by ID

@@ -8,51 +8,51 @@ let notifications = [];
 
 // Navigate to Pages
 
-exports.openEventPage = (request, response) => {
-    readFile("../frontend/volunteer/event-page.html", "utf-8", (err, html) => { // reads file and saves it to 'html'
+// exports.openEventPage = (request, response) => {
+//     readFile("../frontend/volunteer/event-page.html", "utf-8", (err, html) => { // reads file and saves it to 'html'
 
-        if (err) {                                      // if error
-            response.status(500).json({ my: "Error: page not found." });         // provide error screen
-        }
+//         if (err) {                                      // if error
+//             response.status(500).json({ my: "Error: page not found." });         // provide error screen
+//         }
 
-        response.send(html);                            // else return file
-    });
-};
+//         response.send(html);                            // else return file
+//     });
+// };
 
-exports.openNotificationPage = (request, response) => {
-    // readFile("../frontend/volunteer/notification-page.html", "utf-8", (err, html) => {
+// exports.openNotificationPage = (request, response) => {
+//     // readFile("../frontend/volunteer/notification-page.html", "utf-8", (err, html) => {
 
-    //     if (err) {
-    //         response.status(500).json({ my: "Error: page not found." });
-    //     }
+//     //     if (err) {
+//     //         response.status(500).json({ my: "Error: page not found." });
+//     //     }
 
-    //     response.send(html);
-    // });
-    response.json(notifications);
-};
+//     //     response.send(html);
+//     // });
+//     response.json(notifications);
+// };
 
-exports.openVolunteerDashboard = (request, response) => {
-    // readFile("../frontend/volunteer/volunteer-dashboard.html", "utf-8", (err, html) => {
+// exports.openVolunteerDashboard = (request, response) => {
+//     // readFile("../frontend/volunteer/volunteer-dashboard.html", "utf-8", (err, html) => {
 
-    //     if (err) {
-    //         response.status(500).json({ my: "Error: page not found." });
-    //     }
+//     //     if (err) {
+//     //         response.status(500).json({ my: "Error: page not found." });
+//     //     }
 
-    //     response.send(html);
-    // });
-    response.json(adminEvents); // shows events created by admins from adminController.js
-};
+//     //     response.send(html);
+//     // });
+//     response.json(adminEvents); // shows events created by admins from adminController.js
+// };
 
-exports.openVolunteerHistory = (request, response) => {
-    readFile("../frontend/volunteer/volunteer-history.html", "utf-8", (err, html) => {
+// exports.openVolunteerHistory = (request, response) => {
+//     readFile("../frontend/volunteer/volunteer-history.html", "utf-8", (err, html) => {
 
-        if (err) {
-            response.status(500).json({ my: "Error: page not found." });
-        }
+//         if (err) {
+//             response.status(500).json({ my: "Error: page not found." });
+//         }
 
-        response.send(html);
-    });
-};
+//         response.send(html);
+//     });
+// };
 
 
 

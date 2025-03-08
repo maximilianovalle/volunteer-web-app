@@ -6,22 +6,24 @@ const app = express();
 app.use(express.json());
 app.use("/api/admin", volunteerRoutes);
 
+const mockNotification = {
+    header: "Header test",
+    description: "Description test",
+}
+
 describe("Takes correct header/description attributes to create a notification.", () => {
 
-    // test("Should return 200 if valid profile data is provided", async () => {
-    //     const response = await request(app).post("/api/user/profile").send({
-    //         name: "John Doe",
-    //         address1: "123 Main St",
-    //         city: "Sample City",
-    //         state: "CA",
-    //         zipcode: "12345",
-    //         skills: ["programming"],
-    //         availabilityDates: ["2025-03-01"]
-    //     });
-    //     expect(response.status).toBe(200);
-    //     expect(response.body.message).toBe("Profile submitted successfully!");
-    // });
-
+    //  Creating mock notification
+    test("Create a new notification", async () => {
+        const response = await request(app)
+            .post("/api/admin/notifications")
+            .send(mockNotification);
+        
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty("id");
+        expect(response.body.name).toBe(mockNotification.name);
+    });
+    
     // No header/description provided for notification
 
     test("Should throw error if no header/description provided.", async () => {
