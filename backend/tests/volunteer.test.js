@@ -1,10 +1,10 @@
-const request = Require("supertest");
-const express = Require('express');
-const adminRoutes = Require("../routes/volunteer-routes");
+const request = require("supertest");
+const express = require('express');
+const volunteerRoutes = require("../routes/volunteer-routes");
 
 const app = express();
 app.use(express.json());
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin", volunteerRoutes);
 
 describe("Takes correct header/description attributes to create a notification.", () => {
 

@@ -14,7 +14,7 @@ const router = express.Router();
 
 // Navigate to Pages
 
-const { openEventPage, openNotificationPage, openVolunteerDashboard, openVolunteerHistory } = Require('../controllers/volunteer-controllers');
+const { openEventPage, openNotificationPage, openVolunteerDashboard, openVolunteerHistory } = require('../controllers/volunteer-controllers');
 
 router.get('/event/:id', openEventPage);
 router.get('/notifications', openNotificationPage);
@@ -24,18 +24,18 @@ router.get('/history', openVolunteerHistory);
 
 // Apply for an Event by ID
 
-const { applyToEvent } = Require('../controllers/volunteer-controllers');
+const { applyToEvent } = require('../controllers/volunteer-controllers');
 
 router.put('/event/:id', applyToEvent);
 
 
 // Create Notification (Admins)
 
-const { createNotification } = Require('../constrollers/volunteer-controllers');
+const { createNotification } = require('../controllers/volunteer-controllers');
 
 router.put('/notifications', createNotification);
 
 
 // Exporting
 
-Module.exports = router;
+module.exports = router;
