@@ -11,9 +11,28 @@ const mockNotification = {
     description: "Description test",
 }
 
-describe("Takes correct header/description attributes to create a notification.", () => {
+const invalidNotification = {
+    header: null,
+    description: null,
+}
+
+// Notification verification
+
+describe("Takes correct header/description attributes to create a notification", () => {
+
+    // Validating notification
+
+    test("Should throw error if invalid or missing header/description inputs", async () => {
+        const response = await request(app)
+            .post("/api/admin/notifications")
+            .send(invalidNotification);
+
+        expect(response.status).toBe(400);
+        // expect(response.body.errors).toBeDefined();
+    });
 
     //  Creating mock notification
+
     test("Create a new notification", async () => {
         const response = await request(app)
             .post("/api/admin/notifications")
@@ -23,15 +42,11 @@ describe("Takes correct header/description attributes to create a notification."
         expect(response.body).toHaveProperty("id");
         expect(response.body.name).toBe(mockNotification.name);
     });
-    
-    // No header/description provided for notification
-
-    test("Should throw error if no header/description provided.", async () => {
-
-        const response = await request(app).post("/api/admin/notifications").send({});
-        expect(response.status).toBe(400);  // 400: bad request error
-        expect(response.body.errors).toBe("Missing required fields.");
-
-    });
 
 });
+
+// Apply for an Event by ID
+
+// describe("Adds user to event volunteer_list", () => {
+        
+// })

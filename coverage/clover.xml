@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741405713369" clover="3.2.0">
-  <project timestamp="1741405713369" name="All files">
-    <metrics statements="84" coveredstatements="71" conditionals="38" coveredconditionals="35" methods="13" coveredmethods="10" elements="135" coveredelements="116" complexity="0" loc="84" ncloc="84" packages="2" files="6" classes="6"/>
+<coverage generated="1741410334998" clover="3.2.0">
+  <project timestamp="1741410334998" name="All files">
+    <metrics statements="82" coveredstatements="76" conditionals="46" coveredconditionals="41" methods="12" coveredmethods="11" elements="140" coveredelements="128" complexity="0" loc="82" ncloc="82" packages="2" files="6" classes="6"/>
     <package name="controllers">
-      <metrics statements="63" coveredstatements="50" conditionals="38" coveredconditionals="35" methods="13" coveredmethods="10"/>
+      <metrics statements="63" coveredstatements="57" conditionals="46" coveredconditionals="41" methods="12" coveredmethods="11"/>
       <file name="adminController.js" path="/home/twofacedshark/repos/volunteer-web-app/backend/controllers/adminController.js">
         <metrics statements="28" coveredstatements="25" conditionals="9" coveredconditionals="7" methods="9" coveredmethods="8"/>
         <line num="1" count="1" type="stmt"/>
@@ -61,24 +61,24 @@
         <line num="34" count="1" type="stmt"/>
       </file>
       <file name="volunteer-controllers.js" path="/home/twofacedshark/repos/volunteer-web-app/backend/controllers/volunteer-controllers.js">
-        <metrics statements="13" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="76" count="1" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
+        <metrics statements="13" coveredstatements="11" conditionals="8" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="134" count="2" type="stmt"/>
+        <line num="136" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="137" count="1" type="stmt"/>
+        <line num="140" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="141" count="0" type="stmt"/>
+        <line num="144" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="145" count="0" type="stmt"/>
+        <line num="148" count="1" type="stmt"/>
+        <line num="154" count="1" type="stmt"/>
+        <line num="155" count="1" type="stmt"/>
       </file>
     </package>
     <package name="routes">
-      <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="adminRoutes.js" path="/home/twofacedshark/repos/volunteer-web-app/backend/routes/adminRoutes.js">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -100,14 +100,12 @@
         <line num="7" count="1" type="stmt"/>
       </file>
       <file name="volunteer-routes.js" path="/home/twofacedshark/repos/volunteer-web-app/backend/routes/volunteer-routes.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
       </file>
     </package>
   </project>
