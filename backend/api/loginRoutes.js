@@ -27,29 +27,24 @@ router.post("/signin", (req, res) => {
 
 router.post("/signup", (req, res) => {
     const { first, last, email, password, role } = req.body;
-    
-    const user = {
-        "first": first,
-        "name": last,
-        "email": email,
-        "pass": password,  
-        "role": role,
+
+    const existingUser = db.find(user => user.email === email);
+    if (existingUser) {
+        return res.status(200).json({ message: "User already exists" });
     }
 
-    if (user in db) {
-        return res.json({ message: "User already exists"});
-    } else {
-        console.log("anyone123");
-        db.push(user)
-        //PUSH TO DATABASE
-        console.log(first);
-        console.log(last);
-        console.log(email);
-        console.log(password);
-        console.log(role);
-        console.log("anyone1234");
-    }
+    const newUser = {
+        first: first,
+        name: last,
+        email: email,
+        pass: password,
+        role: role,
+    };
 
+    db.push(newUser);
+
+    return res.status(200).json({ message: "User added successfully" });
 });
+
 
 module.exports = router;
