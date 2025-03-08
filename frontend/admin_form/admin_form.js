@@ -79,7 +79,7 @@ async function matchVolunteersForEvent() {
         const response = await fetch("http://localhost:3000/api/admin/match-volunteer", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ volunteerName }) // Use the volunteer's name
+            body: JSON.stringify({ volunteerName })
         });
 
         const data = await response.json();
@@ -90,7 +90,6 @@ async function matchVolunteersForEvent() {
             return;
         }
 
-        // ✅ Auto-fill the "Matched Event" field with the matched event name
         document.getElementById("matched-event").value = data.matchedEvent;
 
     } catch (error) {
