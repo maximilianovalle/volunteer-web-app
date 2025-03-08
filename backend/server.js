@@ -7,7 +7,6 @@ app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-
 const apiEndpoints = require("./api/loginRoutes.js");
 app.use("/api", apiEndpoints);
 
@@ -22,6 +21,25 @@ app.get("/admin-dashboard", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/admin_dashboard/admin_dashboard.html"));
 });
 
+app.get("/volunteer-dashboard", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/volunteer/volunteer-dashboard.html"));
+});
+
+app.get("/volunteer-history", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/volunteer/volunteer-history.html"));
+});
+
+app.get("/event-page", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/volunteer/event-page.html"));
+});
+
+app.get("/notification-page", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/volunteer/notification-page.html"));
+});
+
+app.get("/user-manage-profile", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/usermanageprofile/usermanageprofile.html"));
+});
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/Login/index.html"));
