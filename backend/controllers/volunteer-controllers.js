@@ -7,7 +7,9 @@ const crypto = require("crypto");  // generates unique id
 
 // Validate + Create a Notification
 
-let notifications = [];
+let notifications = [
+    {id: 1, header: "This is a test", description: "Can you see me?", read_status: 0},  // read_status -- 0: unread, 1: read
+];
 
 exports.validateCreateNotification = (request, response) => {
     const { header, description } = request.body;
@@ -28,11 +30,13 @@ exports.validateCreateNotification = (request, response) => {
         id: crypto.randomBytes(16).toString("hex"), // unique id
         header,
         description,
+        read_status: 0,
     };
 
     notifications.push(newNotification);
     response.status(201).json(newNotification);
 };
+
 
 // Apply for an Event by ID
 
@@ -44,3 +48,20 @@ exports.validateCreateNotification = (request, response) => {
 //     myEvent.volunteer_list.append(volunteerID);
 //     response.json({ my: "Successfully completed." });
 // };
+
+
+// Show All Notifications
+
+exports.showNotifications = (request, response) => {
+    response.json(notifications);
+}
+
+
+// Read Notification
+
+exports.readNotification = (request, response) => {
+    const notifID = parseInt(request.params.id);
+    let myNotification = notifications.find(myNotif => myNotif.id === id);
+    myNotification.read_status = 1;
+    response.json({ msg: "Notification read." });
+}

@@ -26,6 +26,20 @@ router.post('/notifications', validateCreateNotification);
 // router.put('/event/:id', applyToEvent);
 
 
+// Show All Notifications
+
+const { showNotifications } = require('../controllers/volunteer-controllers');
+
+router.get('/notifications', showNotifications);
+
+
+// Read Notification
+
+const { readNotification } = require('../controllers/volunteer-controllers');
+
+router.put('/notifications/:id', readNotification);
+
+
 // Exporting
 
 module.exports = router;
