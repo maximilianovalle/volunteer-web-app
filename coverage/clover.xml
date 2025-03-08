@@ -1,88 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741402092574" clover="3.2.0">
-  <project timestamp="1741402092574" name="All files">
-    <metrics statements="64" coveredstatements="60" conditionals="38" coveredconditionals="35" methods="11" coveredmethods="10" elements="113" coveredelements="105" complexity="0" loc="64" ncloc="64" packages="2" files="4" classes="4"/>
-    <package name="controllers">
-      <metrics statements="50" coveredstatements="46" conditionals="38" coveredconditionals="35" methods="11" coveredmethods="10"/>
-      <file name="adminController.js" path="/Users/ethanma/Desktop/volunteer-web-app/backend/controllers/adminController.js">
-        <metrics statements="28" coveredstatements="25" conditionals="9" coveredconditionals="7" methods="9" coveredmethods="8"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="11" count="3" type="cond" truecount="5" falsecount="0"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="36" count="4" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="60" count="4" type="stmt"/>
-        <line num="63" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-      </file>
-      <file name="profileController.js" path="/Users/ethanma/Desktop/volunteer-web-app/backend/controllers/profileController.js">
-        <metrics statements="22" coveredstatements="21" conditionals="29" coveredconditionals="28" methods="2" coveredmethods="2"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="5" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="8" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="11" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="17" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="20" count="3" type="cond" truecount="5" falsecount="0"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="23" count="3" type="cond" truecount="3" falsecount="1"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="27" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="routes">
-      <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="adminRoutes.js" path="/Users/ethanma/Desktop/volunteer-web-app/backend/routes/adminRoutes.js">
-        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-      </file>
-      <file name="profileRoutes.js" path="/Users/ethanma/Desktop/volunteer-web-app/backend/routes/profileRoutes.js">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1741407115278" clover="3.2.0">
+  <project timestamp="1741407115278" name="All files">
+    <metrics statements="19" coveredstatements="19" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3" elements="29" coveredelements="29" complexity="0" loc="19" ncloc="19" packages="1" files="1" classes="1"/>
+    <file name="loginRoutes.js" path="C:\Users\duongtonphuc\webapp\backend\api\loginRoutes.js">
+      <metrics statements="19" coveredstatements="19" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="16" count="2" type="stmt"/>
+      <line num="18" count="2" type="stmt"/>
+      <line num="19" count="2" type="cond" truecount="5" falsecount="0"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="29" count="2" type="stmt"/>
+      <line num="31" count="2" type="stmt"/>
+      <line num="32" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="33" count="1" type="stmt"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="44" count="1" type="stmt"/>
+      <line num="46" count="1" type="stmt"/>
+      <line num="50" count="1" type="stmt"/>
+    </file>
   </project>
 </coverage>
