@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (response.ok) {
                     console.log("Login successful");
                     if (role === "volunteer") {
-                        window.location.href = "/volunteerdashboard.html";
+                        window.location.href = "/volunteer-dashboard";
                     } else {
-                        window.location.href = "/admindashboard.html";
+                        window.location.href = "/admin-dashboard";
                     }
                 } else {
                     alert(data.message || "Login failed. Please check your credentials.");
