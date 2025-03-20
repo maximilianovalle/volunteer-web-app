@@ -1,6 +1,6 @@
 const {createPool} = require("mysql");
 
-const pool = mysql.createPool({
+const pool = createPool({
     host: "cosc4353-volunteer-group18.mysql.database.azure.com",
     user: "iAmAnAdmin",
     password: "oadnAOPP77*",
@@ -8,4 +8,3 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
 });
-
