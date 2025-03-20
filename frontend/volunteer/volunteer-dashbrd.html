@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0px;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background-color: #f39600; /* for browsers that do not support gradients */
+            background-image: linear-gradient(to right, #ec660c , #f39600);
+
+            font-family: Arial, Helvetica, sans-serif;
+            /* color: white; */
+        }
+
+        #header {
+            height: 5vh;    /* connected to #main height */
+            min-height: 52px;
+
+            background-color: white;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            box-shadow: #ec660c;
+        }
+
+        #header > button {
+            height: 60%;
+            width: 80px;
+
+            background-color: #ec660c;
+            color: white;
+
+            border: 2px solid #ec660c;
+            border-radius: 4px;
+        }
+
+        #header > button:hover {
+            background-color: white;
+            color: #ec660c;
+
+            cursor: pointer;
+        }
+
+        #main {
+            min-height: 95vh;   /* connected to #header height */
+
+            max-width: 1200px;  /* page side spacing */
+            margin: 0px auto;
+        }
+
+        #pastEvents {
+            background-color: white;
+        }
+
+        #currEvents {
+            background-color: white;
+        }
+
+    </style>
+
+</head>
+
+<!-- ----- -->
+
+<body>
+
+    <!-- header -->
+
+    <div id="header">
+
+        <h2 style="color: #ec660c;">Volunteer Dashboard</h2>
+
+        <button>Sign Out</button>
+
+    </div>
+
+    <!-- main -->
+
+    <div id="main">
+
+        <!-- past events -->
+
+        <div id="pastEvents">
+
+        </div>
+
+        <!-- current events -->
+
+        <div id="currentEvents">
+
+        </div>
+
+    </div>
+    
+</body>
+
+</html>
