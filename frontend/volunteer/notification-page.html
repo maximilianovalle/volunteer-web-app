@@ -5,12 +5,361 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../reset.css" rel="stylesheet"> <!-- resets css -->
-    <link href="css-sheets/style.css" rel="stylesheet"> <!-- general styling -->
+    <!-- <link href="../reset.css" rel="stylesheet"> resets css -->
+    <!-- <link href="css-sheets/style.css" rel="stylesheet"> general styling -->
     <link href="css-sheets/notification-style.css" rel="stylesheet"> <!-- stylesheet -->
 
     <title>Notifications</title>
     <link href="../icons-images/logo.svg" rel="icon">
+
+    <style>
+
+        /* reset.css */
+
+        *, *::before, *::after {
+        box-sizing: border-box;
+      }
+    
+      * {
+        margin: 0;
+      }
+      
+      body {
+        line-height: 1.5;   /* line height - i.e. vertical space between lines. may need to decrease for large sizes */
+        -webkit-font-smoothing: antialiased;
+    
+        overflow: -moz-scrollbars-vertical;   /* forces scrollbar */
+        overflow-y: scroll;
+      }
+    
+      img, picture, video, canvas, svg {
+        display: block;
+        max-width: 100%;
+        /* if you want a specific media to have a greater width percentage, for example: */
+        /* width: 120%; */
+        /* then make sure to include the following line of code to override our max-width */
+        /* max-width: revert; */
+      }
+    
+      input, button, textarea, select {
+        font: inherit;  /* inherits body font style */
+      }
+      
+      p, h1, h2, h3, h4, h5, h6 {
+        overflow-wrap: break-word;  /* breaks large words instead of overflowing */
+      }
+      
+      p {
+        text-wrap: pretty;
+      }
+    
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    
+      h1, h2, h3, h4, h5, h6 {
+        text-wrap: balance;
+      }
+    
+      #root, #__next {
+        isolation: isolate;
+      }
+    
+      .interior { /* for space on sides of website content [must add class manually] */
+        max-width: 1200px;
+        margin: 0px auto;
+    }
+    
+    /* style.css */
+    @font-face {
+        font-family: Bayon;
+        src: url(../../Bayon-Regular.ttf) format('truetype');
+    }
+    
+    body {
+        width: 100%;
+        background-color: #fafafa;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    button {
+        border: none;
+        cursor: pointer;
+    }
+    
+    /* WEB PAGE */
+    
+    #header {
+        height: 60px;
+    
+        background-color: #f39600; /* for browsers that do not support gradients */
+        background-image: linear-gradient(to right, #ec660c , #f39600);
+    }
+    
+    #header-content {
+        height: 60px;
+    
+        /* flexbox */
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    #software-name {
+        color: #fafafa;
+        margin-left: 8px;
+        font-size: 28px;
+    }
+    
+    #main-page {
+        min-height: 85dvh;
+        padding-top: 24px;
+        display: block;
+    }
+    
+    #footer {
+        /* margin-top: 24px; */
+        background-color: #1f1b1b;
+    }
+    
+    #footer-content {
+        height: 120px;
+    
+        /* flexbox */
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* CLASSES */
+    
+    .center {
+        margin: 0px auto;
+    }
+    
+    .line {
+        border-bottom: solid #d9d9d9 2px;
+    }
+    
+    .flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .columnFlex {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .thumbnail {
+        width: 200px;
+        height: 200px;
+    
+        margin-right: 16px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+    .bayon-font {
+        color: #ec660c;
+        font-family: Bayon;
+        font-size: 40px;
+        font-weight: lighter;
+    }
+    
+    .grayText {
+        color: #989898;
+    }
+    
+    .icon-size {
+        height: 28px;
+    }
+    
+    .row {
+        width: 100%;
+    }
+    
+    .spacing-top {
+        padding-top: 24px;
+    }
+    
+    .margin-top {
+        margin-top: 24px;
+    }
+    
+    .spacing-bottom {
+        padding-bottom: 24px;
+    }
+    
+    .spaced {
+        justify-content: space-between;
+    }
+    
+    .highlight:hover {
+        cursor: pointer;
+    }
+    
+    
+    .icon-button, .icon-button-black {
+        height: 44px;
+        width: 44px;
+    
+        border-radius: 100%;
+    
+        /* flexbox */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .icon-button:hover {
+        cursor: pointer;
+        background-color: #ec660c;
+    }
+    
+    .icon-button-black:hover {
+        cursor: pointer;
+        background-color: #302a2a;
+    }
+
+    /* notification style */
+
+    #notif-alert {
+        padding-right: 16px;
+    }
+
+    #send-button {
+        height: 48px;
+        width: 280px;
+
+        background-color: #ec660c;
+        border: solid 2px #ec660c;
+        color: #fafafa;
+        font-weight: bold;
+
+        border-radius: 8px;
+    }
+
+    #send-button:hover {
+        cursor: pointer;
+
+        background-color: #fafafa;
+        color: #ec660c;
+    }
+
+    #notifHeader, #notifDesc {
+        width: 500px;
+
+        background-color: #fafafa;
+        border: solid 2px #989898;
+
+        border-radius: 8px;
+        font-size: large;
+    }
+
+    #notifHeader {
+        height: 48px;
+    }
+
+    /* CLASSES */
+
+    .hidden {   /* hides item but keeps the space it takes up */
+        visibility: hidden;
+    }
+
+    .shortened {    /* to shorten notice text */
+        height: 74px;
+        overflow: hidden;
+    }
+
+    .notice {
+        /* background-color: green; */
+        border-top: solid #d9d9d9 2px;
+        padding: 24px 60px 24px 16px;
+    }
+
+
+    /* MODAL */
+
+    .exit-intent {
+        height: 600px;
+        width: 600px;
+
+        background-color: #fafafa;
+        text-align: center;
+
+        /* centers modal */
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+    }
+
+    .column {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    
+    .exit-intent {
+        position: fixed;
+        border-radius: 8px;
+        opacity: 0;
+        z-index: 1;
+    }
+    
+    .exit-intent:target {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .exit-intent-close {
+        position: absolute;
+        max-width: 500px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .exit-intent .close {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        padding: 5px;
+        color: #000;
+        font-size: 2em;
+        line-height: 0.6em;
+        font-weight: bold;
+    }
+    
+    .exit-intent .close:hover {
+        color: #999;
+    }
+    
+    .close-exit-intent {
+        background: rgba(0, 0, 0, 0.7);
+        cursor: default;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .exit-intent:target+.close-exit-intent {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    </style>
 
 </head>
 
