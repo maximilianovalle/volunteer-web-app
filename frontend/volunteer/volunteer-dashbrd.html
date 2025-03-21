@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
+    <link href="./logo.svg" rel="icon">
+
     <style>
 
         * {
@@ -35,7 +37,7 @@
             box-shadow: #ec660c;
         }
 
-        #header > button {
+        #header > button, #eventCurrent > button {
             height: 60%;
             width: 80px;
 
@@ -46,7 +48,7 @@
             border-radius: 4px;
         }
 
-        #header > button:hover {
+        #header > button:hover, #eventCurrent > button:hover {
             background-color: white;
             color: #ec660c;
 
@@ -58,14 +60,51 @@
 
             max-width: 1200px;  /* page side spacing */
             margin: 0px auto;
+
+            margin-top: 4vh;
+            margin-bottom: 4vh;
         }
 
-        #pastEvents {
+        #pastEvents, #currentEvents {
+            padding: 16px 16px;
+            margin-bottom: 4vh;
+
             background-color: white;
+
+            border-radius: 12px;
         }
 
-        #currEvents {
-            background-color: white;
+        #eventPassed, #eventCurrent {
+            width: 90%;
+            
+            margin: 0px auto;
+            margin-top: 12px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        #eventPassed > div, #eventCurrent > div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #eventPassed > div > div, #eventCurrent > div > div {
+            display: flex;
+            align-items: center;
+        }
+
+        #eventCurrent > button {
+            align-self: center;
+        }
+
+        /* classes */
+
+        .bottomBorder {
+            padding-bottom: 4px;
+
+            border-bottom: 2px solid #ec660c;
         }
 
     </style>
@@ -80,8 +119,7 @@
 
     <div id="header">
 
-        <h2 style="color: #ec660c;">Volunteer Dashboard</h2>
-
+        <h2>Volunteer Dashboard</h2>
         <button>Sign Out</button>
 
     </div>
@@ -94,11 +132,117 @@
 
         <div id="pastEvents">
 
+            <div class="bottomBorder" style="width: 100%;">
+                <h2 style="color: #ec660c;">Your Past Events...</h2>
+            </div>
+
+            <!-- past event instance -->
+
+            <div id="eventPassed">
+
+                <!-- HISTORY_USER.EVENTID == EVENT_DETAILS.EVENTID -->
+
+                <div>
+
+                    <div>
+                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
+                        <p>,</p>
+                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
+                    </div>
+
+                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
+
+                </div>
+
+                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
+
+            </div>
+
+            <!-- past event instance -->
+
+            <div id="eventPassed">
+
+                <!-- HISTORY_USER.EVENTID == EVENT_DETAILS.EVENTID -->
+
+                <div>
+
+                    <div>
+                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
+                        <p>,</p>
+                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
+                    </div>
+
+                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
+
+                </div>
+
+                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
+
+            </div>
+
         </div>
 
         <!-- current events -->
 
         <div id="currentEvents">
+
+            <div class="bottomBorder" style="width: 100%;">
+                <h2 style="color: #ec660c;">Current Events</h2>
+            </div>
+
+            <!-- current event instance -->
+
+            <div id="eventCurrent">
+
+                <!-- SELECT * FROM EVENT_DETAILS WHERE EVENT_DATE AFTER CURRENT DATE -->
+                <!-- SORT BY URGENCY ??? -->
+
+                <div>
+
+                    <div>
+                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
+                        <p>,</p>
+                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
+                    </div>
+
+                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
+
+                </div>
+
+                <p>Event Type</p>   <!-- EVENT_DETAILS.TYPE -->
+
+                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
+
+                <button>Apply</button>  <!-- USERID -> VOLUNTEERS_LIST.USERID ,, EVENTID -> VOLUNTEERS_LIST.EVENTID ,, VOLUNTEERS_LIST.STATUS = "Applied" -->
+
+            </div>
+
+            <!-- current event instance -->
+
+            <div id="eventCurrent">
+
+                <!-- SELECT * FROM EVENT_DETAILS WHERE EVENT_DATE AFTER CURRENT DATE -->
+                <!-- SORT BY URGENCY ??? -->
+
+                <div>
+
+                    <div>
+                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
+                        <p>,</p>
+                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
+                    </div>
+
+                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
+
+                </div>
+
+                <p>Event Type</p>   <!-- EVENT_DETAILS.TYPE -->
+
+                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
+
+                <button>Apply</button>  <!-- USERID -> VOLUNTEERS_LIST.USERID ,, EVENTID -> VOLUNTEERS_LIST.EVENTID ,, VOLUNTEERS_LIST.STATUS = "Applied" -->
+
+            </div>
 
         </div>
 
