@@ -147,7 +147,7 @@ button:hover {
 }
 
 
-/* Fade-in Animation */
+/* Fade-in Animation 
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -158,7 +158,7 @@ button:hover {
         transform: translateY(0);
     }
 }
-
+*/
 
 /* Popup stuff*/
 .popup {

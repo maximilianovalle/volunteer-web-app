@@ -1,15 +1,32 @@
 const mysql = require("mysql");
-const fs = require('fs')
+const fs = require("fs");
+require("dotenv").config(); 
 
-const db_con = mysql.createConnection({
-    host: "cosc4353-volunteer-group18.mysql.database.azure.com",
-    user: "iAmAnAdmin",
-    password: "oadnAOPP77*",
-    database: "volunteer_db",
-    port: "3306",
-    ssl: {ca: fs.readFileSync("../backend/DigiCertGlobalRootCA.crt.pem")}
+// Set up DB config
+const dbConfig = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  ssl: {
+    ca: fs.readFileSync(process.env.DB_SSL)
+  }
+};
 
+// Create connection
+const db_con = mysql.createConnection(dbConfig);
+
+// Connect
+db_con.connect((err) => {
+  if (err) {
+    console.error("❌ Error connecting to MySQL:", err);
+    return;
+  }
+  console.log("✅ Connected to MySQL database with SSL!");
 });
+
+module.exports = db_con;
+
 /*
 db_con.connect(function (err) {
     if (err) {
@@ -28,5 +45,3 @@ db_con.connect(function (err) {
     }
 })
 */
-
-module.exports = db_con;
