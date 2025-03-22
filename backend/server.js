@@ -30,18 +30,6 @@ app.get("/volunteer-dashboard", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/volunteer/volunteer-dashboard.html"));
 });
 
-app.get("/volunteer-history", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/volunteer/volunteer-history.html"));
-});
-
-app.get("/event-page", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/volunteer/event-page.html"));
-});
-
-app.get("/notification-page", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/volunteer/notification-page.html"));
-});
-
 app.get("/user-manage-profile", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/usermanageprofile/usermanageprofile.html"));
 });
