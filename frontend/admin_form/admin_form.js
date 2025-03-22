@@ -29,14 +29,20 @@ document.getElementById("adminEventForm").addEventListener("submit", async (e) =
 
     // Get form values
     const eventData = {
+        Managed_By: 1, // or dynamically get admin ID if logged in
+        // Managed_By: localStorage.getItem("adminID"),
         name: document.getElementById("eventName").value,
-        location: document.getElementById("eventLocation").value,
-        date: document.getElementById("eventDate").value,
-        skills_required: document.getElementById("selected-values").textContent.split(", "),
+        description: document.getElementById("eventDescription").value,
+        location_state: document.getElementById("eventLocation").value,
+        required_skills: document.getElementById("selected-values").textContent.split(",").map(skill => skill.trim()),
+        urgency: document.getElementById("urgency").value, 
+        event_date: document.getElementById("eventDate").value,
+        type: document.getElementById("eventType").value
     };
+    
+    console.log("🚨 Urgency being sent:", `"${eventData.urgency}"`);
 
     try {
-        // Send POST request to backend
         const response = await fetch("http://localhost:3000/api/admin/events", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -44,18 +50,12 @@ document.getElementById("adminEventForm").addEventListener("submit", async (e) =
         });
 
         const result = await response.json();
+        console.log("📩 Server Response:", result);
+
         if (response.ok) {
             alert("Event created successfully!");
             document.getElementById("adminEventForm").reset();
-
-            // Reset skills selection
             document.getElementById("selected-values").textContent = "Select skills";
-            const checkboxes = document.querySelectorAll(".dropdown-content input[type='checkbox']");
-            checkboxes.forEach(checkbox => checkbox.checked = false);
-            
-            if (typeof loadAdminEvents === "function") {
-                loadAdminEvents();
-            }
         } else {
             alert("Error: " + result.message);
         }
@@ -107,8 +107,8 @@ async function loadVolunteers() {
 
         data.volunteers.forEach(volunteer => {
             const option = document.createElement("option");
-            option.value = volunteer.name;
-            option.textContent = volunteer.name;
+            option.value = volunteer.Full_Name;
+            option.textContent = volunteer.Full_Name;          
             volunteerDropdown.appendChild(option);
         });
 
