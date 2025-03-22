@@ -7,38 +7,16 @@
 // PUT: update existing data.
 // DELETE: removes existing data.
 
-
 const express = require('express');
 const router = express.Router();
 
+const { getPastEvents, getCurrentEvents } = require("../controllers/volunteer-controllers");
 
-// Create Notification
+// imports getPastEvents from volunteer-controllers & registers it w "/"
+router.get("/", getPastEvents);   // "/" or "/api" or "/api/volunteer" ??
 
-const { validateCreateNotification } = require('../controllers/volunteer-controllers');
-
-router.post('/notifications', validateCreateNotification);
-
-
-// Apply for an Event by ID
-
-// const { applyToEvent } = require('../controllers/volunteer-controllers');
-
-// router.put('/event/:id', applyToEvent);
-
-
-// Show All Notifications
-
-const { showNotifications } = require('../controllers/volunteer-controllers');
-
-router.get('/notifications', showNotifications);
-
-
-// Read Notification
-
-const { readNotification } = require('../controllers/volunteer-controllers');
-
-router.put('/notifications/:id', readNotification);
-
+// imports getCurrentEvents from volunteer-controllers & registers it w "/"
+router.get("/", getCurrentEvents);   // "/" or "/api" or "/api/volunteer" ??
 
 // Exporting
 
