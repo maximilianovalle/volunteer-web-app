@@ -136,49 +136,27 @@
                 <h2 style="color: #ec660c;">Your Past Events...</h2>
             </div>
 
+            <ul id="pastEventList"></ul>
+
             <!-- past event instance -->
 
-            <div id="eventPassed">
-
-                <!-- HISTORY_USER.EVENTID == EVENT_DETAILS.EVENTID -->
+            <!-- <div id="eventPassed">
 
                 <div>
 
                     <div>
-                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
+                        <h3>Event Name</h3>
                         <p>,</p>
-                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
+                        <p>TX</p>
                     </div>
 
-                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
+                    <p>2025-04-20</p>
 
                 </div>
 
-                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
+                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            </div>
-
-            <!-- past event instance -->
-
-            <div id="eventPassed">
-
-                <!-- HISTORY_USER.EVENTID == EVENT_DETAILS.EVENTID -->
-
-                <div>
-
-                    <div>
-                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
-                        <p>,</p>
-                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
-                    </div>
-
-                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
-
-                </div>
-
-                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
-
-            </div>
+            </div> -->
 
         </div>
 
@@ -190,59 +168,31 @@
                 <h2 style="color: #ec660c;">Current Events</h2>
             </div>
 
+            <ul id="currentEventList"></ul>
+
             <!-- current event instance -->
 
-            <div id="eventCurrent">
-
-                <!-- SELECT * FROM EVENT_DETAILS WHERE EVENT_DATE AFTER CURRENT DATE -->
-                <!-- SORT BY URGENCY ??? -->
+            <!-- <div id="eventCurrent">
 
                 <div>
 
                     <div>
-                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
+                        <h3>Event Name</h3>
                         <p>,</p>
-                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
+                        <p>TX</p>
                     </div>
 
-                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
+                    <p>2025-04-20</p>
 
                 </div>
 
-                <p>Event Type</p>   <!-- EVENT_DETAILS.TYPE -->
+                <p>Event Type</p>
 
-                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
+                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-                <button>Apply</button>  <!-- USERID -> VOLUNTEERS_LIST.USERID ,, EVENTID -> VOLUNTEERS_LIST.EVENTID ,, VOLUNTEERS_LIST.STATUS = "Applied" -->
+                <button>Apply</button> 
 
-            </div>
-
-            <!-- current event instance -->
-
-            <div id="eventCurrent">
-
-                <!-- SELECT * FROM EVENT_DETAILS WHERE EVENT_DATE AFTER CURRENT DATE -->
-                <!-- SORT BY URGENCY ??? -->
-
-                <div>
-
-                    <div>
-                        <h3>Event Name</h3> <!-- EVENT_DETAILS.EVENT_NAME -->
-                        <p>,</p>
-                        <p>TX</p>   <!-- EVENT_DETAILS.LOCATION_STATE_CODE -->
-                    </div>
-
-                    <p>2025-04-20</p>   <!-- EVENT_DETAILS.EVENT_DATE -->
-
-                </div>
-
-                <p>Event Type</p>   <!-- EVENT_DETAILS.TYPE -->
-
-                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> <!-- EVENT_DETAILS.DESCRIPTION -->
-
-                <button>Apply</button>  <!-- USERID -> VOLUNTEERS_LIST.USERID ,, EVENTID -> VOLUNTEERS_LIST.EVENTID ,, VOLUNTEERS_LIST.STATUS = "Applied" -->
-
-            </div>
+            </div> -->
 
         </div>
 
@@ -251,7 +201,23 @@
     <!-- SCRIPT -->
 
     <script>
-        
+
+        // async function fetchPastEvents() {
+        //     try {
+        //         const response = await fetch("http://localhost:3000/api/volunteer/past");
+        //         const pastEvents = await response.json();
+
+        //         const pastList = document.getElementById
+        //     }
+        // }
+
+        // async function fetchCurrentEvents() {
+        //     try {
+        //         const response = await fetch("http://localhost:3000/api/volunteer/current");
+        //         const currentEvents = await response.json();
+        //     }
+        // }
+
     </script>
     
 </body>
