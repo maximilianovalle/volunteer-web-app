@@ -5,94 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Your Profile</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e65c00, #f9d423);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 35px;
+            border-radius: 10px;
+            width: 750px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .required {
+            color: red;
+        }
+
+        input, select {
+            margin-top: 20px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 30px;
+            background: #e65c00;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #cc5200;
+        }
+
+        header {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .logo {
+            width: 50px; /* Adjust size as needed */
+            height: auto;
+        }
+
+        .date-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            background-color: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .date-item button {
+            margin-top: 0;
+            margin-left: 10px;
+            background: #ff6b6b;
+            padding: 2px 5px;
+            font-size: 12px;
+        }
+    </style>
 </head>
-<style>
-    body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #e65c00, #f9d423);
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150vh;
-}
-
-.container {
-    background: #fff;
-    padding: 35px;
-    border-radius: 10px;
-    width: 750px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-h2 {
-    text-align: center;
-    color: #333;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-.required {
-    color: red;
-}
-
-input, select {
-    margin-top: 20px;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-button {
-    margin-top: 30px;
-    background: #e65c00;
-    color: white;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #cc5200;
-}
-
-header {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-}
-
-.logo {
-    width: 50px; /* Adjust size as needed */
-    height: auto;
-}
-
-</style>
 <body>
     <header>
         <img src="usermanageprofile/logo.svg" alt="Company Logo" class="logo">
     </header>
     <div class="container">
         <h2>Manage Your Profile</h2>
-        <form action="volunteer-dashboard" method="post">
+        <form id="profileForm">
             <label for="name">Full Name <span class="required">*</span></label>
             <input type="text" id="name" name="name" placeholder="Enter Here" maxlength="50" required>
 
@@ -162,18 +178,18 @@ header {
             </select>
 
             <label for="zipcode">Zip Code <span class="required">*</span></label>
-            <input type="text" id="zipcode" name="zipcode" placeholder="Enter Here" minlength="5" maxlength="9"required>
+            <input type="text" id="zipcode" name="zipcode" placeholder="Enter Here" minlength="5" maxlength="9" required>
 
             <label for="skills">Skills <span class="required">*</span></label>
             <select id="skills" name="skills" multiple required>
-                <option value="" disabled selected>Select Here</option>
-                <option value="programming">Programming</option>
-                <option value="design">Design</option>
+                <option value="" disabled>Select Here</option>
+                <option value="varied">Varied</option>
+                <option value="animalcare">Animal Care</option>
                 <option value="marketing">Marketing</option>
-                <option value="marketing">Inventory</option>
-                <option value="marketing">Finances</option>
-                <option value="marketing">Photography</option>
-                <option value="marketing">Management</option>
+                <option value="medical">Medical</option>
+                <option value="communityoutreach">Community Outreach</option>
+                <option value="teaching">Teaching</option>
+                <option value="nature">Nature</option>
             </select>
 
             <label for="preferences">Preferences</label>
@@ -190,6 +206,7 @@ header {
             <button type="submit">Complete Your Profile</button>
         </form>
     </div>
+
     <script>
         let dateSelect = [];
 
@@ -228,7 +245,77 @@ header {
             });
         }
         
+        // Form submission handler
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("profileForm");
+            
+            form.addEventListener("submit", function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                
+                // Get form data
+                const name = document.getElementById("name").value;
+                const address1 = document.getElementById("address1").value;
+                const address2 = document.getElementById("address2").value;
+                const city = document.getElementById("city").value;
+                const state = document.getElementById("state").value;
+                const zipcode = document.getElementById("zipcode").value;
+                
+                // Get selected skills (multiple selections)
+                const skillsSelect = document.getElementById("skills");
+                const selectedSkills = Array.from(skillsSelect.selectedOptions).map(option => option.value);
+                
+                const preferences = document.getElementById("preferences").value;
+                
+                // Get availability dates from the hidden input
+                const availabilityDates = document.getElementById("availability-dates").value.split(",").filter(date => date.trim() !== "");
+                
+                // Make sure we have at least one date
+                if (availabilityDates.length === 0) {
+                    alert("Please add at least one availability date");
+                    return;
+                }
+                
+                // Create data object to send to API
+                const profileData = {
+                    name,
+                    address1,
+                    address2,
+                    city,
+                    state,
+                    zipcode,
+                    skills: selectedSkills,
+                    preferences,
+                    availabilityDates
+                };
+                
+                console.log("Submitting profile data:", profileData);
+                
+                // Send data to the API endpoint
+                fetch("/api/profile/user/profile", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(profileData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.errors ? data.errors.join(", ") : "Error submitting profile");
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message); // Show success message
+                    window.location.href = "/volunteer-dashboard"; // Redirect to dashboard
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Error: " + error.message);
+                });
+            });
+        });
     </script>
 </body>
 </html>
-

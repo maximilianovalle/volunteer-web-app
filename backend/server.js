@@ -3,6 +3,8 @@ const path = require('path');
 const app = express();
 const cors = require("cors");
 
+
+
 app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(__dirname, "../frontend")));
@@ -60,4 +62,3 @@ app.use((req, res) => {
 })
 
 app.listen(process.env.PORT || 3000, () => console.log("App available on http://localhost:3000"));
-

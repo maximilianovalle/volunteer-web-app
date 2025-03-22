@@ -1,5 +1,9 @@
+const db_con = require("../db");
+
 exports.validateProfile = (req, res, next) => {
-    const { name, address1, city, state, zipcode, skills, availabilityDates } = req.body;
+    console.log("Validating profile data:", req.body);
+    
+    const { name, address1, address2, city, state, zipcode, skills, preferences, availabilityDates } = req.body;
     let errors = [];
 
     if (!name || name.length > 50) {
@@ -17,19 +21,83 @@ exports.validateProfile = (req, res, next) => {
     if (!zipcode || !/^[0-9]{5}(-[0-9]{4})?$/.test(zipcode)) {
         errors.push("Zip Code is required and must be 5 or 9 digits.");
     }
-    if (!skills || !Array.isArray(skills) || skills.length === 0) {
+    if (!skills || skills.length === 0) {
         errors.push("At least one skill must be selected.");
     }
-    if (availabilityDates && !Array.isArray(availabilityDates)) {
-        errors.push("Availability must be an array of dates.");
+    if (!availabilityDates || availabilityDates.length === 0) {
+        errors.push("At least one availability date must be selected.");
     }
 
     if (errors.length > 0) {
+        console.log("Validation errors:", errors);
         return res.status(400).json({ errors });
     }
+    console.log("Validation successful");
     next();
 };
 
 exports.handleProfileSubmission = (req, res) => {
-    res.status(200).json({ message: "Profile submitted successfully!" });
+    // Extract data from request body
+    const { name, address1, address2, city, state, zipcode, skills, preferences, availabilityDates } = req.body;
+    console.log("Processing profile submission:", { name, address1, city, state, zipcode });
+    
+    const userId = 1; // Replace with req.session.userId in production
+    
+    const skillsString = Array.isArray(skills) ? skills.join(',') : skills;
+    
+    const availabilityString = Array.isArray(availabilityDates) ? availabilityDates.join(',') : availabilityDates;
+
+    console.log("Processed data:", {
+        userId,
+        skillsString,
+        availabilityString
+    });
+
+    // Create the SQL query for inserting/updating profile data
+    const sqlQuery = `
+        INSERT INTO profile_user (
+            UserID, Full_Name, Street_Address, Street_Address_2, 
+            City, State_Code, Zip_Code, Skills, Preferences, Availability
+        ) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE 
+            Full_Name = VALUES(Full_Name),
+            Street_Address = VALUES(Street_Address),
+            Street_Address_2 = VALUES(Street_Address_2),
+            City = VALUES(City),
+            State_Code = VALUES(State_Code),
+            Zip_Code = VALUES(Zip_Code),
+            Skills = VALUES(Skills),
+            Preferences = VALUES(Preferences),
+            Availability = VALUES(Availability)
+    `;
+
+    const params = [
+        userId,
+        name,
+        address1,
+        address2 || null,
+        city,
+        state,
+        zipcode,
+        skillsString,
+        preferences || null,
+        availabilityString
+    ];
+
+    console.log("Executing SQL with params:", params);
+
+    // Execute the query with parameters
+    db_con.query(sqlQuery, params, (err, result) => {
+        if (err) {
+            console.error("Error saving profile:", err);
+            return res.status(500).json({ error: "Failed to save profile information", details: err.message });
+        }
+        
+        console.log("Profile saved successfully:", result);
+        return res.status(200).json({ 
+            message: "Profile submitted successfully!",
+            profileId: result.insertId
+        });
+    });
 };

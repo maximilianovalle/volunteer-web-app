@@ -8,34 +8,38 @@
 // DELETE: removes existing data.
 
 
-const express = Require('express');
+const express = require('express');
 const router = express.Router();
 
 
-// Navigate to Pages
+// Create Notification
 
-const { openEventPage, openNotificationPage, openVolunteerDashboard, openVolunteerHistory } = Require('../controllers/volunteer-controllers');
+const { validateCreateNotification } = require('../controllers/volunteer-controllers');
 
-router.get('/event/:id', openEventPage);
-router.get('/notifications', openNotificationPage);
-router.get('/dashboard', openVolunteerDashboard);
-router.get('/history', openVolunteerHistory);
+router.post('/notifications', validateCreateNotification);
 
 
 // Apply for an Event by ID
 
-const { applyToEvent } = Require('../controllers/volunteer-controllers');
+// const { applyToEvent } = require('../controllers/volunteer-controllers');
 
-router.put('/event/:id', applyToEvent);
+// router.put('/event/:id', applyToEvent);
 
 
-// Create Notification (Admins)
+// Show All Notifications
 
-const { createNotification } = Require('../constrollers/volunteer-controllers');
+const { showNotifications } = require('../controllers/volunteer-controllers');
 
-router.put('/notifications', createNotification);
+router.get('/notifications', showNotifications);
+
+
+// Read Notification
+
+const { readNotification } = require('../controllers/volunteer-controllers');
+
+router.put('/notifications/:id', readNotification);
 
 
 // Exporting
 
-Module.exports = router;
+module.exports = router;
