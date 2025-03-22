@@ -12,19 +12,19 @@ exports.getPastEvents = async (req, res) => {
         res.json(pastEvents);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Database error." });
+        res.status(500).json({ error: error.message });
     }
 };
 
 // defines getCurrentEvents and exports it immediately
 exports.getCurrentEvents = async (req, res) => {
     try {
-        const [currentEvents] = await db_con.query("SELECT * FROM event_details WHERE Event_Date > CURDATE()");
+        const [currentEvents] = await db_con.query("SELECT * FROM event_details WHERE Event_Date > CURDATE();");
 
         res.json(currentEvents);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Database error." });
+        res.status(500).json({ error: error.message });
     }
 };
 
