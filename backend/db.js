@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const fs = require("fs");
 require("dotenv").config(); 
 
@@ -13,18 +13,23 @@ const dbConfig = {
   }
 };
 
-// Create connection
-const db_con = mysql.createConnection(dbConfig);
+// create connection pool
+const pool = mysql.createPool(dbConfig);
 
-// Connect
-db_con.connect((err) => {
+// convert to promise-based pool
+const db_con = pool.promise();
+
+// connect
+pool.getConnection((err, connection) => {
   if (err) {
     console.error("❌ Error connecting to MySQL:", err);
     return;
   }
   console.log("✅ Connected to MySQL database with SSL!");
+  connection.release();
 });
 
+// export 
 module.exports = db_con;
 
 /*
