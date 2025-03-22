@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741414734577" clover="3.2.0">
-  <project timestamp="1741414734578" name="All files">
-    <metrics statements="112" coveredstatements="102" conditionals="53" coveredconditionals="48" methods="18" coveredmethods="15" elements="183" coveredelements="165" complexity="0" loc="112" ncloc="112" packages="3" files="7" classes="7"/>
-    <package name="api">
+<coverage generated="1742617776794" clover="3.2.0">
+  <project timestamp="1742617776794" name="All files">
+    <metrics statements="169" coveredstatements="138" conditionals="81" coveredconditionals="65" methods="20" coveredmethods="16" elements="270" coveredelements="219" complexity="0" loc="169" ncloc="169" packages="4" files="8" classes="8"/>
+    <package name="backend">
+      <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
+      <file name="db.js" path="C:\Users\sunan\Desktop\4353 project\volunteer-web-app\backend\db.js">
+        <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="backend.api">
       <metrics statements="19" coveredstatements="19" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
       <file name="loginRoutes.js" path="C:\Users\sunan\Desktop\4353 project\volunteer-web-app\backend\api\loginRoutes.js">
         <metrics statements="19" coveredstatements="19" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
@@ -27,38 +44,84 @@
         <line num="50" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="controllers">
-      <metrics statements="70" coveredstatements="60" conditionals="46" coveredconditionals="41" methods="15" coveredmethods="12"/>
+    <package name="backend.controllers">
+      <metrics statements="116" coveredstatements="86" conditionals="72" coveredconditionals="57" methods="15" coveredmethods="12"/>
       <file name="adminController.js" path="C:\Users\sunan\Desktop\4353 project\volunteer-web-app\backend\controllers\adminController.js">
-        <metrics statements="28" coveredstatements="25" conditionals="9" coveredconditionals="7" methods="9" coveredmethods="8"/>
+        <metrics statements="74" coveredstatements="51" conditionals="35" coveredconditionals="23" methods="9" coveredmethods="8"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="11" count="3" type="cond" truecount="5" falsecount="0"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="33" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
-        <line num="36" count="4" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="60" count="4" type="stmt"/>
-        <line num="63" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="42" count="3" type="cond" truecount="9" falsecount="0"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="47" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="51" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="57" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="62" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="91" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="113" count="1" type="stmt"/>
+        <line num="115" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="129" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="134" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="135" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="136" count="1" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
+        <line num="141" count="1" type="stmt"/>
+        <line num="144" count="1" type="stmt"/>
+        <line num="145" count="33" type="cond" truecount="1" falsecount="1"/>
+        <line num="148" count="33" type="cond" truecount="1" falsecount="1"/>
+        <line num="149" count="0" type="stmt"/>
+        <line num="153" count="33" type="stmt"/>
+        <line num="157" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="162" count="0" type="stmt"/>
+        <line num="165" count="0" type="stmt"/>
+        <line num="171" count="0" type="stmt"/>
+        <line num="173" count="0" type="stmt"/>
+        <line num="174" count="0" type="stmt"/>
+        <line num="180" count="1" type="stmt"/>
+        <line num="181" count="0" type="stmt"/>
+        <line num="182" count="0" type="stmt"/>
+        <line num="183" count="0" type="stmt"/>
+        <line num="185" count="0" type="stmt"/>
+        <line num="186" count="0" type="stmt"/>
       </file>
       <file name="profileController.js" path="C:\Users\sunan\Desktop\4353 project\volunteer-web-app\backend\controllers\profileController.js">
         <metrics statements="22" coveredstatements="21" conditionals="29" coveredconditionals="28" methods="2" coveredmethods="2"/>
@@ -109,7 +172,7 @@
         <line num="66" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="routes">
+    <package name="backend.routes">
       <metrics statements="23" coveredstatements="23" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="adminRoutes.js" path="C:\Users\sunan\Desktop\4353 project\volunteer-web-app\backend\routes\adminRoutes.js">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

@@ -65,14 +65,25 @@
       
           <label for="urgency">Urgency</label>
           <select id="urgency" name="urgency" required>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
           </select>
       
           <label for="eventDate">Event Date</label>
           <input type="date" id="eventDate" name="eventDate" required />
       
+          <label for="eventType">Event Type</label>
+          <select id="eventType" name="eventType" required>
+              <option value="All">All</option>
+              <option value="Animal Shelter">Animal Shelter</option>
+              <option value="Community Service">Community Service</option>
+              <option value="Environment">Environment</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Education">Education</option>
+          </select>
+          
+
           <button type="submit">Create Event</button>
       </form>
       
