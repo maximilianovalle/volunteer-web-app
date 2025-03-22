@@ -13,10 +13,10 @@ const router = express.Router();
 const { getPastEvents, getCurrentEvents } = require("../controllers/volunteer-controllers");
 
 // imports getPastEvents from volunteer-controllers & registers it w "/"
-router.get("/", getPastEvents);   // "/" or "/api" or "/api/volunteer" ??
+router.get("/past", getPastEvents);   // "/" or "/past" or ??
 
 // imports getCurrentEvents from volunteer-controllers & registers it w "/"
-router.get("/", getCurrentEvents);   // "/" or "/api" or "/api/volunteer" ??
+router.get("/current", getCurrentEvents);   // "/" or "/past" or ??
 
 // Exporting
 
