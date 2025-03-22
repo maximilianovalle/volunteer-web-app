@@ -13,7 +13,7 @@ const dbConfig = {
   }
 };
 
-// create connection pool
+// create connection pool - creates pool of multiple connections, prevents overload
 const pool = mysql.createPool(dbConfig);
 
 // convert to promise-based pool
