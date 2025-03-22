@@ -18,6 +18,11 @@ app.use("/api/admin", adminRoutes);
 const profileRoutes = require("./routes/profileRoutes"); //route is in controller file
 app.use("/api/profile", profileRoutes);
 
+const volunteerRoutes = require("./routes/volunteer-routes.js");
+app.use("/api/volunteer", volunteerRoutes);
+
+
+
 app.get("/admin-form", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/admin_form/admin_form.html"));
 });
