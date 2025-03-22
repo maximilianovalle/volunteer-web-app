@@ -28,7 +28,7 @@
             height: 5vh;    /* connected to #main height */
             min-height: 52px;
 
-            background-color: white;
+            background-color: rgb(236, 235, 235);
 
             display: flex;
             justify-content: space-around;
@@ -37,7 +37,7 @@
             box-shadow: #ec660c;
         }
 
-        #header > button, #eventCurrent > button {
+        #header > button, #currentEventList > li > div > button {
             height: 60%;
             width: 80px;
 
@@ -48,7 +48,7 @@
             border-radius: 4px;
         }
 
-        #header > button:hover, #eventCurrent > button:hover {
+        #header > button:hover, #currentEventList > li > div > button:hover {
             background-color: white;
             color: #ec660c;
 
@@ -74,7 +74,7 @@
             border-radius: 12px;
         }
 
-        #eventPassed, #eventCurrent {
+        /* #eventPassed, #eventCurrent {
             width: 90%;
             
             margin: 0px auto;
@@ -97,6 +97,19 @@
 
         #eventCurrent > button {
             align-self: center;
+        } */
+
+        #currentEventList, #pastEventList {
+            list-style-type: none;
+
+            width: 75%;
+            
+            padding: 0px;
+            margin: 0px auto;
+        }
+
+        #currentEventList > li, #pastEventList > li {
+            margin-top: 16px;
         }
 
         /* classes */
@@ -138,26 +151,6 @@
 
             <ul id="pastEventList"></ul>
 
-            <!-- past event instance -->
-
-            <!-- <div id="eventPassed">
-
-                <div>
-
-                    <div>
-                        <h3>Event Name</h3>
-                        <p>,</p>
-                        <p>TX</p>
-                    </div>
-
-                    <p>2025-04-20</p>
-
-                </div>
-
-                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            </div> -->
-
         </div>
 
         <!-- current events -->
@@ -169,30 +162,6 @@
             </div>
 
             <ul id="currentEventList"></ul>
-
-            <!-- current event instance -->
-
-            <!-- <div id="eventCurrent">
-
-                <div>
-
-                    <div>
-                        <h3>Event Name</h3>
-                        <p>,</p>
-                        <p>TX</p>
-                    </div>
-
-                    <p>2025-04-20</p>
-
-                </div>
-
-                <p>Event Type</p>
-
-                <p style="width: 90%; margin: 0px auto; padding: 8px 0px;">Event Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <button>Apply</button> 
-
-            </div> -->
 
         </div>
 
@@ -209,14 +178,76 @@
                 const response = await fetch("http://localhost:3000/api/volunteer/past");
                 const pastEvents = await response.json();
 
-                const pastEventsList = document.getElementById("pastEventsList");
+                const pastEventsList = document.getElementById("pastEventList");
 
-                // for each past event, display
+                // if no past events
 
-                pastEvents.forEach(event => {   // pastEvents.array.forEach
+                if (pastEvents.length === 0) {
                     const li = document.createElement("li");
-                    li.textContent = "{$event.Event_Name}";
+                    li.textContent = "No past events found!";
+                    li.style.textAlign = "center";
                     pastEventsList.appendChild(li);
+                }
+
+                // for each past event
+
+                pastEvents.forEach(event => {
+
+                    const li = document.createElement("li");
+
+                    const name = document.createElement("h3");
+                    const comma = document.createElement("p");
+                    const state = document.createElement("p");
+
+                    const date = document.createElement("p");
+                    const type = document.createElement("p");
+                    const description = document.createElement("p");
+
+                    const emptyDiv1 = document.createElement("div");
+                    const emptyDiv2 = document.createElement("div");
+                    const emptyDiv3 = document.createElement("div");
+
+                    // li.textContent = `${event.Event_Name}`;
+
+                    name.textContent = `${event.Event_Name}`;
+                    comma.textContent = ",";
+                    state.textContent = `${event.Location_State_Code}`;
+
+                    date.textContent = new Date(event.Event_Date).toLocaleDateString("en-US");
+                    type.textContent = `${event.Type}`;
+                    description.textContent = `${event.Description}`;
+                    apply.textContent = "Apply";
+
+                    emptyDiv2.appendChild(name);
+                    emptyDiv2.appendChild(comma);
+                    emptyDiv2.appendChild(state);
+
+                    emptyDiv2.style.display = "flex";
+
+                    emptyDiv1.appendChild(emptyDiv2);
+                    emptyDiv1.appendChild(type);
+
+                    emptyDiv1.style.display = "flex";
+                    emptyDiv1.style.justifyContent = "space-between";
+
+
+                    li.appendChild(emptyDiv1);
+                    li.appendChild(date);
+
+                    emptyDiv3.appendChild(description);
+
+                    emptyDiv3.style.display = "flex";
+                    emptyDiv3.style.flexDirection = "column";
+                    emptyDiv3.style.alignItems = "center";
+
+                    li.append(emptyDiv3);
+
+                    li.style.backgroundColor = "#ecebeb";
+                    li.style.borderRadius = "12px";
+                    li.style.padding = "8px 12px";
+
+                    pastEventList.appendChild(li);
+
                 });
             } catch (error) {
                 console.error("Error fetching past events: ", error);
@@ -230,14 +261,77 @@
                 const response = await fetch("http://localhost:3000/api/volunteer/current");
                 const currentEvents = await response.json();
 
-                const currentEventsList = document.getElementById("currentEventsList");
+                const currentEventsList = document.getElementById("currentEventList");
 
-                // for each current event, display
+                // if no current events
 
-                currentEvents.forEach(event => {    // currentEvents.array.forEach
+                if (currentEvents.length === 0) {
                     const li = document.createElement("li");
-                    li.textContent = "{$event.Event_Name}";
+                    li.textContent = "No events found!";
+                    li.style.textAlign = "center";
+                    pastEventsList.appendChild(li);
+                }
+
+                currentEvents.forEach(event => {
+                
+                    const li = document.createElement("li");
+
+                    const name = document.createElement("h3");
+                    const comma = document.createElement("p");
+                    const state = document.createElement("p");
+
+                    const date = document.createElement("p");
+                    const type = document.createElement("p");
+                    const description = document.createElement("p");
+
+                    const emptyDiv1 = document.createElement("div");
+                    const emptyDiv2 = document.createElement("div");
+                    const emptyDiv3 = document.createElement("div");
+
+                    const apply = document.createElement("button");
+
+                    // li.textContent = `${event.Event_Name}`;
+
+                    name.textContent = `${event.Event_Name}`;
+                    comma.textContent = ",";
+                    state.textContent = `${event.Location_State_Code}`;
+
+                    date.textContent = new Date(event.Event_Date).toLocaleDateString("en-US");
+                    type.textContent = `${event.Type}`;
+                    description.textContent = `${event.Description}`;
+                    apply.textContent = "Apply";
+
+                    emptyDiv2.appendChild(name);
+                    emptyDiv2.appendChild(comma);
+                    emptyDiv2.appendChild(state);
+
+                    emptyDiv2.style.display = "flex";
+
+                    emptyDiv1.appendChild(emptyDiv2);
+                    emptyDiv1.appendChild(type);
+
+                    emptyDiv1.style.display = "flex";
+                    emptyDiv1.style.justifyContent = "space-between";
+
+
+                    li.appendChild(emptyDiv1);
+                    li.appendChild(date);
+
+                    emptyDiv3.appendChild(description);
+                    emptyDiv3.appendChild(apply);
+
+                    emptyDiv3.style.display = "flex";
+                    emptyDiv3.style.flexDirection = "column";
+                    emptyDiv3.style.alignItems = "center";
+
+                    li.append(emptyDiv3);
+
+                    li.style.backgroundColor = "#ecebeb";
+                    li.style.borderRadius = "12px";
+                    li.style.padding = "8px 12px";
+
                     currentEventsList.appendChild(li);
+
                 });
             } catch (error) {
                 console.error("Error fetching current events: ", error);
