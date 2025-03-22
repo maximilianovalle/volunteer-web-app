@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1742602036883" clover="3.2.0">
-  <project timestamp="1742602036883" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1742614932884" clover="3.2.0">
+  <project timestamp="1742614932884" name="All files">
+    <metrics statements="49" coveredstatements="42" conditionals="22" coveredconditionals="17" methods="6" coveredmethods="6" elements="77" coveredelements="65" complexity="0" loc="49" ncloc="49" packages="1" files="1" classes="1"/>
+    <file name="loginRoutes.js" path="C:\Users\duongtonphuc\webapp\backend\api\loginRoutes.js">
+      <metrics statements="49" coveredstatements="42" conditionals="22" coveredconditionals="17" methods="6" coveredmethods="6"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="6" count="4" type="stmt"/>
+      <line num="10" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="12" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="19" count="3" type="stmt"/>
+      <line num="20" count="3" type="stmt"/>
+      <line num="21" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="22" count="0" type="stmt"/>
+      <line num="23" count="0" type="stmt"/>
+      <line num="26" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="27" count="2" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="37" count="1" type="stmt"/>
+      <line num="38" count="4" type="stmt"/>
+      <line num="43" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="44" count="1" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
+      <line num="46" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="47" count="3" type="stmt"/>
+      <line num="48" count="3" type="stmt"/>
+      <line num="50" count="0" type="stmt"/>
+      <line num="54" count="4" type="stmt"/>
+      <line num="55" count="4" type="stmt"/>
+      <line num="56" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="57" count="1" type="stmt"/>
+      <line num="58" count="1" type="stmt"/>
+      <line num="61" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="62" count="1" type="stmt"/>
+      <line num="66" count="2" type="stmt"/>
+      <line num="67" count="2" type="stmt"/>
+      <line num="68" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="69" count="0" type="stmt"/>
+      <line num="70" count="0" type="stmt"/>
+      <line num="73" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="75" count="2" type="stmt"/>
+      <line num="76" count="2" type="stmt"/>
+      <line num="77" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="78" count="0" type="stmt"/>
+      <line num="79" count="0" type="stmt"/>
+      <line num="81" count="2" type="stmt"/>
+      <line num="82" count="2" type="stmt"/>
+      <line num="88" count="1" type="stmt"/>
+    </file>
   </project>
 </coverage>

@@ -1,50 +1,88 @@
 const express = require("express");
 const router = express.Router();
-
-db = [
-
-    {
-        "first": "john",
-        "name": "doe",
-        "email": "test@gmail.com",
-        "pass": "123",  
-        "role": "volunteer",
-    }
-]
+const connection = require('../db');
 
 router.post("/signin", (req, res) => {
     const { email, password, role } = req.body;
 
-    for(let i=0; i < db.length; i++) {
-        if (email == db[i].email && password == db[i].pass && role == db[i].role) {
-            console.log("anyone");
-            return res.json({ message: "Login successful", token: "your-jwt-token" });
-        }
+    // Determine the table to query based on the role
+    let tableName;
+    if (role === "admin") {
+        tableName = "credentials_admin";
+    } else if (role === "volunteer") {
+        tableName = "credentials_user";
+    } else {
+        return res.status(400).json({ message: "Invalid role provided" });
     }
-    res.status(401).json({ message: "Invalid email or password" });
-    
+
+    // Query the appropriate table
+    const query = `SELECT * FROM ${tableName} WHERE Email = ? AND Password = ?`;
+    connection.query(query, [email, password], (err, results) => {
+        if (err) {
+            console.error("Error executing query:", err);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+
+        if (results.length > 0) {
+            console.log("User authenticated");
+            return res.json({ message: "Login successful", token: "your-jwt-token" }); // Replace with actual JWT generation logic
+        } else {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+    });
 });
+
+
 
 router.post("/signup", (req, res) => {
-    const { first, last, email, password, role } = req.body;
+    const { email, password, role } = req.body;
 
-    const existingUser = db.find(user => user.email === email);
-    if (existingUser) {
-        return res.status(200).json({ message: "User already exists" });
+    // Determine the table to insert into based on the role
+    let tableName;
+    let idColumn;
+    if (role === "admin") {
+        tableName = "credentials_admin";
+        idColumn = "AdminID";
+    } else if (role === "volunteer") {
+        tableName = "credentials_user";
+        idColumn = "UserID";
+    } else {
+        return res.status(400).json({ message: "Invalid role provided" });
     }
 
-    const newUser = {
-        first: first,
-        name: last,
-        email: email,
-        pass: password,
-        role: role,
-    };
+    // Check if user already exists
+    const checkQuery = `SELECT * FROM ${tableName} WHERE Email = ?`;
+    connection.query(checkQuery, [email], (err, results) => {
+        if (err) {
+            console.error("Error checking existing user:", err);
+            return res.status(500).json({ message: "Internal server error" });
+        }
 
-    db.push(newUser);
+        if (results.length > 0) {
+            return res.status(200).json({ message: "User already exists" });
+        }
 
-    return res.status(200).json({ message: "User added successfully" });
+        // Generate a new ID manually
+        const idQuery = `SELECT MAX(${idColumn}) AS maxId FROM ${tableName}`;
+        connection.query(idQuery, (err, results) => {
+            if (err) {
+                console.error("Error generating new ID:", err);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+
+            const newId = results[0].maxId ? results[0].maxId + 1 : 1; // Increment max ID or start from 1
+
+            const insertQuery = `INSERT INTO ${tableName} (${idColumn}, Email, Password) VALUES (?, ?, ?)`;
+            connection.query(insertQuery, [newId, email, password], (err, result) => {
+                if (err) {
+                    console.error("Error inserting new user:", err);
+                    return res.status(500).json({ message: "Internal server error" });
+                }
+                console.log("User signup");
+                return res.status(200).json({ message: "User added successfully" });
+            });
+        });
+    });
 });
-
 
 module.exports = router;
