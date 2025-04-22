@@ -36,24 +36,15 @@ exports.validateProfile = (req, res, next) => {
     next();
 };
 
-exports.handleProfileSubmission = (req, res) => {
-    // Extract data from request body
+exports.handleProfileSubmission = async (req, res) => {
     const { name, address1, address2, city, state, zipcode, skills, preferences, availabilityDates } = req.body;
     console.log("Processing profile submission:", { name, address1, city, state, zipcode });
-    
-    const userId = 1; // Replace with req.session.userId in production
-    
+
+    const userId = 1;
+
     const skillsString = Array.isArray(skills) ? skills.join(',') : skills;
-    
     const availabilityString = Array.isArray(availabilityDates) ? availabilityDates.join(',') : availabilityDates;
 
-    console.log("Processed data:", {
-        userId,
-        skillsString,
-        availabilityString
-    });
-
-    // Create the SQL query for inserting/updating profile data
     const sqlQuery = `
         INSERT INTO profile_user (
             UserID, Full_Name, Street_Address, Street_Address_2, 
@@ -87,17 +78,18 @@ exports.handleProfileSubmission = (req, res) => {
 
     console.log("Executing SQL with params:", params);
 
-    // Execute the query with parameters
-    db_con.query(sqlQuery, params, (err, result) => {
-        if (err) {
-            console.error("Error saving profile:", err);
-            return res.status(500).json({ error: "Failed to save profile information", details: err.message });
-        }
-        
+    try {
+        const [result] = await db_con.query(sqlQuery, params);
         console.log("Profile saved successfully:", result);
         return res.status(200).json({ 
             message: "Profile submitted successfully!",
             profileId: result.insertId
         });
-    });
+    } catch (err) {
+        console.error("Error saving profile:", err);
+        return res.status(500).json({ 
+            error: "Failed to save profile information", 
+            details: err.message 
+        });
+    }
 };
