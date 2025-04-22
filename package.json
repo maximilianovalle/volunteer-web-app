@@ -20,11 +20,13 @@
   "homepage": "https://github.com/maximilianovalle/volunteer-web-app#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "csv-writer": "^1.6.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "mysql": "^2.18.1",
-    "mysql2": "^3.14.0"
+    "mysql2": "^3.14.0",
+    "pdfkit": "^0.17.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",
