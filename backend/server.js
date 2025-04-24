@@ -35,12 +35,12 @@ app.get("/admin-dashboard", (req, res) => {
 });
 
 app.get("/volunteer-dashboard", (req, res) => { // !
-    console.log("\nAccessing volunteer dashboard page...\n");
+    console.log("Accessing volunteer dashboard page...");
     res.sendFile(path.join(__dirname, "../frontend/volunteer/volunteer-dashboard.html"));
 });
 
 app.get("/browse-events", (req, res) => { // !
-    console.log("\nAccessing browse events page...\n");
+    console.log("Accessing browse events page...");
     res.sendFile(path.join(__dirname, '../frontend/volunteer/browse-events.html'));
 });
 

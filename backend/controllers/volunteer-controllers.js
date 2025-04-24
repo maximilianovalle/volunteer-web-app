@@ -4,24 +4,23 @@
 
 const db_con = require("../db");
 
-// defines getPastEvents and exports it immediately
-exports.getPastEvents = async (req, res) => {
+exports.fetchAcceptedEvents = async (req, res) => {
+    const USER = 2;
+
     try {
-        const [pastEvents] = await db_con.query("SELECT * FROM event_details WHERE Event_Date < CURDATE()");
+        const [appliedEvents] = await db_con.query("SELECT events.* FROM event_details AS events, volunteers_list AS list WHERE list.UserID = ? AND list.Status = 'Accepted' AND list.EventID = events.EventID", [USER]);
 
-        res.json(pastEvents);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: error.message });
-    }
-};
+        const appliedEventsArr = appliedEvents.map(event => ({
+            eventID: event.EventID,
+            name: event.Event_Name,
+            description: event.Description,
+            state: event.Location_State_Code,
+            skill: event.Required_Skills,
+            date: event.Event_Date,
+            type: event.Type,
+        }))
 
-// defines getCurrentEvents and exports it immediately
-exports.getCurrentEvents = async (req, res) => {
-    try {
-        const [currentEvents] = await db_con.query("SELECT * FROM event_details WHERE Event_Date > CURDATE();");
-
-        res.json(currentEvents);
+        // res.json(currentEvents);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
