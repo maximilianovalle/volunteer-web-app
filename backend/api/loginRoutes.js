@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const connection = require('../db');
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = process.env.JWT_SECRET || 'helo';
 
 router.post("/signin", (req, res) => {
     const { email, password, role } = req.body;
@@ -24,8 +27,13 @@ router.post("/signin", (req, res) => {
         }
 
         if (results.length > 0) {
-            console.log("User authenticated");
-            return res.json({ message: "Login successful", token: "your-jwt-token" }); // Replace with actual JWT generation logic
+            const user = results[0];
+            const token = jwt.sign(
+                { id: user.id, email: user.Email, role: role }, 
+                JWT_SECRET, 
+                { expiresIn: '1h' } 
+            );
+            return res.status(200).cookie("access-token", token, { maxAge: 1000000 }).send({ message: "Login successful", token });
         } else {
             return res.status(401).json({ message: "Invalid email or password" });
         }
