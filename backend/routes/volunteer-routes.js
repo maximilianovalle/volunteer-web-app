@@ -10,13 +10,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { getPastEvents, getCurrentEvents } = require("../controllers/volunteer-controllers");
-
-// imports getPastEvents from volunteer-controllers & registers it w "/"
-router.get("/past", getPastEvents);   // "/" or "/past" or ??
+const { fetchAcceptedEvents } = require("../controllers/volunteer-controllers");
 
 // imports getCurrentEvents from volunteer-controllers & registers it w "/"
-router.get("/current", getCurrentEvents);   // "/" or "/past" or ??
+router.get("/accepted", fetchAcceptedEvents);
 
 // Exporting
 
