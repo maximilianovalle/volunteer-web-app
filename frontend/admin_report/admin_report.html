@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Report Page</title>
+  <link rel="stylesheet" href="admin_report.css" />
+</head>
+<body>
+  <header class="admin-navbar">
+    <div class="nav-left">
+      <img src="../admin_dashboard/images/logo.svg" alt="Admin Logo" class="admin-logo" />
+      <h2>Admin Report</h2>
+    </div>
+    <div class="nav-links">
+      <a href="../admin_dashboard/admin_dashboard.html">Dashboard</a>
+      <button class="logout-btn" onclick="location.href='../Login/sign-up.html'">Logout</button>
+    </div>
+  </header>
+
+  <main class="report-container">
+    <!-- Toggle buttons -->
+    <div class="toggle-buttons">
+      <button id="showAssignmentsBtn">Event Assignments</button>
+      <button id="showParticipationBtn">Volunteer Participation</button>
+    </div>
+
+    <!-- Event Assignment Table -->
+    <section id="assignmentsSection" class="report-section">
+      <h3>Event Assignments</h3>
+      <table class="report-table" id="eventTable">
+        <thead>
+          <tr>
+            <th>Volunteer Name</th>
+            <th>Event Name</th>
+            <th>Status</th>
+            <th>Sign-Up Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- Volunteer Participation Table -->
+    <section id="participationSection" class="report-section" style="display: none;">
+      <h3>Volunteer Participation History</h3>
+      <table class="report-table" id="volunteerTable">
+        <thead>
+          <tr>
+            <th>Volunteer Name</th>
+            <th>Event Name</th>
+            <th>Participation Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="admin_report.js"></script>
+</body>
+</html>

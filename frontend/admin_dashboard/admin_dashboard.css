@@ -10,115 +10,63 @@ body {
 
 /* Logo */
 .admin-logo {
-    width: 100px;
-    height: auto;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
     filter: invert(55%) sepia(90%) saturate(600%) hue-rotate(0deg) brightness(105%) contrast(100%);
 }
 
-
-/* Dashboard Container */
-.dashboard-container {
-    width: 60%;
-    margin: 3% auto; 
+/* Top Navbar */
+.admin-navbar {
     background: white;
     color: black;
-    padding: 20px; 
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 1s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/* Admin Profile */
-.admin-header {
+.admin-navbar,
+.title-card {
+  height: 80px;
+  padding: 0 30px; /* Remove vertical padding that adds height */
+}
+
+
+
+.nav-left {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 10px; 
-    margin-top: -10px; 
-}
-
-.admin-header img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-}
-
-/* Current Date & Time */
-#current-time {
-    font-size: 16px;
-    color: gray;
-}
-
-/* Stats Cards (Smaller) */
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 15px; 
-    margin-bottom: 15px; 
-}
-
-.card {
-    background: #ff6b00;
-    color: white;
-    padding: 10px; 
-    border-radius: 8px;
-    width: 100px; 
-    text-align: center;
-    font-size: 14px; 
-    transition: transform 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05); 
-}
-
-/* Charts (Smaller) */
-.charts {
-    display: flex;
-    justify-content: center;
-    gap: 15px; 
-    margin-bottom: 20px; 
-}
-
-.chart-container {
-    background: white;
-    padding: 15px; 
-    border-radius: 10px;
-    width: 35%; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Chart Headings */
-.chart-container h3 {
-    font-size: 16px; 
-    margin-bottom: 10px;
-}
-/* Dashboard Buttons */
-.dashboard-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-button {
-    background: linear-gradient(to right, #ff6b00, #ff4500);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 10px;
 }
 
-button:hover {
-    background: linear-gradient(to right, #ff4500, #ff6b00);
-    transform: scale(1.05);
+.nav-left h2 {
+    margin: 0;
+    color: #ff6b00;
+}
+
+/* Nav Links */
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ff6b00;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 107, 0, 0.1);
 }
 
 /* Notification Badge */
@@ -137,38 +85,89 @@ button:hover {
     font-size: 12px;
 }
 
-/* Logout Button */
+/* Logout Button Special Styling */
 .logout-btn {
-    background: linear-gradient(to right, #ff6b00, #ff4500)
+    background: linear-gradient(to right, #ff6b00, #ff4500);
+    color: white !important;
+    border-radius: 6px;
 }
 
 .logout-btn:hover {
     background: linear-gradient(to right, #ff4500, #ff6b00);
 }
 
-
-/* Fade-in Animation 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Dashboard Container */
+.dashboard-container {
+    width: 60%;
+    margin: 3% auto;
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
 }
-*/
 
-/* Popup stuff*/
+/* Current Date & Time */
+#current-time {
+    font-size: 16px;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+/* Stats Cards */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: #ff6b00;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Charts */
+.charts {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 35%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Popup */
 .popup {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px; 
-    max-width: 90%; 
+    width: 400px;
+    max-width: 90%;
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -190,4 +189,16 @@ button:hover {
     cursor: pointer;
     font-size: 14px;
     margin-top: 10px;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

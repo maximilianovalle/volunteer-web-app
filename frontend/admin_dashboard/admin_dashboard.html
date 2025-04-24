@@ -10,63 +10,50 @@
 </head>
 <body>
 
-    <div class="dashboard-container">
-        <!-- Admin Profile -->
-        <div class="admin-header">
+    <!-- Navigation Bar -->
+    <header class="admin-navbar">
+        <div class="nav-left">
             <img src="images/logo.svg" alt="Admin Logo" class="admin-logo">
-            <div>
-                <h2>Admin Dashboard</h2>
-                <p id="current-time"></p>
-            </div>
+            <h2>Admin Dashboard</h2>
         </div>
+        <nav class="nav-links">
+            <a href="../admin_report/admin_report.html">Reports</a>
+            <a href="../admin_form/admin_form.html">Forms</a>
+            <a href="../Login/sign-up.html" class="logout-btn">Logout</a>
+        </nav>
+    </header>
+    
+    <div class="dashboard-container">
+        <h1>Live Summary</h1>
+        <!-- Date and Time -->
+        <p id="current-time"></p>
 
         <!-- Dashboard Stats -->
         <div class="stats">
             <div class="card">
-                <h3>📅 Events</h3>
+                <h3>Events</h3>
                 <p>10 Scheduled</p>
             </div>
             <div class="card">
-                <h3>🤝 Volunteers</h3>
+                <h3>Volunteers</h3>
                 <p>34 Active</p>
             </div>
             <div class="card">
-                <h3>💰 Economic Impact</h3>
+                <h3>Economic Impact</h3>
                 <p>$4,477.53</p>
-            </div>       
+            </div>
         </div>
-
 
         <!-- Charts Section -->
         <div class="charts">
             <div class="chart-container">
-                <h3>📊 Event Attendance</h3>
+                <h3>Event Attendance</h3>
                 <canvas id="eventChart"></canvas>
             </div>
             <div class="chart-container">
-                <h3>📈 Volunteer Activity</h3>
+                <h3>Volunteer Activity</h3>
                 <canvas id="volunteerChart"></canvas>
             </div>
-        </div>
-
-        <!-- Popup Section -->
-        <div id="eventPopup" class="popup">
-            <div class="popup-content">
-                <h2>📅 Scheduled Events</h2>
-                <ul id="eventList"></ul>
-                <button onclick="closePopup()">Close</button>
-            </div>
-        </div>
-        
-
-        <!-- Dashboard Buttons -->
-        <div class="dashboard-buttons">
-            <button onclick="openManageEvents()">📋 Manage Events</button>
-            <button onclick="redirectTo('../admin_form/admin_form.html')">🤝 Match Volunteers</button>
-            <button onclick="redirectTo('settings.html')" class="notification">
-                ⚙️ Settings <span class="badge">!</span>
-            </button>
-            <button class="logout-btn" onclick="redirectTo('login.html')">🚪 Logout</button>
         </div>
     </div>
 

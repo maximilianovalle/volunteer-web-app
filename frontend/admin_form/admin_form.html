@@ -1,126 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Management Form</title>
-    <link rel="stylesheet" href="../admin_form/admin_form.css" />
-  </head>
-  <body>
-    <!-- Title Card/Header -->
-    <header class="title-card">
-      <nav class="nav-links">
-          <a href="../admin_dashboard/admin_dashboard.html">Dashboard</a>
-          <a href="#">Events</a>
-          <a href="#">Volunteers</a>
-      </nav>
-      <div class="user-actions">
-        <h1>Event Management System</h1>
-          <span class="notification">
-              🔔 <span class="badge">3</span>
-          </span>
-          <button class="sign-out">Sign Out</button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Management Form</title>
+  <link rel="stylesheet" href="../admin_form/admin_form.css" />
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="title-card">
+    <div class="nav-left">
+      <img src="../admin_dashboard/images/logo.svg" alt="Logo" class="admin-logo">
+      <h1>Event Management System</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="../admin_dashboard/admin_dashboard.html">Dashboard</a>
+      <button class="sign-out">Logout</button>
+    </nav>
   </header>
-  
 
-    <!-- Form Container -->
-    <div class="form-page">
-      <!-- Event Management Form -->
-      <div class="form-section">
-        <h2 class="form-title" onclick="toggleForm('event-form')">
-          Create Events
-        </h2>
-        <form id="adminEventForm" class="form-content">
-          <label for="eventName">Event Name</label>
-          <input type="text" id="eventName" name="eventName" maxlength="100" required />
-      
-          <label for="eventDescription">Event Description</label>
-          <textarea id="eventDescription" name="eventDescription" required></textarea>
-      
-          <label for="eventLocation">Location</label>
-          <textarea id="eventLocation" name="eventLocation" required></textarea>
-      
-          <label for="requiredSkills">Required Skills</label>
-          <div class="custom-dropdown">
-              <div class="dropdown-header" onclick="toggleDropdown()">
-                  <span id="selected-values">Select skills</span>
-                  <span class="arrow">&#9662;</span>
-              </div>
-              <div class="dropdown-content" id="dropdown-content">
-                  <label>
-                      <input type="checkbox" value="Communication" onchange="updateSelection()"> Communication
-                  </label>
-                  <label>
-                      <input type="checkbox" value="Leadership" onchange="updateSelection()"> Leadership
-                  </label>
-                  <label>
-                      <input type="checkbox" value="Technical Skills" onchange="updateSelection()"> Technical Skills
-                  </label>
-                  <label>
-                      <input type="checkbox" value="Organization" onchange="updateSelection()"> Organization
-                  </label>
-              </div>
+  <!-- Form Container -->
+  <div class="form-page">
+
+    <!-- Event Management Form -->
+    <div class="form-section">
+      <h2 class="form-title" onclick="toggleForm('adminEventForm')">
+        Create Events
+      </h2>
+      <form id="adminEventForm" class="form-content">
+        <label for="eventName">Event Name</label>
+        <input type="text" id="eventName" name="eventName" maxlength="100" required />
+
+        <label for="eventDescription">Event Description</label>
+        <textarea id="eventDescription" name="eventDescription" required></textarea>
+
+        <label for="eventLocation">Location</label>
+        <textarea id="eventLocation" name="eventLocation" required></textarea>
+
+        <label for="requiredSkills">Required Skills</label>
+        <div class="custom-dropdown">
+          <div class="dropdown-header" onclick="toggleDropdown()">
+            <span id="selected-values">Select skills</span>
+            <span class="arrow">&#9662;</span>
           </div>
-      
-          <label for="urgency">Urgency</label>
-          <select id="urgency" name="urgency" required>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-          </select>
-      
-          <label for="eventDate">Event Date</label>
-          <input type="date" id="eventDate" name="eventDate" required />
-      
-          <label for="eventType">Event Type</label>
-          <select id="eventType" name="eventType" required>
-              <option value="All">All</option>
-              <option value="Animal Shelter">Animal Shelter</option>
-              <option value="Community Service">Community Service</option>
-              <option value="Environment">Environment</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Education">Education</option>
-          </select>
-          
+          <div class="dropdown-content" id="dropdown-content">
+            <label><input type="checkbox" value="Communication" onchange="updateSelection()"> Communication</label>
+            <label><input type="checkbox" value="Leadership" onchange="updateSelection()"> Leadership</label>
+            <label><input type="checkbox" value="Technical Skills" onchange="updateSelection()"> Technical Skills</label>
+            <label><input type="checkbox" value="Organization" onchange="updateSelection()"> Organization</label>
+          </div>
+        </div>
 
-          <button type="submit">Create Event</button>
-      </form>
-      
-      </div>
-
-      <!-- Volunteer Matching Form -->
-      <div class="form-section">
-        <h2 class="form-title" onclick="toggleForm('matching-form')">
-          Match Volunteers to Events
-        </h2>
-        <form id="matching-form" class="form-content">
-          <label for="volunteer-name">Volunteer Name</label>
-          <select id="volunteer-name">
-            <option value="">Select Volunteer</option>
+        <label for="urgency">Urgency</label>
+        <select id="urgency" name="urgency" required>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
         </select>
-        
 
-          <label for="matched-event">Matched Event</label>
-          <input
-            type="text"
-            id="matched-event"
-            name="matched-event"
-            readonly
-            placeholder="Auto-fill based on profile"
-          />
+        <label for="eventDate">Event Date</label>
+        <input type="date" id="eventDate" name="eventDate" required />
 
-          <button type="button" onclick="matchVolunteersForEvent()">Match Volunteer</button>
-        </form>
-      </div>
+        <label for="eventType">Event Type</label>
+        <select id="eventType" name="eventType" required>
+          <option value="All">All</option>
+          <option value="Animal Shelter">Animal Shelter</option>
+          <option value="Community Service">Community Service</option>
+          <option value="Environment">Environment</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Education">Education</option>
+        </select>
+
+        <button type="submit">Create Event</button>
+      </form>
     </div>
 
-    <script>
-      function toggleForm(formId) {
-        const formContent = document.getElementById(formId);
-        formContent.classList.toggle("hidden");
+    <!-- Volunteer Matching Form -->
+    <div class="form-section">
+      <h2 class="form-title" onclick="toggleForm('matching-form')">
+        Match Volunteers to Events
+      </h2>
+      <form id="matching-form" class="form-content">
+        <label for="volunteer-name">Volunteer Name</label>
+        <select id="volunteer-name">
+          <option value="">Select Volunteer</option>
+        </select>
+
+        <label for="matched-event">Matched Event</label>
+        <input
+          type="text"
+          id="matched-event"
+          name="matched-event"
+          readonly
+          placeholder="Auto-fill based on profile"
+        />
+
+        <button type="button" onclick="matchVolunteersForEvent()">Match Volunteer</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function toggleForm(formId) {
+      const form = document.getElementById(formId);
+      if (form) {
+        form.classList.toggle("hidden");
       }
-    </script>
-    <script src="../admin_form/admin_form.js"></script>
-  </body>
+    }
+  </script>
+  <script src="../admin_form/admin_form.js"></script>
+</body>
 </html>

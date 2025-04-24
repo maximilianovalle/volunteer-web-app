@@ -11,98 +11,89 @@ html {
   overflow-x: hidden;
 }
 
-/* Title Card */
+.admin-navbar,
 .title-card {
-  position: relative;
+  height: 60px;
+  padding: 0 30px; /* Remove vertical padding that adds height */
+}
+
+
+/* Top Navbar (matches dashboard) */
+.title-card {
+  position: sticky;
   top: 0;
-  left: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 10px 20px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  background: white;
+  padding: 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  height: 60px;
 }
 
+/* Left: logo and title */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-.title-card h1 {
-  position: absolute;
-  left: 49%;
-  transform: translateX(-50%); /* Centers the title */
-  font-size: 22px;
-  color: #ec660c;
+.nav-left h1 {
+  font-size: 24px;
   font-weight: bold;
+  color: #ff6b00;
+  margin: 0;
   white-space: nowrap;
 }
 
-/* Navigation Links */
+.admin-logo {
+  width: 50px;
+  height: 50px;
+  filter: invert(55%) sepia(90%) saturate(600%) hue-rotate(0deg) brightness(105%) contrast(100%);
+}
+
+/* Right: nav links + logout */
 .nav-links {
   display: flex;
-  gap: 15px;
-  margin-left: 20px;
+  gap: 20px;
+  align-items: center;
+  padding-right: 50px; 
+  height: 60px;
+  font-size: 24px;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: #ff6b00;
   font-weight: bold;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  line-height: 60px;
 }
 
 .nav-links a:hover {
-  color: #ec660c;
-}
-
-/* User Actions: Notifications & Sign Out */
-.user-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-right: 40px; 
-}
-
-/* Notification Bell */
-.notification {
-  position: relative;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: red;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 50%;
+  background-color: rgba(255, 107, 0, 0.1);
 }
 
 /* Sign Out Button */
 .sign-out {
-  background: #ec660c;
+  background: linear-gradient(to right, #ff6b00, #ff4500);
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
+  transition: background-color 0.2s ease;
 }
 
 .sign-out:hover {
-  background: #f39600;
-}
-
-/* Gradient Background */
-.gradient-background {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: linear-gradient(to right, #ff4500, #ff6b00);
 }
 
 /* Form Container */
@@ -112,7 +103,7 @@ html {
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  margin: 120px auto 50px; /* Adjust margin to avoid overlap with fixed header */
+  margin: 120px auto 50px;
   margin-top: 50px;
   text-align: center;
 }
@@ -153,13 +144,13 @@ textarea,
 select,
 input[type="date"],
 button {
-  width: 100%; /* Make all form elements take full container width */
-  max-width: 400px; /* Ensure consistent width across all elements */
+  width: 100%;
+  max-width: 400px;
   padding: 12px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-sizing: border-box; /* Consistent padding handling */
+  box-sizing: border-box;
   outline: none;
   background-color: #f9f9f9;
 }
@@ -171,7 +162,6 @@ select:focus {
   box-shadow: 0 0 4px rgba(255, 123, 54, 0.4);
 }
 
-/* Multi-select */
 select[multiple] {
   height: 120px;
 }
@@ -185,7 +175,6 @@ textarea {
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  outline: none;
   background-color: #f9f9f9;
   transition: all 0.2s ease;
 }
@@ -208,18 +197,18 @@ button:hover {
   background: #f39600;
 }
 
+/* Dropdown */
 .custom-dropdown {
-  position: relative; /* Keeps dropdown positioned within this container */
+  position: relative;
   width: 100%;
   max-width: 400px;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
 
-
 .dropdown-header {
   width: 100%;
-  min-height: 44px; /* Same height as other inputs */
+  min-height: 44px;
   padding: 12px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -232,18 +221,16 @@ button:hover {
   box-sizing: border-box;
 }
 
-
 .dropdown-header .arrow {
   font-size: 16px;
   color: #ccc;
 }
 
-/* Fix Dropdown Width */
 .dropdown-content {
   display: none;
   position: absolute;
-  width: 100%; /* Ensures it doesn't overflow */
-  max-width: 400px; /* Restricts width to match other form fields */
+  width: 100%;
+  max-width: 400px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -253,9 +240,8 @@ button:hover {
   max-height: 150px;
   overflow-y: auto;
   box-sizing: border-box;
-  left: 0; /* Aligns dropdown with header */
+  left: 0;
 }
-
 
 .dropdown-content label {
   display: block;
@@ -275,4 +261,3 @@ button:hover {
 .dropdown-content.show {
   display: block !important;
 }
-

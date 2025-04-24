@@ -1,5 +1,12 @@
 const express = require('express');
-const { createAdminEvent, getAdminEvents, deleteAdminEvent, matchVolunteersToEvent, getVolunteers } = require("../controllers/adminController");
+const { createAdminEvent, 
+    getAdminEvents, 
+    deleteAdminEvent, 
+    matchVolunteersToEvent, 
+    getVolunteers,
+    getVolunteerParticipationHistory,  
+    getEventAssignments  
+} = require("../controllers/adminController");
 
 
 const router = express.Router();
@@ -17,6 +24,10 @@ router.delete('/events/:id', deleteAdminEvent);
 router.post("/match-volunteer", matchVolunteersToEvent);
 
 router.get("/volunteers", getVolunteers);
+
+router.get("/participation-history", getVolunteerParticipationHistory);
+
+router.get("/event-assignments", getEventAssignments);
 
 
 module.exports = router;

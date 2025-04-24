@@ -5,6 +5,24 @@ const cors = require("cors");
 
 
 
+// live reload for frontend/backend
+const livereload = require("livereload");
+const connectLivereload = require("connect-livereload");
+
+app.use(connectLivereload());
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.watch(path.join(__dirname, "../frontend"));
+
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
+
+
+
+
 app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(__dirname, "../frontend")));
@@ -29,6 +47,10 @@ app.get("/admin-form", (req, res) => {
 
 app.get("/admin-dashboard", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/admin_dashboard/admin_dashboard.html"));
+});
+
+app.get("/admin-report", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/admin_report/admin_report.html"));
 });
 
 app.get("/volunteer-dashboard", (req, res) => {
@@ -67,3 +89,4 @@ app.use((req, res) => {
 })
 
 app.listen(process.env.PORT || 3000, () => console.log("App available on http://localhost:3000"));
+

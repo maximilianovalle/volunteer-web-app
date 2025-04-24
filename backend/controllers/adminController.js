@@ -187,3 +187,57 @@ exports.getVolunteers = async (req, res) => {
     }
 };
 
+
+// Get Event Assignments
+exports.getEventAssignments = async (req, res) => {
+    try {
+        const [rows] = await db.query(`
+SELECT 
+    e.Event_Name,
+    e.Event_Date,
+    e.Description,
+    e.Location_State_Code,
+    e.Required_Skills,
+    e.Urgency,
+    e.Type,
+    p.Full_Name AS Volunteer_Name,
+    v.Status,
+    v.SignUpDate
+FROM event_details e
+LEFT JOIN volunteers_list v ON e.EventID = v.EventID
+LEFT JOIN profile_user p ON v.UserID = p.UserID
+WHERE v.Status = 'Accepted' -- only show assigned volunteers
+ORDER BY e.Event_Date DESC, p.Full_Name ASC;
+
+        `);
+
+        res.json(rows);
+    } catch (error) {
+        console.error("❌ Error fetching volunteer assignments:", error);
+        res.status(500).json({ message: "Database error", error: error.message });
+    }
+};
+
+
+// Get Volunteer Participation History
+exports.getVolunteerParticipationHistory = async (req, res) => {
+    try {
+        const [rows] = await db.query(`
+            SELECT 
+                p.Full_Name AS name,
+                e.Event_Name AS event,
+                h.Participation_Date AS date
+            FROM history_user h
+            JOIN profile_user p ON h.UserID = p.UserID
+            JOIN event_details e ON h.EventID = e.EventID
+            ORDER BY h.Participation_Date DESC
+        `);
+
+        res.json(rows);
+    } catch (error) {
+        console.error("❌ Error fetching participation history:", error);
+        res.status(500).json({ message: "Database error", error: error.message });
+    }
+};
+
+
