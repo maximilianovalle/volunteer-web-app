@@ -1,22 +1,40 @@
-
+// Toggle custom skills dropdown
 function toggleDropdown() {
     document.getElementById("dropdown-content").classList.toggle("show");
 }
 
-function updateSelection() {
-    const checkboxes = document.querySelectorAll(".dropdown-content input[type='checkbox']");
-    let selectedValues = [];
-    checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            selectedValues.push(checkbox.value);
-        }
-    });
+// Show either Create Event or Manage Events view
+function showView(view) {
+    const createView = document.getElementById("createEvent");
+    const manageView = document.getElementById("manageEvent");
+    const createBtn = document.getElementById("createEventBtn");
+    const manageBtn = document.getElementById("manageEventBtn");
 
-    const displayText = selectedValues.length > 0 ? selectedValues.join(", ") : "Select skills";
-    document.getElementById("selected-values").textContent = displayText;
+    if (view === "createEvent") {
+        createView.classList.remove("hidden");
+        manageView.classList.add("hidden");
+        createBtn.classList.add("active");
+        manageBtn.classList.remove("active");
+    } else {
+        createView.classList.add("hidden");
+        manageView.classList.remove("hidden");
+        createBtn.classList.remove("active");
+        manageBtn.classList.add("active");
+    }
 }
 
-// Close dropdown when clicking outside
+// Update selected skills label text
+function updateSelection() {
+    const checkboxes = document.querySelectorAll(".dropdown-content input[type='checkbox']");
+    const selectedValues = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+    document.getElementById("selected-values").textContent = selectedValues.length > 0
+        ? selectedValues.join(", ")
+        : "Select skills";
+}
+
+// Close custom dropdown when clicking outside
 document.addEventListener("click", function (event) {
     const dropdown = document.querySelector(".custom-dropdown");
     if (!dropdown.contains(event.target)) {
@@ -24,23 +42,21 @@ document.addEventListener("click", function (event) {
     }
 });
 
+// Handle Create Event submission
 document.getElementById("adminEventForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Get form values
     const eventData = {
-        Managed_By: 1, // or dynamically get admin ID if logged in
-        // Managed_By: localStorage.getItem("adminID"),
+        Managed_By: 1,
         name: document.getElementById("eventName").value,
         description: document.getElementById("eventDescription").value,
-        location_state: document.getElementById("eventLocation").value,
+        Location_City: document.getElementById("eventCity").value,
+        Location_State_Code: document.getElementById("eventState").value,
         required_skills: document.getElementById("selected-values").textContent.split(",").map(skill => skill.trim()),
-        urgency: document.getElementById("urgency").value, 
+        urgency: document.getElementById("urgency").value,
         event_date: document.getElementById("eventDate").value,
         type: document.getElementById("eventType").value
     };
-    
-    console.log("🚨 Urgency being sent:", `"${eventData.urgency}"`);
 
     try {
         const response = await fetch("http://localhost:3000/api/admin/events", {
@@ -50,8 +66,6 @@ document.getElementById("adminEventForm").addEventListener("submit", async (e) =
         });
 
         const result = await response.json();
-        console.log("📩 Server Response:", result);
-
         if (response.ok) {
             alert("Event created successfully!");
             document.getElementById("adminEventForm").reset();
@@ -64,18 +78,37 @@ document.getElementById("adminEventForm").addEventListener("submit", async (e) =
     }
 });
 
-
-async function matchVolunteersForEvent() {
+// Populate volunteers dropdown on page load
+async function loadVolunteers() {
     try {
-        // Get the volunteer name from the input field
-        const volunteerName = document.getElementById("volunteer-name").value.trim();
+        const response = await fetch("http://localhost:3000/api/admin/volunteers");
+        const data = await response.json();
 
-        if (!volunteerName) {
-            alert("Please enter a volunteer name.");
-            return;
-        }
+        const dropdown = document.getElementById("volunteer-name");
+        dropdown.innerHTML = "<option value=''>Select Volunteer</option>";
 
-        // Send request to backend to match this volunteer to an event
+        data.volunteers.forEach(volunteer => {
+            const option = document.createElement("option");
+            option.value = volunteer.Full_Name;
+            option.textContent = volunteer.Full_Name;
+            dropdown.appendChild(option);
+        });
+
+        // Attach change event to load matched events
+        dropdown.addEventListener("change", loadMatchedEventsForVolunteer);
+
+    } catch (error) {
+        console.error("Error loading volunteers:", error);
+    }
+}
+
+// Fetch matched events based on volunteer skills
+async function loadMatchedEventsForVolunteer() {
+    const volunteerName = document.getElementById("volunteer-name").value.trim();
+
+    if (!volunteerName) return;
+
+    try {
         const response = await fetch("http://localhost:3000/api/admin/match-volunteer", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -83,39 +116,57 @@ async function matchVolunteersForEvent() {
         });
 
         const data = await response.json();
+        const matchedDropdown = document.getElementById("matched-event");
+        matchedDropdown.innerHTML = "<option value=''>Select Matched Event</option>";
 
-        if (!data.matchedEvent || data.matchedEvent === "No matching event found") {
+        if (!data.matchedEvents || data.matchedEvents.length === 0) {
             alert("No events found matching this volunteer's skills.");
-            document.getElementById("matched-event").value = "No match found";
             return;
         }
 
-        document.getElementById("matched-event").value = data.matchedEvent;
-
-    } catch (error) {
-        console.error("Error matching volunteer:", error);
-    }
-}
-
-async function loadVolunteers() {
-    try {
-        const response = await fetch("http://localhost:3000/api/admin/volunteers");
-        const data = await response.json();
-
-        const volunteerDropdown = document.getElementById("volunteer-name");
-        volunteerDropdown.innerHTML = "<option value=''>Select Volunteer</option>";
-
-        data.volunteers.forEach(volunteer => {
+        data.matchedEvents.forEach(event => {
             const option = document.createElement("option");
-            option.value = volunteer.Full_Name;
-            option.textContent = volunteer.Full_Name;          
-            volunteerDropdown.appendChild(option);
+            option.value = event.id;
+            option.textContent = event.name;
+            matchedDropdown.appendChild(option);
         });
 
     } catch (error) {
-        console.error("Error loading volunteers:", error);
+        console.error("Error fetching matched events:", error);
     }
 }
 
-// Load volunteers when the page loads
-document.addEventListener("DOMContentLoaded", loadVolunteers);
+// Assign volunteer to the selected event
+async function assignVolunteerToEvent() {
+    const volunteerName = document.getElementById("volunteer-name").value.trim();
+    const eventId = document.getElementById("matched-event").value;
+
+    if (!volunteerName || !eventId) {
+        alert("Please select both a volunteer and a matched event.");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3000/api/admin/assign-volunteer", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ volunteerName, eventId })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Volunteer successfully assigned to the event.");
+        } else {
+            alert("Error: " + data.message);
+        }
+    } catch (error) {
+        console.error("Error assigning volunteer:", error);
+    }
+}
+
+// On page load
+document.addEventListener("DOMContentLoaded", () => {
+    loadVolunteers();
+    showView("createEvent");
+});

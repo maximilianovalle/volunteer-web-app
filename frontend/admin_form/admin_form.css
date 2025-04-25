@@ -1,261 +1,233 @@
-/* General Styles */
-body,
-html {
+/* General Page Style */
+body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(135deg, #ec660c, #f39600);
-  background-attachment: fixed;
-  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #ff8c00, #ff6b00);
+  color: #333;
 }
 
-/* Title Card */
+/* Navbar */
 .title-card {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 10px 20px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  background: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 30px;
+  height: 80px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-
-.title-card h1 {
-  position: absolute;
-  left: 49%;
-  transform: translateX(-50%); /* Centers the title */
-  font-size: 22px;
-  color: #ec660c;
-  font-weight: bold;
-  white-space: nowrap;
+.admin-logo {
+  width: 50px;
+  height: 50px;
+  filter: invert(55%) sepia(90%) saturate(600%) hue-rotate(0deg) brightness(105%) contrast(100%);
 }
 
-/* Navigation Links */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-left h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #ff6b00;
+}
+
 .nav-links {
   display: flex;
-  gap: 15px;
-  margin-left: 20px;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: #ff6b00;
   font-weight: bold;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.3s;
 }
 
 .nav-links a:hover {
-  color: #ec660c;
+  background-color: rgba(255, 107, 0, 0.1);
 }
 
-/* User Actions: Notifications & Sign Out */
-.user-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-right: 40px; 
-}
-
-/* Notification Bell */
-.notification {
-  position: relative;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: red;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 50%;
-}
-
-/* Sign Out Button */
 .sign-out {
-  background: #ec660c;
+  background: linear-gradient(to right, #ff6b00, #ff4500);
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
+  transition: background 0.3s;
 }
 
 .sign-out:hover {
-  background: #f39600;
+  background: #e05200;
 }
 
-/* Gradient Background */
-.gradient-background {
-  height: 100vh;
+/* Shared View Toggle Buttons (Create/Manage Events or Event Assignments/Participation) */
+.toggle-buttons,
+.view-buttons {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 15px;
+  margin: 30px 0 20px;
 }
 
-/* Form Container */
-.form-page {
-  width: 400px;
+.toggle-buttons button,
+.view-buttons button {
   background: white;
-  border-radius: 16px;
+  color: #ff6b00;
+  border: 2px solid #ff6b00;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.toggle-buttons button:hover,
+.view-buttons button:hover {
+  background: #ff6b00;
+  color: white;
+}
+
+.toggle-buttons button.active,
+.view-buttons button.active {
+  background: white;
+  color: #ff6b00;
+}
+
+
+/* Form Card */
+.form-page {
+  max-width: 600px;
+  background: white;
+  border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  margin: 120px auto 50px; /* Adjust margin to avoid overlap with fixed header */
-  margin-top: 50px;
-  text-align: center;
+  margin: 0 auto 60px;
 }
 
-/* Section Titles */
+/* Form Sections */
 .form-section {
   margin-bottom: 30px;
-  text-align: left;
 }
 
 .form-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-  cursor: pointer;
+  color: #ff6b00;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff6b00;
+  padding-bottom: 10px;
 }
 
-/* Form Content */
 .form-content {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 10px;
 }
 
-/* Labels */
 label {
-  font-size: 14px;
   font-weight: 600;
-  color: #555;
-  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
 }
 
-/* Inputs, Textareas, Selects */
 input[type="text"],
 textarea,
 select,
-input[type="date"],
-button {
-  width: 100%; /* Make all form elements take full container width */
-  max-width: 400px; /* Ensure consistent width across all elements */
+input[type="date"] {
+  width: 100%;
   padding: 12px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-sizing: border-box; /* Consistent padding handling */
-  outline: none;
+  box-sizing: border-box;
   background-color: #f9f9f9;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #ec660c;
+  border-color: #ff6b00;
   box-shadow: 0 0 4px rgba(255, 123, 54, 0.4);
-}
-
-/* Multi-select */
-select[multiple] {
-  height: 120px;
-}
-
-/* Textarea */
-textarea {
-  height: auto;
-  overflow: hidden;
-  resize: none;
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   outline: none;
-  background-color: #f9f9f9;
-  transition: all 0.2s ease;
 }
 
-/* Button */
-button {
-  width: 100%;
-  padding: 14px;
-  background: #ec660c;
+/* Submit / Action Button */
+button[type="submit"],
+button[type="button"] {
+  background: linear-gradient(to right, #ff6b00, #ff4500);
   color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.2s ease;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-button:hover {
-  background: #f39600;
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background: #e05200;
 }
 
+/* Dropdown Custom */
 .custom-dropdown {
-  position: relative; /* Keeps dropdown positioned within this container */
-  width: 100%;
-  max-width: 400px;
+  position: relative;
   font-family: Arial, sans-serif;
-  box-sizing: border-box;
 }
-
 
 .dropdown-header {
-  width: 100%;
-  min-height: 44px; /* Same height as other inputs */
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
 }
-
 
 .dropdown-header .arrow {
   font-size: 16px;
-  color: #ccc;
+  color: #888;
 }
 
-/* Fix Dropdown Width */
 .dropdown-content {
   display: none;
   position: absolute;
-  width: 100%; /* Ensures it doesn't overflow */
-  max-width: 400px; /* Restricts width to match other form fields */
   background: white;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 5px;
   padding: 10px;
+  width: 100%;
   max-height: 150px;
   overflow-y: auto;
-  box-sizing: border-box;
-  left: 0; /* Aligns dropdown with header */
+  z-index: 10;
 }
-
 
 .dropdown-content label {
   display: block;
@@ -265,7 +237,7 @@ button:hover {
 }
 
 .dropdown-content label:hover {
-  background: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .dropdown-content input {
@@ -273,6 +245,10 @@ button:hover {
 }
 
 .dropdown-content.show {
-  display: block !important;
+  display: block;
 }
 
+/* Hidden View */
+.hidden {
+  display: none;
+}

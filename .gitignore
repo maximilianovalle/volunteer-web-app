@@ -3,3 +3,5 @@
 *.crt
 *.key
 .env.test
+node_modules/
+**/node_modules/

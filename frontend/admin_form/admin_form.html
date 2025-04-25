@@ -1,126 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Management Form</title>
-    <link rel="stylesheet" href="../admin_form/admin_form.css" />
-  </head>
-  <body>
-    <!-- Title Card/Header -->
-    <header class="title-card">
-      <nav class="nav-links">
-          <a href="../admin_dashboard/admin_dashboard.html">Dashboard</a>
-          <a href="#">Events</a>
-          <a href="#">Volunteers</a>
-      </nav>
-      <div class="user-actions">
-        <h1>Event Management System</h1>
-          <span class="notification">
-              🔔 <span class="badge">3</span>
-          </span>
-          <button class="sign-out">Sign Out</button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Management System</title>
+  <link rel="stylesheet" href="../admin_form/admin_form.css" />
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="title-card">
+    <div class="nav-left">
+      <img src="../admin_dashboard/images/logo.svg" alt="Logo" class="admin-logo">
+      <h1>Event Management System</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="../admin_dashboard/admin_dashboard.html">Dashboard</a>
+      <button class="sign-out">Logout</button>
+    </nav>
   </header>
-  
 
-    <!-- Form Container -->
-    <div class="form-page">
-      <!-- Event Management Form -->
-      <div class="form-section">
-        <h2 class="form-title" onclick="toggleForm('event-form')">
-          Create Events
-        </h2>
-        <form id="adminEventForm" class="form-content">
-          <label for="eventName">Event Name</label>
-          <input type="text" id="eventName" name="eventName" maxlength="100" required />
-      
-          <label for="eventDescription">Event Description</label>
-          <textarea id="eventDescription" name="eventDescription" required></textarea>
-      
-          <label for="eventLocation">Location</label>
-          <textarea id="eventLocation" name="eventLocation" required></textarea>
-      
-          <label for="requiredSkills">Required Skills</label>
-          <div class="custom-dropdown">
-              <div class="dropdown-header" onclick="toggleDropdown()">
-                  <span id="selected-values">Select skills</span>
-                  <span class="arrow">&#9662;</span>
-              </div>
-              <div class="dropdown-content" id="dropdown-content">
-                  <label>
-                      <input type="checkbox" value="Communication" onchange="updateSelection()"> Communication
-                  </label>
-                  <label>
-                      <input type="checkbox" value="Leadership" onchange="updateSelection()"> Leadership
-                  </label>
-                  <label>
-                      <input type="checkbox" value="Technical Skills" onchange="updateSelection()"> Technical Skills
-                  </label>
-                  <label>
-                      <input type="checkbox" value="Organization" onchange="updateSelection()"> Organization
-                  </label>
-              </div>
+  <!-- View Switch Buttons -->
+  <div class="toggle-buttons">
+    <button id="createEventBtn" class="active" onclick="showView('createEvent')">Create Events</button>
+    <button id="manageEventBtn" onclick="showView('manageEvent')">Manage Events</button>
+  </div>
+
+  <!-- Main Container -->
+  <div class="form-page">
+
+    <!-- Create Event View -->
+    <div id="createEvent" class="form-section">
+      <h2 class="form-title">Create Events</h2>
+      <form id="adminEventForm" class="form-content">
+        <label for="eventName">Event Name</label>
+        <input type="text" id="eventName" name="eventName" maxlength="100" required />
+
+        <label for="eventDescription">Event Description</label>
+        <textarea id="eventDescription" name="eventDescription" required></textarea>
+
+        <label for="eventCity">City</label>
+        <input type="text" id="eventCity" name="eventCity" required />
+
+        <label for="eventState">State</label>
+        <select id="eventState" name="eventState" required>
+          <option value="">Select State</option>
+          <option value="AL">AL</option>
+          <option value="AK">AK</option>
+          <option value="AZ">AZ</option>
+          <option value="AR">AR</option>
+          <option value="CA">CA</option>
+          <option value="CO">CO</option>
+          <option value="CT">CT</option>
+          <option value="DE">DE</option>
+          <option value="FL">FL</option>
+          <option value="GA">GA</option>
+          <option value="HI">HI</option>
+          <option value="ID">ID</option>
+          <option value="IL">IL</option>
+          <option value="IN">IN</option>
+          <option value="IA">IA</option>
+          <option value="KS">KS</option>
+          <option value="KY">KY</option>
+          <option value="LA">LA</option>
+          <option value="ME">ME</option>
+          <option value="MD">MD</option>
+          <option value="MA">MA</option>
+          <option value="MI">MI</option>
+          <option value="MN">MN</option>
+          <option value="MS">MS</option>
+          <option value="MO">MO</option>
+          <option value="MT">MT</option>
+          <option value="NE">NE</option>
+          <option value="NV">NV</option>
+          <option value="NH">NH</option>
+          <option value="NJ">NJ</option>
+          <option value="NM">NM</option>
+          <option value="NY">NY</option>
+          <option value="NC">NC</option>
+          <option value="ND">ND</option>
+          <option value="OH">OH</option>
+          <option value="OK">OK</option>
+          <option value="OR">OR</option>
+          <option value="PA">PA</option>
+          <option value="RI">RI</option>
+          <option value="SC">SC</option>
+          <option value="SD">SD</option>
+          <option value="TN">TN</option>
+          <option value="TX">TX</option>
+          <option value="UT">UT</option>
+          <option value="VT">VT</option>
+          <option value="VA">VA</option>
+          <option value="WA">WA</option>
+          <option value="WV">WV</option>
+          <option value="WI">WI</option>
+          <option value="WY">WY</option>
+        </select>
+
+
+        <label for="requiredSkills">Required Skills</label>
+        <div class="custom-dropdown">
+          <div class="dropdown-header" onclick="toggleDropdown()">
+            <span id="selected-values">Select skills</span>
+            <span class="arrow">&#9662;</span>
           </div>
-      
-          <label for="urgency">Urgency</label>
-          <select id="urgency" name="urgency" required>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-          </select>
-      
-          <label for="eventDate">Event Date</label>
-          <input type="date" id="eventDate" name="eventDate" required />
-      
-          <label for="eventType">Event Type</label>
-          <select id="eventType" name="eventType" required>
-              <option value="All">All</option>
-              <option value="Animal Shelter">Animal Shelter</option>
-              <option value="Community Service">Community Service</option>
-              <option value="Environment">Environment</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Education">Education</option>
-          </select>
-          
+          <div class="dropdown-content" id="dropdown-content">
+            <label><input type="checkbox" value="Communication" onchange="updateSelection()"> Communication</label>
+            <label><input type="checkbox" value="Leadership" onchange="updateSelection()"> Leadership</label>
+            <label><input type="checkbox" value="Technical Skills" onchange="updateSelection()"> Technical Skills</label>
+            <label><input type="checkbox" value="Organization" onchange="updateSelection()"> Organization</label>
+            <label><input type="checkbox" value="Animal Care" onchange="updateSelection()"> Animal Care</label>
+            <label><input type="checkbox" value="Medical" onchange="updateSelection()"> Medical</label>
+            <label><input type="checkbox" value="Teaching" onchange="updateSelection()"> Teaching</label>
+            <label><input type="checkbox" value="Nature" onchange="updateSelection()"> Nature</label>
+            <label><input type="checkbox" value="Community Outreach" onchange="updateSelection()"> Community Outreach</label>
+          </div>
+        </div>
 
-          <button type="submit">Create Event</button>
+        <label for="urgency">Urgency</label>
+        <select id="urgency" name="urgency" required>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+
+        <label for="eventDate">Event Date</label>
+        <input type="date" id="eventDate" name="eventDate" required />
+
+        <label for="eventType">Event Type</label>
+        <select id="eventType" name="eventType" required>
+          <option value="All">All</option>
+          <option value="Animal Shelter">Animal Shelter</option>
+          <option value="Community Service">Community Service</option>
+          <option value="Environment">Environment</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Education">Education</option>
+        </select>
+
+        <button type="submit">Create Event</button>
       </form>
-      
-      </div>
+    </div>
 
-      <!-- Volunteer Matching Form -->
-      <div class="form-section">
-        <h2 class="form-title" onclick="toggleForm('matching-form')">
-          Match Volunteers to Events
-        </h2>
-        <form id="matching-form" class="form-content">
-          <label for="volunteer-name">Volunteer Name</label>
-          <select id="volunteer-name">
-            <option value="">Select Volunteer</option>
+    <!-- Manage Event View -->
+    <div id="manageEvent" class="form-section hidden">
+      <h2 class="form-title">Match Volunteers to Events</h2>
+      <form id="matching-form" class="form-content">
+        <label for="volunteer-name">Volunteer Name</label>
+        <select id="volunteer-name" onchange="loadMatchedEventsForVolunteer()">
+          <option value="">Select Volunteer</option>
+        </select>
+
+        <label for="matched-event">Matched Events</label>
+        <select id="matched-event">
+          <option value="">Select Matched Event</option>
         </select>
         
 
-          <label for="matched-event">Matched Event</label>
-          <input
-            type="text"
-            id="matched-event"
-            name="matched-event"
-            readonly
-            placeholder="Auto-fill based on profile"
-          />
+        <button type="button" onclick="assignVolunteerToEvent()">Match Volunteer</button>
 
-          <button type="button" onclick="matchVolunteersForEvent()">Match Volunteer</button>
-        </form>
-      </div>
+      </form>
     </div>
+  </div>
 
-    <script>
-      function toggleForm(formId) {
-        const formContent = document.getElementById(formId);
-        formContent.classList.toggle("hidden");
-      }
-    </script>
-    <script src="../admin_form/admin_form.js"></script>
-  </body>
+  <!-- Scripts -->
+  <script src="../admin_form/admin_form.js"></script>
+</body>
 </html>
