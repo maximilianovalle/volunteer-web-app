@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">    <!-- icon library -->
+    <title>Browse Events</title>
+
+    <style>
+
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background-color: #f39600; /* for browsers that do not support gradients */
+            background-image: linear-gradient(to right, #ec660c , #f39600);
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+
+        /* header */
+
+        #header {
+            height: 5vh;    /* connected to #main height */
+            min-height: 52px;
+
+            display: flex;
+            justify-content: space-between;
+            padding: 0px 250px;
+            align-items: center;
+
+            background-color: #fff;
+            box-shadow: #ec660c;
+        }
+
+        #header h2:hover {
+            cursor: pointer;
+        }
+
+        #header > div {
+            height: 80%;
+            width: 200px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .iconStyle {
+            font-size: 24px;
+        }
+
+        .iconBtn {
+            border: none;
+            background-color: transparent;
+        }
+
+        .iconBtn:hover {
+            cursor: pointer;
+            color: #ec660c;
+        }
+
+        .notificationsContainer {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .notifBody {
+            padding: 20px 14px;
+            border-bottom: 2px solid black;
+            text-align: left;
+        }
+
+        .notifBody:hover {
+            cursor: pointer;
+        }
+
+        .unread {
+            color: #ec660c;
+        }
+
+        .notifHeader {
+            padding-bottom: 4px;
+            border-bottom: 2px solid #ecebeb;
+            margin-bottom: 4px;
+
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .notifContent {
+            max-width: 90%;
+            margin: 0px auto;
+            color: black;
+        }
+
+        #signOutBtn, .applyBtn, .modalConfirm {
+            height: 80%;
+            width: 100px;
+
+            background-color: #ec660c;
+            color: white;
+            font-size: 16px;
+
+            border: 2px solid #ec660c;
+            border-radius: 4px;
+        }
+
+        #signOutBtn:hover, .applyBtn:hover, .modalConfirm:hover {
+            background-color: white;
+            color: #ec660c;
+
+            cursor: pointer;
+        }
+
+        .modalCancel {
+            height: 80%;
+            width: 100px;
+
+            background-color: #fff;
+            color: #ec660c;
+            font-size: 16px;
+
+            border: none;
+            border-radius: 4px;
+        }
+
+        .modalCancel:hover {
+            color: black;
+
+            border: none;
+            cursor: pointer;
+        }
+
+        
+
+        #main {
+            animation: fade-in 0.5s ease;
+
+            min-height: 87vh;   /* connected to #header height */
+            max-width: 1200px;  /* page side spacing */
+            margin: 0px auto;
+
+            margin-top: 4vh;
+            margin-bottom: 4vh;
+
+            color: #fff;
+        }
+
+        #topText {
+            font-weight: bold;
+            font-size: 38px;
+
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ecebeb;
+            margin-bottom: 8px;
+
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+
+
+        #searchContainer {
+            margin: 16px 0px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            row-gap: 12px;
+        }
+
+        #searchInput, #filterType {
+            height: 34px;
+        }
+
+        #searchInput {
+            width: 375px;
+            padding: 4px 8px;
+
+            box-sizing: border-box;
+            border-radius: 6px;
+            border: none;
+
+            background-color: #fff;
+        }
+
+        #filterType {
+            border-radius: 4px;
+            border: none;
+
+            background-color: #fff;
+        }
+
+
+
+        #eventsContainer {
+            width: 100%;
+            padding: 32px 24px;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            row-gap: 24px;
+        }
+
+        .event {
+            background-color: #fff;
+            box-shadow: #ec660c;
+            color: black;
+
+            max-width: 250px;
+            min-height: 300px;
+            padding: 8px 12px;
+
+            box-sizing: border-box;
+            border-radius: 6px;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dot {
+            color: #ec660c;
+        }
+
+        .eventImage {
+            max-width: 100%;
+            max-height: 150px;
+            margin: 8px 0px;
+            border-radius: 4px;
+        }
+
+        .eventDate {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .eventSkill {
+            height: 32px;
+            min-width: 52px;
+            padding: 8px 4px;
+
+            box-sizing: border-box;
+            border-radius: 12px;
+
+            background-color: #ecebeb;
+        }
+
+        .eventDescription {
+            text-align: center;
+            max-height: 200px;
+            min-height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .newBtn {
+            height: 32px;
+        }
+
+
+
+        /* modal */
+
+        .modal {
+            display: none;  /* hidden by default */
+            position: fixed;
+            overflow: auto;
+
+            z-index: 999;
+            left: 0;
+            top: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modalBox {
+            max-width: 400px;
+            min-width: 300px;
+            max-height: 450px;
+            min-height: 100px;
+
+            padding: 32px;
+            margin: 12% auto;
+
+            border-radius: 6px;
+            background-color: #fff;
+            color: black;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .modalBox h3 {
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            border-bottom: 2px solid black;
+        }
+
+    </style>
+
+</head>
+
+
+
+<!-- HTML -->
+
+
+
+<body>
+
+    <!-- header -->
+
+    <div id="header">
+
+        <h2 onclick="window.location.href='/volunteer-dashboard'">Placeholder</h2> <!-- !! -->
+
+        <div> <!-- !! -->
+            <button onclick="openNotifModal()" class="iconBtn"><i class="iconStyle fa-solid fa-bell"></i></button>
+            <button onclick="window.location.href='/user-manage-profile'" class="iconBtn"><i class="iconStyle fa-solid fa-user"></i></button>
+            <button onclick="logout()" id="signOutBtn">Sign Out</button>
+        </div>
+
+    </div>
+
+    <!-- notification modal -->
+    <div id="notificationModal" class="modal" onclick="closeNotifModal()">
+
+        <div class="notificationsContainer modalBox">
+            <h3>Notifications</h3> <!-- !! -->
+
+            <div id="notificationBody">
+
+                <!-- fetchNotifications() -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- main -->
+
+    <div id="main">
+
+        <!-- top text -->
+        <div>
+            <h1 id="topText">Browse Events</h1>
+        </div>
+
+        <!-- search + filters -->
+
+        <div id="searchContainer">
+
+            <input type="text" id="searchInput" placeholder="Search Event...">
+
+            <select id="filterType">
+                <option value="">All</option>
+                <option value="Animal Shelter">Animal Shelters</option>
+                <option value="Community Service">Community Service</option>
+                <option value="Environment">Environment</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+            </select>
+
+        </div>
+
+        <!-- events container -->
+
+        <div id="eventsContainer">
+
+            <!-- fetchEvents(); -->
+
+        </div>
+
+        <!-- apply modal -->
+
+        <div id="applyModal" class="modal" onclick="closeApplyModal()">
+
+            <div class="modalBox">
+                <h3>Apply to this event?</h3> <!-- !! -->
+                <p>If accepted, you will be expected to attend.</p>
+
+                <div class="modalBtnsContainer">
+                    <button class="modalConfirm" onclick="applyToEvent()">apply</button>
+                    <button class="modalCancel" onclick="closeApplyModal()">cancel</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- success/error modal -->
+    
+        <div id="msgModal" class="modal" onclick="closeMsgModal()">
+
+            <div class="modalBox">
+                <p id="msgHeader"></p>
+                <p id="msgContent"></p>
+
+                <div class="modalBtnsContainer">
+                    <button class="modalConfirm" onclick="closeMsgModal()">ok</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SCRIPT -->
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+
+    <script>
+
+        // userID token
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const token = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('access-token='))
+                ?.split('=')[1];
+
+            if (token) {
+                const userData = jwt_decode(token);
+                console.log("Decoded token:");
+                console.log("ID:", userData.id);
+                console.log("Email:", userData.email);
+                console.log("Role:", userData.role);
+
+                window.userID = userData.id;
+            }
+
+            fetchEvents();
+        });
+
+        // logout function
+
+        async function logout() {
+            // TODO: clear local storage/cookies ??
+
+            window.location.href="/";
+        }
+
+        // notifications modal
+
+        function openNotifModal() {
+            fetchNotifications();
+            document.getElementById('notificationModal').style.display = "block";
+        }
+
+        function closeNotifModal() {
+            document.getElementById('notificationModal').style.display = "none";
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+
+            const year = date.getFullYear();
+            const month = (`0${date.getMonth() + 1}`).slice(-2); // add 1 since months are 0-indexed
+            const day = (`0${date.getDate()}`).slice(-2);
+
+            const hours = (`0${date.getHours()}`).slice(-2);
+            const minutes = (`0${date.getMinutes()}`).slice(-2);
+            const seconds = (`0${date.getSeconds()}`).slice(-2);
+
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        async function fetchNotifications() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/volunteer/notifications?userID=${userID}`);
+                const notifications = await response.json();
+
+                const notificationBody = document.getElementById('notificationBody');
+
+                notificationBody.innerHTML = "";
+
+                if (!Array.isArray(notifications)) {
+                    const message = document.createElement('div');
+                    message.textContent = notifications.message;
+                    notificationBody.appendChild(message);2
+                    return;
+                }
+
+                notifications.forEach(notification => {
+                    const notif = document.createElement('div');
+                    notif.classList.add('notifBody');
+
+                    if (notification.isRead === '0') {
+                        notif.classList.add('unread');
+                    }
+
+                    notif.innerHTML = `
+                        <div class="notifHeader">
+                            <h4>${notification.type}</h4>
+                            <p>${formatDate(notification.date)}</p>
+                        </div>
+
+                        <p class="notifContent">${notification.text}</p>
+                    `;
+
+                    notif.addEventListener('click', () => markRead(notification.id));
+
+                    notificationBody.appendChild(notif);
+                })
+
+            } catch (error) {
+                console.error("Error fetching notifications: ", error);
+            }
+        }
+
+        async function markRead(notifID) {
+            try {
+                const response = await fetch("http://localhost:3000/api/volunteer/markRead", {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ notifID: notifID })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // alert(result.message);
+                    closeNotifModal();
+                    openNotifModal();
+                } else {
+                    openMsgModal(0, result.error);
+                }
+
+            } catch (error) {
+                console.error("Error marking notif as read: ", error);
+            }
+        }
+
+
+
+        async function fetchEvents() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/volunteer/allEvents?userID=${userID}`);
+                const allEvents = await response.json();
+
+                let counter = 0;
+
+                // add each event to event container
+
+                const eventsContainer = document.getElementById('eventsContainer');
+                eventsContainer.innerHTML = "";
+
+                allEvents.forEach(row => {
+                    counter++;
+
+                    let urgencyHTML = "";
+
+                    if (row.urgency === 'High') {
+                        urgencyHTML = `
+                        <span class="dot"> <i class="fa-solid fa-circle-exclamation"></i> </span>
+                        `;
+                    }
+
+                    const event = document.createElement('div');
+                    event.className = 'event';
+
+                    event.innerHTML = `
+                        ${urgencyHTML}
+                        <h3>${row.name}</h3>
+
+                        <p><i class="fa-solid fa-location-dot"></i> ${row.city}, ${row.state}</p>
+
+                        <img class="eventImage" src="volunteer/event-images/event-${row.type}.jpg" alt="Event image.">
+
+                        <p class="eventDate">${row.date}</p>
+
+                        <p class="eventSkill">${row.type}</p>
+
+                        <p class="eventDescription">${row.description}</p>
+                        
+                        <button class="newBtn applyBtn" onclick="openApplyModal(${row.eventID})">apply</button>
+                    `;
+
+                    eventsContainer.appendChild(event);
+                });
+
+                if (counter === 0) {  // if no events
+                    eventsContainer.textContent = "No events found.";
+                    eventsContainer.style.textAlign = "center";
+                }
+
+            } catch (error) {
+                console.error("Error fetching events: ", error);
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', handleSearch);
+        document.getElementById('filterType').addEventListener('change', handleSearch);
+
+        async function handleSearch() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const filterType = document.getElementById('filterType').value;
+
+            const response = await fetch(`http://localhost:3000/api/volunteer/allEvents?userID=${userID}`);
+            const allEvents = await response.json();
+
+            let counter = 0;
+
+            const filteredEvents = allEvents.filter(event => {
+                const matchesSearch = event.name.toLowerCase().includes(searchQuery);
+                const matchesType = filterType === "" || event.type === filterType;
+                return matchesSearch && matchesType;
+            });
+
+            const eventsContainer = document.getElementById('eventsContainer');
+            eventsContainer.innerHTML = "";
+
+            filteredEvents.forEach(row => {
+                counter++;
+
+                let urgencyHTML = "";
+
+                if (row.urgency === 'High') {
+                    urgencyHTML = `
+                    <span class="dot"> <i class="fa-solid fa-circle-exclamation"></i> </span>
+                    `;
+                }
+
+                const event = document.createElement('div');
+                event.className = 'event';
+
+                event.innerHTML = `
+                    ${urgencyHTML}
+                    <h3>${row.name}</h3>
+
+                    <p><i class="fa-solid fa-location-dot"></i> ${row.city}, ${row.state}</p>
+
+                    <img class="eventImage" src="volunteer/event-images/event-${row.type}.jpg" alt="Event image.">
+
+                    <p class="eventDate">${row.date}</p>
+
+                    <p class="eventSkill">${row.type}</p>
+
+                    <p class="eventDescription">${row.description}</p>
+                    
+                    <button class="newBtn applyBtn" onclick="openApplyModal(${row.eventID})">apply</button>
+                `;
+
+                eventsContainer.appendChild(event);
+            });
+
+            if (counter === 0) {  // if no events
+                eventsContainer.textContent = "No events found.";
+                eventsContainer.style.textAlign = "center";
+            }
+        }
+
+
+
+        // apply modal
+
+        let currentEventID = null;
+
+        function openApplyModal(eventID) {
+            currentEventID = eventID;
+            document.getElementById("applyModal").style.display = "block";
+        }
+
+        function closeApplyModal() {
+            document.getElementById("applyModal").style.display = "none";
+            currentEventID = null;
+        }
+
+        async function applyToEvent() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/volunteer/apply`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        eventID: currentEventID,
+                        userID: userID,
+                    })
+                });
+
+                const result = await response.json();
+
+                closeApplyModal();
+
+                if (response.ok) {
+                    openMsgModal(1, result.message);
+                    fetchEvents();
+                } else {
+                    openMsgModal(0,result.error);
+                }
+            } catch (error) {
+                console.error("Error sending application to event: ", error);
+            }
+        }
+
+
+
+        // msg modal
+
+        function openMsgModal(type, message) {
+            document.getElementById('msgModal').style.display = "block";
+            const header = document.getElementById('msgHeader');
+            const content = document.getElementById('msgContent');
+
+            if (type == 1)  {   // success
+                header.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                content.textContent = message;
+            } else {    // error
+                header.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                content.textContent = message;
+            }
+        }
+
+        function closeMsgModal() {
+            document.getElementById('msgModal').style.display = "none";
+        }
+
+    </script>
+    
+</body>
+
+</html>

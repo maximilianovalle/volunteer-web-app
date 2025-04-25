@@ -6,6 +6,26 @@
     <title>Manage Your Profile</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        .sign-out-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: #ec660c;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sign-out-button:hover {
+            background-color: #e60000;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #e65c00, #f9d423);
@@ -103,8 +123,12 @@
     </style>
 </head>
 <body>
+    <a href="/" class="sign-out-button">Sign Out</a>
+
     <header>
-        <img src="usermanageprofile/logo.svg" alt="Company Logo" class="logo">
+        <a href="/volunteer-dashboard">
+            <img src="usermanageprofile/logo.svg" alt="Company Logo" class="logo">
+        </a>
     </header>
     <div class="container">
         <h2>Manage Your Profile</h2>

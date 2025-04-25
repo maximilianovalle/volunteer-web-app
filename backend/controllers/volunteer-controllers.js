@@ -1,92 +1,146 @@
 //  Controller: responsible for handling incoming requests and sending responses back to the client - act as intermediaries between routes and application logic. They receive requests, process them using models or services, and then return the appropriate response.
 
-// ! - Controllers get the requested data from the models, create an HTML page displaying the data, and return it to the user.
-
 const db_con = require("../db");
 
-// defines getPastEvents and exports it immediately
-exports.getPastEvents = async (req, res) => {
-    try {
-        const [pastEvents] = await db_con.query("SELECT * FROM event_details WHERE Event_Date < CURDATE()");
+exports.fetchAcceptedEvents = async (req, res) => {
+    const { userID } = req.query;
 
-        res.json(pastEvents);
+    try {
+        const [appliedEvents] = await db_con.query("SELECT events.* FROM event_details AS events, volunteers_list AS list WHERE list.UserID = ? AND list.Status = 'Accepted' AND list.EventID = events.EventID AND events.Event_Date > NOW() ORDER BY events.Event_Date ASC", [userID]);
+
+        const appliedEventsArr = appliedEvents.map(event => ({
+            eventID: event.EventID,
+            name: event.Event_Name,
+            description: event.Description,
+            city: event.Location_City,
+            state: event.Location_State_Code,
+            skill: event.Required_Skills,
+            date: new Date(event.Event_Date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }),
+            type: event.Type,
+        }))
+
+        res.json(appliedEventsArr);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
     }
 };
 
-// defines getCurrentEvents and exports it immediately
-exports.getCurrentEvents = async (req, res) => {
-    try {
-        const [currentEvents] = await db_con.query("SELECT * FROM event_details WHERE Event_Date > CURDATE();");
+exports.fetchAllEvents = async (req, res) => {
+    const { userID } = req.query;
 
-        res.json(currentEvents);
+    try {
+        const [allEvents] = await db_con.query("SELECT * FROM event_details WHERE EventID NOT IN (SELECT EventID FROM volunteers_list WHERE UserID = ?)", [userID]);
+
+        const allEventsArr = allEvents.map(event => ({
+            eventID: event.EventID,
+            name: event.Event_Name,
+            description: event.Description,
+            city: event.Location_City,
+            state: event.Location_State_Code,
+            urgency: event.Urgency,
+            skill: event.Required_Skills,
+            date: new Date(event.Event_Date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }),
+            type: event.Type,
+        }))
+
+        res.json(allEventsArr);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
     }
-};
+}
 
+exports.fetchUser = async (req, res) => {
+    const { userID } = req.query;
 
+    try {
+        const [user] = await db_con.query("SELECT * FROM profile_user WHERE UserID = ?", [userID]);
 
+        if (!user || user.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
-// const crypto = require("crypto");  // generates unique id
+        const currUser = {
+            name: user[0].Full_Name,
+        };
+        
+        res.json(currUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
 
-// // Validate + Create a Notification
+exports.dropEvent = async (req, res) => {
+    const { eventID, userID } = req.body;
 
-// let notifications = [
-//     {id: 1, header: "This is a test", description: "Can you see me?", read_status: 0},  // read_status -- 0: unread, 1: read
-// ];
+    try {
+        await db_con.query("UPDATE volunteers_list SET Status = 'Dropped' WHERE UserID = ? AND EventID = ?", [userID, eventID]);
 
-// exports.validateCreateNotification = (request, response) => {
-//     const { header, description } = request.body;
+        res.status(200).json({ message: "Dropped from event successfully." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
 
-//     if (!header || !description) {
-//         return response.status(400).json({ message: "Missing required fields." });
-//     }
+exports.applyToEvent = async (req, res) => {
+    const { eventID, userID } = req.body;
 
-//     else if (header.length > 70) {
-//         return response.status(400).json({ message: "Header exceeds 70 characters." });
-//     }
+    try {
+        await db_con.query("INSERT INTO volunteers_list (userID, eventID) VALUES (?, ?)", [userID, eventID]);
 
-//     else if (description.length > 900) {
-//         return response.status(400).json({ message: "Description exceeds 900 characters." });
-//     }
+        res.status(200).json({ message: "Applied to event successfully." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
 
-//     const newNotification = {
-//         id: crypto.randomBytes(16).toString("hex"), // unique id
-//         header,
-//         description,
-//         read_status: 0,
-//     };
+exports.markRead = async (req, res) => {
+    const { notifID } = req.body;
 
-//     notifications.push(newNotification);
-//     response.status(201).json(newNotification);
-// };
+    try {
+        await db_con.query("UPDATE notification SET Is_Read = '1' WHERE NotificationID = ?", [notifID]);
 
-// Apply for an Event by ID
+        res.status(200).json({ message: "Marked notification as read." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
 
-// exports.applyToEvent = (request, response) => {
-//     const eventID = request.params.id;
-//     const volunteerID = request.params.id;
+exports.fetchNotifications = async (req, res) => {
+    const { userID } = req.query;
 
-//     const myEvent = findByID(eventID);
-//     myEvent.volunteer_list.append(volunteerID);
-//     response.json({ my: "Successfully completed." });
-// };
+    try {
+        // get all unread notifs + 10 most recent read notifs
+        const [notifications] = await db_con.query("( SELECT * FROM notification WHERE UserID = ? AND Is_Read = '0' ) UNION ALL ( SELECT * FROM notification WHERE UserID = ? AND Is_Read = '1' ORDER BY Created_At DESC LIMIT 10 ) ORDER BY Created_At DESC", [userID, userID]);
 
-// Show All Notifications
+        if (!notifications || notifications.length === 0) {
+            return res.status(200).json({ message: "No notifications found." });
+        }
 
-// exports.showNotifications = (request, response) => {
-//     response.json(notifications);
-// }
+        const notificationArray = notifications.map(notification => ({
+            id: notification.NotificationID,
+            type: notification.Type,
+            text: notification.Notification_Text,
+            date: notification.Created_At,
+            isRead: notification.Is_Read,
+        }))
 
-// Read Notification
-
-// exports.readNotification = (request, response) => {
-//     const notifID = parseInt(request.params.id);
-//     let myNotification = notifications.find(myNotif => myNotif.id === id);
-//     myNotification.read_status = 1;
-//     response.json({ msg: "Notification read." });
-// }
+        res.json(notificationArray);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
