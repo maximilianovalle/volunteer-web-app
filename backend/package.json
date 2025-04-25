@@ -15,16 +15,18 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "csv-writer": "^1.6.0",
     "dotenv": "^16.4.7",
+    "express": "^5.1.0",
     "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.0",
-    "pdfkit": "^0.17.0",
-    "jsonwebtoken": "^9.0.2"
+    "pdfkit": "^0.17.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
-    "livereload": "^0.9.3"
-
+    "livereload": "^0.9.3",
+    "nodemon": "^3.1.10"
   }
 }
