@@ -8,7 +8,7 @@ const path = require("path");
 // Get All Admin-Created Events
 exports.getAdminEvents = async (req, res) => {
     try {
-        const [rows] = await db.query("SELECT * FROM event_details ORDER BY Event_Date DESC");
+        const [rows] = await db.query("SELECT * FROM event_details WHERE is_deleted = FALSE ORDER BY Event_Date DESC");
 
         // ✅ Convert Event_Date to "YYYY-MM-DD" format
         rows.forEach(event => {
@@ -93,28 +93,23 @@ exports.createAdminEvent = async (req, res) => {
 
 
 
-// Delete an Event (Admin Only)
-exports.deleteAdminEvent = async (req, res) => {
+// Soft Delete (Mark is_deleted = true)
+exports.softDeleteEvent = async (req, res) => {
     const eventId = req.params.id;
 
     try {
-        // Check if event exists before attempting to delete it
-        const [eventCheck] = await db.query("SELECT EventID FROM event_details WHERE EventID = ?", [eventId]);
+        const [existing] = await db.query("SELECT * FROM event_details WHERE EventID = ?", [eventId]);
 
-        if (!eventCheck.length) {
+        if (!existing.length) {
             return res.status(404).json({ message: "Event not found" });
         }
 
-        // First, delete volunteers linked to this event
-        await db.query("DELETE FROM volunteers_list WHERE EventID = ?", [eventId]);
+        await db.query("UPDATE event_details SET is_deleted = TRUE WHERE EventID = ?", [eventId]);
 
-        // Then delete the event itself
-        await db.query("DELETE FROM event_details WHERE EventID = ?", [eventId]);
-
-        res.json({ message: "Event and associated volunteers deleted successfully" });
+        res.json({ message: "Event marked as deleted (soft delete)" });
     } catch (error) {
-        console.error("Error deleting event:", error);
-        res.status(500).json({ message: "Database error" });
+        console.error("❌ Error soft deleting event:", error);
+        res.status(500).json({ message: "Database error", error: error.message });
     }
 };
 
@@ -249,8 +244,10 @@ SELECT
 FROM event_details e
 LEFT JOIN volunteers_list v ON e.EventID = v.EventID AND v.Status = 'Accepted'
 LEFT JOIN profile_user p ON v.UserID = p.UserID
+WHERE e.is_deleted = 0
 GROUP BY e.EventID
 ORDER BY e.Event_Date DESC;
+
 
         `);
 

@@ -15,6 +15,26 @@ function normalizeDateOnly(date) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate());
 }
 
+// Soft delete event
+function deleteEvent(eventId, buttonElement) {
+  if (confirm("Are you sure you want to hide this event?")) {
+    fetch(`/api/admin/events/${eventId}/soft-delete`, {
+      method: 'PATCH'
+    })    
+      .then(res => {
+        if (res.ok) {
+          buttonElement.closest("tr").remove();
+        } else {
+          alert("Failed to hide the event.");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Something went wrong.");
+      });
+  }
+}
+
 // Format each event assignment row
 function formatEventRow(event) {
   return `
@@ -26,6 +46,7 @@ function formatEventRow(event) {
       <td>${event.Required_Skills}</td>
       <td>${event.Urgency}</td>
       <td>${event.Volunteer_Names || '—'}</td>
+      <td><button class="delete-btn" onclick="deleteEvent('${event.EventID}', this)">Delete</button></td>
     </tr>`;
 }
 
