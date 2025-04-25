@@ -358,7 +358,7 @@
             <button id="browseEventsBtn" onclick="window.location.href='/browse-events'">Browse Events <i class="iconStyle fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <h2 id="welcomeMessage">Hi, [Name]!</h2>
+        <h2 id="welcomeMessage">Welcome!</h2>
         <p>Here are your upcoming events...</p>
 
         <!-- upcoming events container -->
@@ -556,7 +556,7 @@
                 console.log("User fetched: ", user.name);
 
                 const welcomeMessage = document.getElementById('welcomeMessage');
-                welcomeMessage.textContent = `Hi, ${user.name}!`;
+                welcomeMessage.textContent = `Hi!`;
 
             } catch (error) {
                 console.error("Error fetching user: ", error);
