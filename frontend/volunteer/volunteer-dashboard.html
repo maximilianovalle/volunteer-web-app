@@ -23,6 +23,10 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
+
+
+        /* header + modal buttons */
+        
         #header {
             height: 5vh;    /* connected to #main height */
             min-height: 52px;
@@ -32,7 +36,7 @@
             padding: 0px 250px;
             align-items: center;
 
-            background-color: #ecebeb;
+            background-color: #fff;
             box-shadow: #ec660c;
         }
 
@@ -49,50 +53,107 @@
             justify-content: space-between;
         }
 
-        #signOutBtn {
-            height: 80%;
-            width: 100px;
-
-            background-color: #ec660c;
-            color: white;
-            font-size: 16px;
-
-            border: 2px solid #ec660c;
-            border-radius: 4px;
-        }
-
-        #signOutBtn:hover {
-            background-color: white;
-            color: #ec660c;
-
-            cursor: pointer;
-        }
-
-
-
-        #main {
-            min-height: 87vh;   /* connected to #header height */
-
-            max-width: 1200px;  /* page side spacing */
-            margin: 0px auto;
-
-            margin-top: 4vh;
-            margin-bottom: 4vh;
-
-            color: #ffffff;
-        }
-
         .iconStyle {
             font-size: 24px;
         }
 
         .iconBtn {
             border: none;
+            background-color: transparent;
         }
 
         .iconBtn:hover {
             cursor: pointer;
             color: #ec660c;
+        }
+
+        .notificationsContainer {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .notifBody {
+            padding: 20px 14px;
+            border-bottom: 2px solid black;
+            text-align: left;
+        }
+
+        .notifBody:hover {
+            cursor: pointer;
+        }
+
+        .unread {
+            color: #ec660c;
+        }
+
+        .notifHeader {
+            padding-bottom: 4px;
+            border-bottom: 2px solid #ecebeb;
+            margin-bottom: 4px;
+
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .notifContent {
+            max-width: 90%;
+            margin: 0px auto;
+            color: black;
+        }
+
+        #signOutBtn, .dropOutBtn, .modalConfirm {
+            height: 80%;
+            width: 100px;
+
+            background-color: #ec660c;
+            color: #fff;
+            font-size: 16px;
+
+            border: 2px solid #ec660c;
+            border-radius: 4px;
+        }
+
+        #signOutBtn:hover, .dropOutBtn:hover, .modalConfirm:hover {
+            background-color: #fff;
+            color: #ec660c;
+
+            cursor: pointer;
+        }
+
+        .modalCancel {
+            height: 80%;
+            width: 100px;
+
+            background-color: #fff;
+            color: #ec660c;
+            font-size: 16px;
+
+            border: none;
+            border-radius: 4px;
+        }
+
+        .modalCancel:hover {
+            /* background-color: #ecebeb; */
+            color: black;
+
+            border: none;
+            cursor: pointer;
+        }
+
+
+
+        #main {
+            animation: fade-in 0.5s ease;
+
+            min-height: 87vh;   /* connected to #header height */
+            max-width: 1200px;  /* page side spacing */
+            margin: 0px auto;
+
+            margin-top: 4vh;
+            margin-bottom: 4vh;
+
+            color: #fff;
         }
 
         #topText {
@@ -126,12 +187,12 @@
             height: 48px;
             margin: 24px 0px;
 
-            background-color: #ecebeb;
+            background-color: white;
         }
 
         #browseEventsBtn:hover {
             cursor: pointer;
-            background-color: #d8d8d8;
+            background-color: #ecebeb;
         }
 
 
@@ -146,7 +207,7 @@
         }
 
         .upcomingEvent {
-            background-color: #ecebeb;
+            background-color: #fff;
             box-shadow: #ec660c;
             color: black;
 
@@ -186,58 +247,57 @@
         .eventDescription {
             text-align: center;
             max-height: 200px;
+            min-height: 40px;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
 
 
-        #pastEventsHeader {
-            text-align: center;
-            font-size: 28px;
-            padding: 8px 0px;
-            border-bottom: 2px solid #ecebeb;
+        /* modal */
+
+        .modal {
+            display: none;  /* hidden by default */
+            position: fixed;
+            overflow: auto;
+
+            z-index: 999;
+            left: 0;
+            top: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background-color: rgba(0, 0, 0, 0.4);
         }
-        
-        #pastEventsContainer {
-            width: 100%;
-            padding: 32px 24px;
 
-            display: grid;
-            row-gap: 24px;
-        }
-        
-        .pastEvent {
-            background-color: #ecebeb;
-            box-shadow: #ec660c;
-            color: black;
+        .modalBox {
+            max-width: 400px;
+            min-width: 300px;
+            max-height: 450px;
+            min-height: 100px;
 
-            width: 60%;
-            min-height: 125px;
-            padding: 8px 12px;
-            margin: 0px auto;
+            padding: 32px;
+            margin: 12% auto;
 
-            box-sizing: border-box;
             border-radius: 6px;
+            background-color: #fff;
+            color: black;
+            text-align: center;
 
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-between;
-            column-gap: 12px;
         }
 
-        .eventTextContainer {
-            min-height: 125px;
+        .modalBox h3 {
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            border-bottom: 2px solid black;
         }
 
-        .pastEventImage {
-            max-height: 125px;
-            margin: 8px 0px;
-            border-radius: 4px;
-        }
-
-        .pastEventDescription {
-            max-height: 92px;
+        .modalBtnsContainer {
+            margin-top: 4px;
         }
 
     </style>
@@ -259,9 +319,25 @@
         <h2 onclick="window.location.href='/volunteer-dashboard'">Placeholder</h2> <!-- !! -->
 
         <div> <!-- !! -->
-            <button onclick="openNotifications()" class="iconBtn"><i class="iconStyle fa-solid fa-bell"></i></button>
+            <button onclick="openNotifModal()" class="iconBtn"><i class="iconStyle fa-solid fa-bell"></i></button>
             <button onclick="window.location.href='/user-manage-profile'" class="iconBtn"><i class="iconStyle fa-solid fa-user"></i></button>
             <button onclick="logout()" id="signOutBtn">Sign Out</button>
+        </div>
+
+    </div>
+
+    <!-- notification modal -->
+    <div id="notificationModal" class="modal" onclick="closeNotifModal()">
+
+        <div class="notificationsContainer modalBox">
+            <h3>Notifications</h3> <!-- !! -->
+
+            <div id="notificationBody">
+
+                <!-- fetchNotifications() -->
+
+            </div>
+
         </div>
 
     </div>
@@ -280,28 +356,43 @@
             <button id="browseEventsBtn" onclick="window.location.href='/browse-events'">Browse Events <i class="iconStyle fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <h2>Hi, [Name]!</h2>
+        <h2 id="welcomeMessage">Hi, [Name]!</h2>
         <p>Here are your upcoming events...</p>
 
-        <!-- upcoming events carousel -->
+        <!-- upcoming events container -->
         <div id="upcomingEventsContainer">
 
-            <!-- event -->
-            <div class="upcomingEvent">
+            <!-- fetchAcceptedEvents() -->
 
-                <div class="eventHeader">
-                    <h3>Event Name</h3>
-                    <p>CA <i class="fa-solid fa-location-dot"></i></p>
-                </div>
+        </div>
 
-                <img class="eventImage" src="volunteer/event-images/event-all.jpg" alt="Event">
+    </div>
 
-                <p class="eventDate">April 23, 2025</p>
+    <!-- drop out modal -->
+    <div id="dropOutModal" class="modal" onclick="closeDropModal()">
 
-                <p class="eventDescription">Event description, blah blah. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Event description, blah blah. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="modalBox">
+            <h3>Are you sure you wish to leave this event?</h3> <!-- !! -->
+            <p>You will no longer be allowed to participate in this event. Your name will be removed from the volunteer list.</p>
 
+            <div class="modalBtnsContainer">
+                <button class="modalConfirm" onclick="dropEvent()">leave <i class="fa-solid fa-person-walking-arrow-right"></i></button>
+                <button class="modalCancel" onclick="closeDropModal()">cancel</button>
             </div>
+        </div>
 
+    </div>
+
+    <!-- success/error modal -->
+    <div id="msgModal" class="modal" onclick="closeMsgModal()">
+
+        <div class="modalBox">
+            <p id="msgHeader"></p>
+            <p id="msgContent"></p>
+
+            <div class="modalBtnsContainer">
+                <button class="modalConfirm" onclick="closeMsgModal()">ok</button>
+            </div>
         </div>
 
     </div>
@@ -324,9 +415,91 @@
 
         // notifications modal
 
-        async function openNotifications() {
-            // TODO: notifications modal
+        function openNotifModal() {
+            fetchNotifications();
+            document.getElementById('notificationModal').style.display = "block";
         }
+
+        function closeNotifModal() {
+            document.getElementById('notificationModal').style.display = "none";
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+
+            const year = date.getFullYear();
+            const month = (`0${date.getMonth() + 1}`).slice(-2); // add 1 since months are 0-indexed
+            const day = (`0${date.getDate()}`).slice(-2);
+
+            const hours = (`0${date.getHours()}`).slice(-2);
+            const minutes = (`0${date.getMinutes()}`).slice(-2);
+            const seconds = (`0${date.getSeconds()}`).slice(-2);
+
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        async function fetchNotifications() {
+            try {
+                const response = await fetch("http://localhost:3000/api/volunteer/notifications");
+                const notifications = await response.json();
+
+                const notificationBody = document.getElementById('notificationBody');
+
+                notificationBody.innerHTML = "";
+
+                notifications.forEach(notification => {
+                    const notif = document.createElement('div');
+                    notif.classList.add('notifBody');
+
+                    if (notification.isRead === '0') {
+                        notif.classList.add('unread');
+                    }
+
+                    notif.innerHTML = `
+                        <div class="notifHeader">
+                            <h4>${notification.type}</h4>
+                            <p>${formatDate(notification.date)}</p>
+                        </div>
+
+                        <p class="notifContent">${notification.text}</p>
+                    `;
+
+                    notif.addEventListener('click', () => markRead(notification.id));
+
+                    notificationBody.appendChild(notif);
+                })
+
+            } catch (error) {
+                console.error("Error fetching notifications: ", error);
+            }
+        }
+
+        async function markRead(notifID) {
+            try {
+                const response = await fetch("http://localhost:3000/api/volunteer/markRead", {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ notifID: notifID })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // alert(result.message);
+                    closeNotifModal();
+                    openNotifModal();
+                } else {
+                    openMsgModal(0, result.error);
+                }
+
+            } catch (error) {
+                console.error("Error marking notif as read: ", error);
+            }
+        }
+
+
 
         // current date
 
@@ -336,20 +509,136 @@
         const formattedDate = today.toLocaleDateString('en-US', options);
         dateElement.textContent = formattedDate;
 
+        // get user information
+
+        async function fetchUser() {
+            try {
+                const response = await fetch("http://localhost:3000/api/volunteer/user");
+                const user = await response.json();
+                console.log("User fetched: ", user.name);
+
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                welcomeMessage.textContent = `Hi, ${user.name}!`;
+
+            } catch (error) {
+                console.error("Error fetching user: ", error);
+            }
+        }
+
         // display current events function
 
         async function fetchAcceptedEvents() {
             try {
                 const response = await fetch("http://localhost:3000/api/volunteer/accepted");
                 const acceptedEvents = await response.json();
+
+                let counter = 0;
+
+                // add each upcoming event to event container
+
+                const upcomingEventsContainer = document.getElementById('upcomingEventsContainer');
+
+                upcomingEventsContainer.innerHTML = "";
+
+                acceptedEvents.forEach(event => {
+                    counter++;
+                    const upcomingEvent = document.createElement('div');
+                    upcomingEvent.className = 'upcomingEvent';
+
+                    upcomingEvent.innerHTML = `
+                        <h3>${event.name}</h3>
+                        <p><i class="fa-solid fa-location-dot"></i> ${event.city}, ${event.state}</p>
+
+                        <img class="eventImage" src="volunteer/event-images/event-${event.type}.jpg" alt="Event image.">
+
+                        <p class="eventDate">${event.date}</p>
+
+                        <p class="eventDescription">${event.description}</p>
+                        
+                        <button class="iconBtn" onclick="openDropModal(${event.eventID})">leave event</button>
+                    `;
+
+                    upcomingEventsContainer.appendChild(upcomingEvent);
+                });
+
+                if (counter === 0) {  // if no events
+                    upcomingEventsContainer.textContent = "No events found.";
+                    upcomingEventsContainer.style.textAlign = "center";
+                }
+
             } catch (error) {
-                console.error("Error fetching your events: ", error);
+                console.error("Error fetching your upcoming events: ", error);
             }
         }
 
         // call functions when page loads
 
+        fetchUser();
         fetchAcceptedEvents();
+
+
+
+        // drop out modal
+
+        let currentEventID = null;
+
+        function openDropModal(eventID) {
+            currentEventID = eventID;
+            document.getElementById("dropOutModal").style.display = "block";
+        }
+
+        function closeDropModal() {
+            document.getElementById("dropOutModal").style.display = "none";
+            currentEventID = null;
+        }
+
+        async function dropEvent() {
+            try {
+                const response = await fetch('http://localhost:3000/api/volunteer/drop', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ eventID: currentEventID })
+                });
+
+                const result = await response.json();
+
+                closeDropModal();
+
+                if (response.ok) {
+                    openMsgModal(1, result.message);
+                    fetchAcceptedEvents();
+                } else {
+                    openMsgModal(0, result.error);
+                }
+
+            } catch (error) {
+                console.error("Error dropping event: ", error);
+            }
+        }
+
+
+
+        // msg modal
+
+        function openMsgModal(type, message) {
+            document.getElementById('msgModal').style.display = "block";
+            const header = document.getElementById('msgHeader');
+            const content = document.getElementById('msgContent');
+
+            if (type == 1)  {   // success
+                header.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                content.textContent = message;
+            } else {    // error
+                header.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                content.textContent = message;
+            }
+        }
+
+        function closeMsgModal() {
+            document.getElementById('msgModal').style.display = "none";
+        }
 
     </script>
     
