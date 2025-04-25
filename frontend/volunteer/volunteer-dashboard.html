@@ -216,6 +216,7 @@
 
             box-sizing: border-box;
             border-radius: 6px;
+            text-align: center;
 
             display: flex;
             flex-direction: column;
@@ -326,6 +327,7 @@
     </div>
 
     <!-- notification modal -->
+
     <div id="notificationModal" class="modal" onclick="closeNotifModal()">
 
         <div class="notificationsContainer modalBox">
@@ -346,6 +348,7 @@
     <div id="main">
 
         <!-- top text -->
+
         <div id="topText">
             <h1>Volunteer Dashboard</h1>    <!-- !! -->
             <p id="currDate">Today's Date</p>
@@ -359,6 +362,7 @@
         <p>Here are your upcoming events...</p>
 
         <!-- upcoming events container -->
+
         <div id="upcomingEventsContainer">
 
             <!-- fetchAcceptedEvents() -->
@@ -368,6 +372,7 @@
     </div>
 
     <!-- drop out modal -->
+
     <div id="dropOutModal" class="modal" onclick="closeDropModal()">
 
         <div class="modalBox">
@@ -383,6 +388,7 @@
     </div>
 
     <!-- success/error modal -->
+    
     <div id="msgModal" class="modal" onclick="closeMsgModal()">
 
         <div class="modalBox">
@@ -475,7 +481,7 @@
                 if (!Array.isArray(notifications)) {
                     const message = document.createElement('div');
                     message.textContent = notifications.message;
-                    notificationBody.appendChild(message);
+                    notificationBody.appendChild(message);2
                     return;
                 }
 

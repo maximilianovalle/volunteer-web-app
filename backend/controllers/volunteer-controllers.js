@@ -30,6 +30,35 @@ exports.fetchAcceptedEvents = async (req, res) => {
     }
 };
 
+exports.fetchAllEvents = async (req, res) => {
+    const { userID } = req.query;
+
+    try {
+        const [allEvents] = await db_con.query("SELECT * FROM event_details WHERE EventID NOT IN (SELECT EventID FROM volunteers_list WHERE UserID = ?)", [userID]);
+
+        const allEventsArr = allEvents.map(event => ({
+            eventID: event.EventID,
+            name: event.Event_Name,
+            description: event.Description,
+            city: event.Location_City,
+            state: event.Location_State_Code,
+            urgency: event.Urgency,
+            skill: event.Required_Skills,
+            date: new Date(event.Event_Date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }),
+            type: event.Type,
+        }))
+
+        res.json(allEventsArr);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.fetchUser = async (req, res) => {
     const { userID } = req.query;
 
@@ -58,6 +87,19 @@ exports.dropEvent = async (req, res) => {
         await db_con.query("UPDATE volunteers_list SET Status = 'Dropped' WHERE UserID = ? AND EventID = ?", [userID, eventID]);
 
         res.status(200).json({ message: "Dropped from event successfully." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
+exports.applyToEvent = async (req, res) => {
+    const { eventID, userID } = req.body;
+
+    try {
+        await db_con.query("INSERT INTO volunteers_list (userID, eventID) VALUES (?, ?)", [userID, eventID]);
+
+        res.status(200).json({ message: "Applied to event successfully." });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });

@@ -102,7 +102,7 @@
             color: black;
         }
 
-        #signOutBtn {
+        #signOutBtn, .applyBtn, .modalConfirm {
             height: 80%;
             width: 100px;
 
@@ -114,10 +114,29 @@
             border-radius: 4px;
         }
 
-        #signOutBtn:hover {
+        #signOutBtn:hover, .applyBtn:hover, .modalConfirm:hover {
             background-color: white;
             color: #ec660c;
 
+            cursor: pointer;
+        }
+
+        .modalCancel {
+            height: 80%;
+            width: 100px;
+
+            background-color: #fff;
+            color: #ec660c;
+            font-size: 16px;
+
+            border: none;
+            border-radius: 4px;
+        }
+
+        .modalCancel:hover {
+            color: black;
+
+            border: none;
             cursor: pointer;
         }
 
@@ -147,6 +166,110 @@
             display: flex;
             align-items: baseline;
             justify-content: space-between;
+        }
+
+
+
+        #searchContainer {
+            margin: 16px 0px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            row-gap: 12px;
+        }
+
+        #searchInput, #filterType {
+            height: 34px;
+        }
+
+        #searchInput {
+            width: 375px;
+            padding: 4px 8px;
+
+            box-sizing: border-box;
+            border-radius: 6px;
+            border: none;
+
+            background-color: #fff;
+        }
+
+        #filterType {
+            border-radius: 4px;
+            border: none;
+
+            background-color: #fff;
+        }
+
+
+
+        #eventsContainer {
+            width: 100%;
+            padding: 32px 24px;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            row-gap: 24px;
+        }
+
+        .event {
+            background-color: #fff;
+            box-shadow: #ec660c;
+            color: black;
+
+            max-width: 250px;
+            min-height: 300px;
+            padding: 8px 12px;
+
+            box-sizing: border-box;
+            border-radius: 6px;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dot {
+            color: #ec660c;
+        }
+
+        .eventImage {
+            max-width: 100%;
+            max-height: 150px;
+            margin: 8px 0px;
+            border-radius: 4px;
+        }
+
+        .eventDate {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .eventSkill {
+            height: 32px;
+            min-width: 52px;
+            padding: 8px 4px;
+
+            box-sizing: border-box;
+            border-radius: 12px;
+
+            background-color: #ecebeb;
+        }
+
+        .eventDescription {
+            text-align: center;
+            max-height: 200px;
+            min-height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .newBtn {
+            height: 32px;
         }
 
 
@@ -246,16 +369,59 @@
 
         <!-- search + filters -->
 
-        <input type="text" id="searchInput" placeholder="Search Event...">
+        <div id="searchContainer">
 
-        <select id="filterType">
-            <option value="">All</option>
-            <option value="Animal Shelter">Animal Shelters</option>
-            <option value="Community Service">Community Service</option>
-            <option value="Environment">Environment</option>
-            <option value="Healthcare">Healthcare</option>
-            <option value="Education">Education</option>
-        </select>
+            <input type="text" id="searchInput" placeholder="Search Event...">
+
+            <select id="filterType">
+                <option value="">All</option>
+                <option value="Animal Shelter">Animal Shelters</option>
+                <option value="Community Service">Community Service</option>
+                <option value="Environment">Environment</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+            </select>
+
+        </div>
+
+        <!-- events container -->
+
+        <div id="eventsContainer">
+
+            <!-- fetchEvents(); -->
+
+        </div>
+
+        <!-- apply modal -->
+
+        <div id="applyModal" class="modal" onclick="closeApplyModal()">
+
+            <div class="modalBox">
+                <h3>Apply to this event?</h3> <!-- !! -->
+                <p>If accepted, you will be expected to attend.</p>
+
+                <div class="modalBtnsContainer">
+                    <button class="modalConfirm" onclick="applyToEvent()">apply</button>
+                    <button class="modalCancel" onclick="closeApplyModal()">cancel</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- success/error modal -->
+    
+        <div id="msgModal" class="modal" onclick="closeMsgModal()">
+
+            <div class="modalBox">
+                <p id="msgHeader"></p>
+                <p id="msgContent"></p>
+
+                <div class="modalBtnsContainer">
+                    <button class="modalConfirm" onclick="closeMsgModal()">ok</button>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
@@ -286,6 +452,8 @@
 
                 window.userID = userData.id;
             }
+
+            fetchEvents();
         });
 
         // logout function
@@ -387,6 +555,191 @@
             } catch (error) {
                 console.error("Error marking notif as read: ", error);
             }
+        }
+
+
+
+        async function fetchEvents() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/volunteer/allEvents?userID=${userID}`);
+                const allEvents = await response.json();
+
+                let counter = 0;
+
+                // add each event to event container
+
+                const eventsContainer = document.getElementById('eventsContainer');
+                eventsContainer.innerHTML = "";
+
+                allEvents.forEach(row => {
+                    counter++;
+
+                    let urgencyHTML = "";
+
+                    if (row.urgency === 'High') {
+                        urgencyHTML = `
+                        <span class="dot"> <i class="fa-solid fa-circle-exclamation"></i> </span>
+                        `;
+                    }
+
+                    const event = document.createElement('div');
+                    event.className = 'event';
+
+                    event.innerHTML = `
+                        ${urgencyHTML}
+                        <h3>${row.name}</h3>
+
+                        <p><i class="fa-solid fa-location-dot"></i> ${row.city}, ${row.state}</p>
+
+                        <img class="eventImage" src="volunteer/event-images/event-${row.type}.jpg" alt="Event image.">
+
+                        <p class="eventDate">${row.date}</p>
+
+                        <p class="eventSkill">${row.type}</p>
+
+                        <p class="eventDescription">${row.description}</p>
+                        
+                        <button class="newBtn applyBtn" onclick="openApplyModal(${row.eventID})">apply</button>
+                    `;
+
+                    eventsContainer.appendChild(event);
+                });
+
+                if (counter === 0) {  // if no events
+                    eventsContainer.textContent = "No events found.";
+                    eventsContainer.style.textAlign = "center";
+                }
+
+            } catch (error) {
+                console.error("Error fetching events: ", error);
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', handleSearch);
+        document.getElementById('filterType').addEventListener('change', handleSearch);
+
+        async function handleSearch() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const filterType = document.getElementById('filterType').value;
+
+            const response = await fetch(`http://localhost:3000/api/volunteer/allEvents?userID=${userID}`);
+            const allEvents = await response.json();
+
+            let counter = 0;
+
+            const filteredEvents = allEvents.filter(event => {
+                const matchesSearch = event.name.toLowerCase().includes(searchQuery);
+                const matchesType = filterType === "" || event.type === filterType;
+                return matchesSearch && matchesType;
+            });
+
+            const eventsContainer = document.getElementById('eventsContainer');
+            eventsContainer.innerHTML = "";
+
+            filteredEvents.forEach(row => {
+                counter++;
+
+                let urgencyHTML = "";
+
+                if (row.urgency === 'High') {
+                    urgencyHTML = `
+                    <span class="dot"> <i class="fa-solid fa-circle-exclamation"></i> </span>
+                    `;
+                }
+
+                const event = document.createElement('div');
+                event.className = 'event';
+
+                event.innerHTML = `
+                    ${urgencyHTML}
+                    <h3>${row.name}</h3>
+
+                    <p><i class="fa-solid fa-location-dot"></i> ${row.city}, ${row.state}</p>
+
+                    <img class="eventImage" src="volunteer/event-images/event-${row.type}.jpg" alt="Event image.">
+
+                    <p class="eventDate">${row.date}</p>
+
+                    <p class="eventSkill">${row.type}</p>
+
+                    <p class="eventDescription">${row.description}</p>
+                    
+                    <button class="newBtn applyBtn" onclick="openApplyModal(${row.eventID})">apply</button>
+                `;
+
+                eventsContainer.appendChild(event);
+            });
+
+            if (counter === 0) {  // if no events
+                eventsContainer.textContent = "No events found.";
+                eventsContainer.style.textAlign = "center";
+            }
+        }
+
+
+
+        // apply modal
+
+        let currentEventID = null;
+
+        function openApplyModal(eventID) {
+            currentEventID = eventID;
+            document.getElementById("applyModal").style.display = "block";
+        }
+
+        function closeApplyModal() {
+            document.getElementById("applyModal").style.display = "none";
+            currentEventID = null;
+        }
+
+        async function applyToEvent() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/volunteer/apply`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        eventID: currentEventID,
+                        userID: userID,
+                    })
+                });
+
+                const result = await response.json();
+
+                closeApplyModal();
+
+                if (response.ok) {
+                    openMsgModal(1, result.message);
+                    fetchEvents();
+                } else {
+                    openMsgModal(0,result.error);
+                }
+            } catch (error) {
+                console.error("Error sending application to event: ", error);
+            }
+        }
+
+
+
+        // msg modal
+
+        function openMsgModal(type, message) {
+            document.getElementById('msgModal').style.display = "block";
+            const header = document.getElementById('msgHeader');
+            const content = document.getElementById('msgContent');
+
+            if (type == 1)  {   // success
+                header.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                content.textContent = message;
+            } else {    // error
+                header.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                content.textContent = message;
+            }
+        }
+
+        function closeMsgModal() {
+            document.getElementById('msgModal').style.display = "none";
         }
 
     </script>
