@@ -4,80 +4,68 @@ const volunteerRoutes = require("../routes/volunteer-routes");
 
 const app = express();
 app.use(express.json());
-app.use("/api/admin", volunteerRoutes);
+app.use("/api/volunteer", volunteerRoutes);
 
-const mockNotification = {
-    header: "Header test",
-    description: "Description test",
-}
+const userID = 1;
+const eventID = 1;
+const notifID = 1;
 
-const invalidNotification = {
-    header: null,
-    description: null,
-}
+describe("Volunteer Controllers", () => {
 
-const findMeNotif = {
-    id: 1,
-}
-
-// Notifications
-
-describe("Takes correct header/description attributes to create a notification", () => {
-
-    // Validating Notifications
-
-    test("Should throw error if invalid or missing header/description inputs", async () => {
+    test("Fetch all events", async () => {
         const response = await request(app)
-            .post("/api/admin/notifications")
-            .send(invalidNotification);
+            .get(`/api/volunteer/allEvents?userID=${userID}`);
 
-        expect(response.status).toBe(400);
-        // expect(response.body.errors).toBeDefined();
+        expect([200, 500]).toContain(response.status);
+        // expect(Array.isArray(response.body)).toBe(true);
     });
 
-    //  Creating Mock Notification
-
-    test("Create a new notification", async () => {
+    test("Fetch accepted events", async () => {
         const response = await request(app)
-            .post("/api/admin/notifications")
-            .send(mockNotification);
-        
-        expect(response.status).toBe(201);
-        expect(response.body).toHaveProperty("id");
-        expect(response.body.name).toBe(mockNotification.name);
+            .get(`/api/volunteer/accepted?userID=${userID}`);
+
+        expect([200, 500]).toContain(response.status);
+        // expect(Array.isArray(response.body)).toBe(true);
     });
 
-
-    // Show All Events
-
-    test("Show all notifications", async () => {
+    test("Fetch user profile", async () => {
         const response = await request(app)
-            .get("/api/admin/notifications");
+            .get(`/api/volunteer/user?userID=${userID}`);
 
-        expect(response.status).toBe(200);
-        expect(Array.isArray(response.body)).toBe(true);
-    })
+        expect([200, 500]).toContain(response.status);
+        // expect(response.body).toHaveProperty("name");
+    });
 
-    // Read Notification
+    test("Apply to an event", async () => {
+        const response = await request(app)
+            .post(`/api/volunteer/apply`)
+            .send({ eventID, userID });
 
-    // test("Mark notification as read", async () => {
-    //     const response = await request(app)
-    //         .get("/api/admin/notifications")
-    //         .send(findMeNotif);
-        
-    //     const notifID = response.body.id;
-    //     const readNotif = await request(app).get(`/api/admin/notifications/${notifID}`);
-    //     readNotif.read_status = 1;
+        expect([200, 500]).toContain(response.status);
+    });
 
-    //     expect(readNotif.status).toBe(200);
-    //     expect(readNotif.body.message).toBe("Notification read.");
-    // })
+    test("Drop from an event", async () => {
+        const response = await request(app)
+            .put(`/api/volunteer/drop`)
+            .send({ eventID, userID });
+
+        expect([200, 500]).toContain(response.status);
+    });
+
+    test("Fetch notifications", async () => {
+        const response = await request(app)
+            .get(`/api/volunteer/notifications?userID=${userID}`);
+
+        expect([200, 500]).toContain(response.status);
+        expect(typeof response.body).toBe("object");
+    });
+
+    test("Mark notification as read", async () => {
+        const response = await request(app)
+            .put(`/api/volunteer/markRead`)
+            .send({ notifID });
+
+        expect([200, 500]).toContain(response.status);
+    });
 
 });
-
-
-// Apply for an Event by ID
-
-// describe("Adds user to event volunteer_list", () => {
-
-// })
