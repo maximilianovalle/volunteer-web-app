@@ -61,10 +61,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const data = await response.json();
                 if (response.ok) {
-                    window.location.href = "/Login/index.html";
+                    if (data.role === "volunteer") {
+                        window.location.href = "/user-manage-profile";
+                    } else {
+                        window.location.href = "/admin-dashboard";
+                    }
                 } else {
                     alert(data.message || "Signup failed. Please check your information.");
                 }
+                
+                
             } catch (error) {
                 console.error("Error:", error);
                 alert("An error occurred. Please try again later.");
