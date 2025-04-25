@@ -10,7 +10,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { fetchAcceptedEvents, fetchUser, dropEvent, fetchNotifications, markRead } = require("../controllers/volunteer-controllers");
+const { fetchAcceptedEvents, fetchUser, dropEvent, applyToEvent, fetchNotifications, markRead, fetchAllEvents } = require("../controllers/volunteer-controllers");
 
 
 router.get("/accepted", fetchAcceptedEvents);
@@ -19,9 +19,13 @@ router.get("/user", fetchUser);
 
 router.put("/drop", dropEvent);
 
+router.post("/apply", applyToEvent);
+
 router.put("/markRead", markRead);
 
 router.get("/notifications", fetchNotifications);
+
+router.get("/allEvents", fetchAllEvents);
 
 
 module.exports = router;
