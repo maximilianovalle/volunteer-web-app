@@ -402,7 +402,33 @@
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+
     <script>
+
+        let userID = null;
+
+        // userID token
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const token = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('access-token='))
+                ?.split('=')[1];
+
+            if (token) {
+                const userData = jwt_decode(token);
+                console.log("Decoded token:");
+                console.log("ID:", userData.id);
+                console.log("Email:", userData.email);
+                console.log("Role:", userData.role);
+
+                userID = userData.id;
+            }
+
+            fetchUser();
+            fetchAcceptedEvents();
+        });
 
         // logout function
 
@@ -439,12 +465,19 @@
 
         async function fetchNotifications() {
             try {
-                const response = await fetch("http://localhost:3000/api/volunteer/notifications");
+                const response = await fetch(`http://localhost:3000/api/volunteer/notifications?userID=${userID}`);
                 const notifications = await response.json();
 
                 const notificationBody = document.getElementById('notificationBody');
 
                 notificationBody.innerHTML = "";
+
+                if (!Array.isArray(notifications)) {
+                    const message = document.createElement('div');
+                    message.textContent = notifications.message;
+                    notificationBody.appendChild(message);
+                    return;
+                }
 
                 notifications.forEach(notification => {
                     const notif = document.createElement('div');
@@ -512,7 +545,7 @@
 
         async function fetchUser() {
             try {
-                const response = await fetch("http://localhost:3000/api/volunteer/user");
+                const response = await fetch(`http://localhost:3000/api/volunteer/user?userID=${userID}`);
                 const user = await response.json();
                 console.log("User fetched: ", user.name);
 
@@ -528,7 +561,7 @@
 
         async function fetchAcceptedEvents() {
             try {
-                const response = await fetch("http://localhost:3000/api/volunteer/accepted");
+                const response = await fetch(`http://localhost:3000/api/volunteer/accepted?userID=${userID}`);
                 const acceptedEvents = await response.json();
 
                 let counter = 0;
@@ -572,9 +605,6 @@
 
         // call functions when page loads
 
-        fetchUser();
-        fetchAcceptedEvents();
-
 
 
         // drop out modal
@@ -598,7 +628,10 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ eventID: currentEventID })
+                    body: JSON.stringify({
+                        eventID: currentEventID,
+                        userID: userID,
+                    })
                 });
 
                 const result = await response.json();

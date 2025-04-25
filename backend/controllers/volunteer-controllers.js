@@ -2,11 +2,11 @@
 
 const db_con = require("../db");
 
-const USER = 2;
-
 exports.fetchAcceptedEvents = async (req, res) => {
+    const { userID } = req.query;
+
     try {
-        const [appliedEvents] = await db_con.query("SELECT events.* FROM event_details AS events, volunteers_list AS list WHERE list.UserID = ? AND list.Status = 'Accepted' AND list.EventID = events.EventID AND events.Event_Date > NOW() ORDER BY events.Event_Date ASC", [USER]);
+        const [appliedEvents] = await db_con.query("SELECT events.* FROM event_details AS events, volunteers_list AS list WHERE list.UserID = ? AND list.Status = 'Accepted' AND list.EventID = events.EventID AND events.Event_Date > NOW() ORDER BY events.Event_Date ASC", [userID]);
 
         const appliedEventsArr = appliedEvents.map(event => ({
             eventID: event.EventID,
@@ -31,8 +31,14 @@ exports.fetchAcceptedEvents = async (req, res) => {
 };
 
 exports.fetchUser = async (req, res) => {
+    const { userID } = req.query;
+
     try {
-        const [user] = await db_con.query("SELECT * FROM profile_user WHERE UserID = ?", [USER]);
+        const [user] = await db_con.query("SELECT * FROM profile_user WHERE UserID = ?", [userID]);
+
+        if (!user || user.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
         const currUser = {
             name: user[0].Full_Name,
@@ -46,10 +52,10 @@ exports.fetchUser = async (req, res) => {
 }
 
 exports.dropEvent = async (req, res) => {
-    const { eventID } = req.body;
+    const { eventID, userID } = req.body;
 
     try {
-        await db_con.query("UPDATE volunteers_list SET Status = 'Dropped' WHERE UserID = ? AND EventID = ?", [USER, eventID]);
+        await db_con.query("UPDATE volunteers_list SET Status = 'Dropped' WHERE UserID = ? AND EventID = ?", [userID, eventID]);
 
         res.status(200).json({ message: "Dropped from event successfully." });
     } catch (error) {
@@ -72,9 +78,15 @@ exports.markRead = async (req, res) => {
 }
 
 exports.fetchNotifications = async (req, res) => {
+    const { userID } = req.query;
+
     try {
         // get all unread notifs + 10 most recent read notifs
-        const [notifications] = await db_con.query("( SELECT * FROM notification WHERE UserID = ? AND Is_Read = '0' ) UNION ALL ( SELECT * FROM notification WHERE UserID = 2 AND Is_Read = '1' ORDER BY Created_At DESC LIMIT 10 ) ORDER BY Created_At DESC", [USER]);
+        const [notifications] = await db_con.query("( SELECT * FROM notification WHERE UserID = ? AND Is_Read = '0' ) UNION ALL ( SELECT * FROM notification WHERE UserID = ? AND Is_Read = '1' ORDER BY Created_At DESC LIMIT 10 ) ORDER BY Created_At DESC", [userID, userID]);
+
+        if (!notifications || notifications.length === 0) {
+            return res.status(200).json({ message: "No notifications found." });
+        }
 
         const notificationArray = notifications.map(notification => ({
             id: notification.NotificationID,
