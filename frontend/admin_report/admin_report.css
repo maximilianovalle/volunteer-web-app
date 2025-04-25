@@ -133,3 +133,70 @@ body {
 .report-table tr:nth-child(even) {
   background-color: #fafafa;
 }
+
+/* Filters Section */
+.report-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.report-filters label {
+  font-weight: bold;
+  color: #333;
+}
+
+.report-filters select,
+.report-filters input[type="date"],
+.report-filters input[type="text"] {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.report-filters input[type="text"] {
+  width: 180px;
+}
+
+/* Apply Filters Buttons (both) */
+#generateReportBtn,
+#participationFilterBtn {
+  background: linear-gradient(to right, #ff6b00, #ff4500);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#generateReportBtn:hover,
+#participationFilterBtn:hover {
+  background: #e05200;
+}
+
+/* Right-aligned export buttons */
+.report-download-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.report-download-buttons button {
+  background: linear-gradient(to right, #ff6b00, #ff4500);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.report-download-buttons button:hover {
+  background: #e05200;
+}

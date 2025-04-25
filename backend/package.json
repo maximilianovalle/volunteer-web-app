@@ -15,9 +15,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "csv-writer": "^1.6.0",
     "dotenv": "^16.4.7",
     "fs": "^0.0.1-security",
-    "mysql2": "^3.14.0"
+    "mysql2": "^3.14.0",
+    "pdfkit": "^0.17.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",

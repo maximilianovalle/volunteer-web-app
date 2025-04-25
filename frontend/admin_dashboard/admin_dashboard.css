@@ -23,20 +23,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
+    padding: 0 30px;
+    height: 80px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
-
-.admin-navbar,
-.title-card {
-  height: 80px;
-  padding: 0 30px; /* Remove vertical padding that adds height */
-}
-
-
 
 .nav-left {
     display: flex;
@@ -69,22 +62,6 @@ body {
     background-color: rgba(255, 107, 0, 0.1);
 }
 
-/* Notification Badge */
-.notification {
-    position: relative;
-}
-
-.badge {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background: red;
-    color: white;
-    border-radius: 50%;
-    padding: 3px 7px;
-    font-size: 12px;
-}
-
 /* Logout Button Special Styling */
 .logout-btn {
     background: linear-gradient(to right, #ff6b00, #ff4500);
@@ -115,80 +92,28 @@ body {
     margin-bottom: 20px;
 }
 
-/* Stats Cards */
-.stats {
+/* Centered Main Buttons */
+.main-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 15px;
+    gap: 20px;
+    margin-top: 30px;
 }
 
-.card {
-    background: #ff6b00;
+.main-btn {
+    background: linear-gradient(to right, #ff6b00, #ff4500);
     color: white;
-    padding: 10px;
-    border-radius: 8px;
-    width: 100px;
-    text-align: center;
-    font-size: 14px;
-    transition: transform 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-}
-
-/* Charts */
-.charts {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.chart-container {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    width: 35%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.chart-container h3 {
+    padding: 12px 24px;
+    font-weight: bold;
     font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* Popup */
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    max-width: 90%;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-}
-
-.popup-content {
-    text-align: center;
-    font-size: 16px;
-    padding: 15px;
-    overflow-y: auto;
-}
-
-.popup button {
-    background: linear-gradient(to right, #ff4500, #ff6b00);
-    color: white;
-    padding: 10px;
     border: none;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.main-btn:hover {
+    background: linear-gradient(to right, #ff4500, #ff6b00);
 }
 
 /* Fade-in Animation */

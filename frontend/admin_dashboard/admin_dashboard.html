@@ -1,61 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../admin_dashboard/admin_dashboard.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="../admin_dashboard/admin_dashboard.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../admin_dashboard/admin_dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <header class="admin-navbar">
-        <div class="nav-left">
-            <img src="images/logo.svg" alt="Admin Logo" class="admin-logo">
-            <h2>Admin Dashboard</h2>
-        </div>
-        <nav class="nav-links">
-            <a href="../admin_report/admin_report.html">Reports</a>
-            <a href="../admin_form/admin_form.html">Forms</a>
-            <a href="../Login/sign-up.html" class="logout-btn">Logout</a>
-        </nav>
-    </header>
-    
-    <div class="dashboard-container">
-        <h1>Live Summary</h1>
-        <!-- Date and Time -->
-        <p id="current-time"></p>
-
-        <!-- Dashboard Stats -->
-        <div class="stats">
-            <div class="card">
-                <h3>Events</h3>
-                <p>10 Scheduled</p>
-            </div>
-            <div class="card">
-                <h3>Volunteers</h3>
-                <p>34 Active</p>
-            </div>
-            <div class="card">
-                <h3>Economic Impact</h3>
-                <p>$4,477.53</p>
-            </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="charts">
-            <div class="chart-container">
-                <h3>Event Attendance</h3>
-                <canvas id="eventChart"></canvas>
-            </div>
-            <div class="chart-container">
-                <h3>Volunteer Activity</h3>
-                <canvas id="volunteerChart"></canvas>
-            </div>
-        </div>
+  <!-- Navigation Bar -->
+  <header class="admin-navbar">
+    <div class="nav-left">
+      <img src="images/logo.svg" alt="Admin Logo" class="admin-logo" />
+      <h2>Admin Dashboard</h2>
     </div>
+    <nav class="nav-links">
+      <a href="../Login/sign-up.html" class="logout-btn">Logout</a>
+    </nav>
+  </header>
+
+  <div class="dashboard-container">
+    <h1 id="welcome-text">Welcome, Admin!</h1>
+    <p id="current-time"></p>
+
+    <div class="main-buttons">
+      <a href="../admin_form/admin_form.html" class="main-btn"><i class="fas fa-clipboard"></i> Forms</a>
+      <a href="../admin_report/admin_report.html" class="main-btn"><i class="fas fa-chart-line"></i> Reports</a>
+    </div>
+
+    <p id="quote" class="quote-text"></p>
+  </div>
+
+  <script>
+    // Typing effect
+    const welcome = document.getElementById("welcome-text");
+    const text = "Welcome, Admin!";
+    let index = 0;
+
+    function typeWelcome() {
+      if (index < text.length) {
+        welcome.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWelcome, 75);
+      }
+    }
+    welcome.textContent = "";
+    typeWelcome();
+
+    // Live clock
+    function updateClock() {
+      const now = new Date().toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true
+      });
+      document.getElementById("current-time").textContent = now;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+   
+  </script>
 
 </body>
 </html>

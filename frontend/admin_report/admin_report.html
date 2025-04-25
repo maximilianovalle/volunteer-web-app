@@ -28,13 +28,48 @@
     <!-- Event Assignment Table -->
     <section id="assignmentsSection" class="report-section">
       <h3>Event Assignments</h3>
+
+      <div class="report-filters">
+        <input type="text" id="searchInput" placeholder="Search Event Name..." />
+
+        <label>Type:
+          <select id="typeFilter">
+            <option>All</option>
+            <option>Education</option>
+            <option>Healthcare</option>
+            <option>Environment</option>
+            <option>Community Service</option>
+            <option>Animal Shelter</option>
+          </select>
+        </label>
+
+        <label>Urgency:
+          <select id="urgencyFilter">
+            <option>All</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+        </label>
+
+        <button id="generateReportBtn">Apply Filters</button>
+
+        <div class="report-download-buttons">
+          <button onclick="window.location.href='/api/admin/export/event-assignments/csv'">Download CSV</button>
+          <button onclick="window.location.href='/generate-event-pdf'">Download PDF</button>
+        </div>
+      </div>
+
       <table class="report-table" id="eventTable">
         <thead>
           <tr>
-            <th>Volunteer Name</th>
             <th>Event Name</th>
-            <th>Status</th>
-            <th>Sign-Up Date</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Skills</th>
+            <th>Urgency</th>
+            <th>Volunteer Assigned</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -44,10 +79,30 @@
     <!-- Volunteer Participation Table -->
     <section id="participationSection" class="report-section" style="display: none;">
       <h3>Volunteer Participation History</h3>
+
+      <div class="report-filters">
+        <input type="text" id="participationSearchInput" placeholder="Search Name or Event..." />
+
+        <label>Location:
+          <select id="participationLocationFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <button id="participationFilterBtn">Apply Filters</button>
+
+        <div class="report-download-buttons">
+          <button onclick="window.location.href='/api/admin/export/participation-history/csv'">Download CSV</button>
+          <button onclick="window.location.href='/generate-participation-pdf'">Download PDF</button>
+        </div>
+      </div>
+
       <table class="report-table" id="volunteerTable">
         <thead>
           <tr>
             <th>Volunteer Name</th>
+            <th>Email</th>
+            <th>Location</th>
             <th>Event Name</th>
             <th>Participation Date</th>
           </tr>
