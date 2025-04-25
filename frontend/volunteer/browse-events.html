@@ -23,20 +23,22 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
+
+
+        /* header */
+
         #header {
             height: 5vh;    /* connected to #main height */
             min-height: 52px;
-
-            background-color: #ecebeb;
 
             display: flex;
             justify-content: space-between;
             padding: 0px 250px;
             align-items: center;
 
+            background-color: #fff;
             box-shadow: #ec660c;
         }
-
 
         #header h2:hover {
             cursor: pointer;
@@ -49,6 +51,55 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+
+        .iconStyle {
+            font-size: 24px;
+        }
+
+        .iconBtn {
+            border: none;
+            background-color: transparent;
+        }
+
+        .iconBtn:hover {
+            cursor: pointer;
+            color: #ec660c;
+        }
+
+        .notificationsContainer {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .notifBody {
+            padding: 20px 14px;
+            border-bottom: 2px solid black;
+            text-align: left;
+        }
+
+        .notifBody:hover {
+            cursor: pointer;
+        }
+
+        .unread {
+            color: #ec660c;
+        }
+
+        .notifHeader {
+            padding-bottom: 4px;
+            border-bottom: 2px solid #ecebeb;
+            margin-bottom: 4px;
+
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .notifContent {
+            max-width: 90%;
+            margin: 0px auto;
+            color: black;
         }
 
         #signOutBtn {
@@ -73,28 +124,16 @@
         
 
         #main {
-            min-height: 87vh;   /* connected to #header height */
+            animation: fade-in 0.5s ease;
 
+            min-height: 87vh;   /* connected to #header height */
             max-width: 1200px;  /* page side spacing */
             margin: 0px auto;
 
             margin-top: 4vh;
             margin-bottom: 4vh;
 
-            color: #ffffff;
-        }
-
-        .iconStyle {
-            font-size: 24px;
-        }
-
-        .iconBtn {
-            border: none;
-        }
-
-        .iconBtn:hover {
-            cursor: pointer;
-            color: #ec660c;
+            color: #fff;
         }
 
         #topText {
@@ -108,6 +147,50 @@
             display: flex;
             align-items: baseline;
             justify-content: space-between;
+        }
+
+
+
+        /* modal */
+
+        .modal {
+            display: none;  /* hidden by default */
+            position: fixed;
+            overflow: auto;
+
+            z-index: 999;
+            left: 0;
+            top: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modalBox {
+            max-width: 400px;
+            min-width: 300px;
+            max-height: 450px;
+            min-height: 100px;
+
+            padding: 32px;
+            margin: 12% auto;
+
+            border-radius: 6px;
+            background-color: #fff;
+            color: black;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .modalBox h3 {
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            border-bottom: 2px solid black;
         }
 
     </style>
@@ -129,9 +212,25 @@
         <h2 onclick="window.location.href='/volunteer-dashboard'">Placeholder</h2> <!-- !! -->
 
         <div> <!-- !! -->
-            <button onclick="openNotifications()" class="iconBtn"><i class="iconStyle fa-solid fa-bell"></i></button>
+            <button onclick="openNotifModal()" class="iconBtn"><i class="iconStyle fa-solid fa-bell"></i></button>
             <button onclick="window.location.href='/user-manage-profile'" class="iconBtn"><i class="iconStyle fa-solid fa-user"></i></button>
             <button onclick="logout()" id="signOutBtn">Sign Out</button>
+        </div>
+
+    </div>
+
+    <!-- notification modal -->
+    <div id="notificationModal" class="modal" onclick="closeNotifModal()">
+
+        <div class="notificationsContainer modalBox">
+            <h3>Notifications</h3> <!-- !! -->
+
+            <div id="notificationBody">
+
+                <!-- fetchNotifications() -->
+
+            </div>
+
         </div>
 
     </div>
@@ -178,8 +277,88 @@
 
         // notifications modal
 
-        async function openNotifications() {
-            // TODO: notifications modal
+        function openNotifModal() {
+            fetchNotifications();
+            document.getElementById('notificationModal').style.display = "block";
+        }
+
+        function closeNotifModal() {
+            document.getElementById('notificationModal').style.display = "none";
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+
+            const year = date.getFullYear();
+            const month = (`0${date.getMonth() + 1}`).slice(-2); // add 1 since months are 0-indexed
+            const day = (`0${date.getDate()}`).slice(-2);
+
+            const hours = (`0${date.getHours()}`).slice(-2);
+            const minutes = (`0${date.getMinutes()}`).slice(-2);
+            const seconds = (`0${date.getSeconds()}`).slice(-2);
+
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        async function fetchNotifications() {
+            try {
+                const response = await fetch("http://localhost:3000/api/volunteer/notifications");
+                const notifications = await response.json();
+
+                const notificationBody = document.getElementById('notificationBody');
+
+                notificationBody.innerHTML = "";
+
+                notifications.forEach(notification => {
+                    const notif = document.createElement('div');
+                    notif.classList.add('notifBody');
+
+                    if (notification.isRead === '0') {
+                        notif.classList.add('unread');
+                    }
+
+                    notif.innerHTML = `
+                        <div class="notifHeader">
+                            <h4>${notification.type}</h4>
+                            <p>${formatDate(notification.date)}</p>
+                        </div>
+
+                        <p class="notifContent">${notification.text}</p>
+                    `;
+
+                    notif.addEventListener('click', () => markRead(notification.id));
+
+                    notificationBody.appendChild(notif);
+                })
+
+            } catch (error) {
+                console.error("Error fetching notifications: ", error);
+            }
+        }
+
+        async function markRead(notifID) {
+            try {
+                const response = await fetch("http://localhost:3000/api/volunteer/markRead", {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ notifID: notifID })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // alert(result.message);
+                    closeNotifModal();
+                    openNotifModal();
+                } else {
+                    openMsgModal(0, result.error);
+                }
+
+            } catch (error) {
+                console.error("Error marking notif as read: ", error);
+            }
         }
 
     </script>
