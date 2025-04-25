@@ -346,8 +346,8 @@ exports.exportParticipationCSV = async (req, res) => {
     SELECT 
         p.Full_Name AS name,
         h.Email AS email,
-        p.City AS city,
-        p.State_Code AS state,
+        e.Location_City AS city,
+        e.Location_State_Code AS state,
         e.Event_Name AS event,
         h.Participation_Date AS date
     FROM history_user h
