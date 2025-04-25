@@ -79,11 +79,22 @@ router.post("/signup", async (req, res) => {
             [newId, email, password]
         );
 
-        return res.status(200).json({ message: "User added successfully" });
+        const token = jwt.sign(
+            { id: newId, email, role },
+            JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        return res
+            .status(200)
+            .cookie("access-token", token, { maxAge: 1000000 })
+            .json({ message: "User added and logged in", token, role });
+
     } catch (err) {
         return res.status(500).json({ message: "Internal server error" });
     }
 });
+
 
 
 module.exports = router;
