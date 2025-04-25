@@ -152,3 +152,53 @@ describe("Additional Profile Validation Tests", () => {
       expect(callParams[8]).toBeNull(); // preferences should be null
     });
   });
+
+  describe("Route Tests for profileRoutes.js", () => {
+    test("GET /api/test should return API status", async () => {
+      const response = await request(app).get("/api/test");
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({ status: "API is working" });
+    });
+  
+    test("POST /api/test/profile should echo back profile data", async () => {
+      const testData = {
+        name: "Jane Doe",
+        address1: "456 Elm Street",
+        city: "Cityville",
+        state: "NY",
+        zipcode: "54321",
+        skills: ["cooking"],
+        availabilityDates: ["2025-06-01"]
+      };
+  
+      const response = await request(app).post("/api/test/profile").send(testData);
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        message: "Profile data received successfully",
+        data: testData
+      });
+    });
+  
+    test("POST /api/user/profile with all optional fields", async () => {
+      const response = await request(app).post("/api/user/profile").send({
+        name: "John Doe",
+        address1: "123 Main St",
+        address2: "Apt 4B",
+        city: "Sample City",
+        state: "CA",
+        zipcode: "12345",
+        skills: ["gardening"],
+        preferences: "morning shifts only",
+        availabilityDates: ["2025-03-01", "2025-03-05"]
+      });
+  
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe("Profile submitted successfully!");
+    });
+  
+    test("GET /api/user/profile should return 404 (invalid method)", async () => {
+      const response = await request(app).get("/api/user/profile");
+      expect(response.status).toBe(404);
+    });
+  });
+  
