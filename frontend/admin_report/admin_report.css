@@ -200,3 +200,18 @@ body {
 .report-download-buttons button:hover {
   background: #e05200;
 }
+
+.delete-btn {
+  background: linear-gradient(to right, #ff6b00, #ff4500);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #e05200;
+}

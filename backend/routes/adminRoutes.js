@@ -9,6 +9,7 @@ const { createAdminEvent,
     getEventAssignments,
     exportAssignmentsCSV,
     exportParticipationCSV,
+    softDeleteEvent
 } = require("../controllers/adminController");
 
 
@@ -20,8 +21,7 @@ router.post('/events', createAdminEvent);
 // Get all events created by Admin
 router.get('/events', getAdminEvents);
 
-// Delete an event by ID
-router.delete('/events/:id', deleteAdminEvent);
+
 
 // Match volunteers to an event
 router.post("/match-volunteer", matchVolunteersToEvent);
@@ -35,6 +35,8 @@ router.get("/event-assignments", getEventAssignments);
 
 router.get("/export/event-assignments/csv", exportAssignmentsCSV);
 router.get("/export/participation-history/csv", exportParticipationCSV);
+
+router.patch("/events/:id/soft-delete", softDeleteEvent);
 
 
 module.exports = router;
