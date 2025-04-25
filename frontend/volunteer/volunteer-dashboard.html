@@ -78,6 +78,10 @@
             text-align: left;
         }
 
+        .notifBody:hover {
+            cursor: pointer;
+        }
+
         .unread {
             color: #ec660c;
         }
@@ -417,7 +421,6 @@
         }
 
         function closeNotifModal() {
-            markAllRead();
             document.getElementById('notificationModal').style.display = "none";
         }
 
@@ -461,6 +464,8 @@
                         <p class="notifContent">${notification.text}</p>
                     `;
 
+                    notif.addEventListener('click', () => markRead(notification.id));
+
                     notificationBody.appendChild(notif);
                 })
 
@@ -469,25 +474,28 @@
             }
         }
 
-        async function markAllRead() {
+        async function markRead(notifID) {
             try {
-                const response = await fetch('http://localhost:3000/api/volunteer/markRead', {
+                const response = await fetch("http://localhost:3000/api/volunteer/markRead", {
                     method: 'PUT',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
+                    body: JSON.stringify({ notifID: notifID })
                 });
 
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert("Marked all as read.");
+                    // alert(result.message);
+                    closeNotifModal();
+                    openNotifModal();
                 } else {
-                    alert("Failed to mark as read.");
+                    openMsgModal(0, result.error);
                 }
 
             } catch (error) {
-                console.error("Error marking notifs as read: ", error);
+                console.error("Error marking notif as read: ", error);
             }
         }
 
@@ -539,7 +547,7 @@
 
                     upcomingEvent.innerHTML = `
                         <h3>${event.name}</h3>
-                        <p><i class="fa-solid fa-location-dot"></i> ${event.state}</p>
+                        <p><i class="fa-solid fa-location-dot"></i> ${event.city}, ${event.state}</p>
 
                         <img class="eventImage" src="volunteer/event-images/event-${event.type}.jpg" alt="Event image.">
 
@@ -547,7 +555,7 @@
 
                         <p class="eventDescription">${event.description}</p>
                         
-                        <button class="iconBtn" onclick="openDropModal(${event.eventID})"><i class="iconStyle fa-solid fa-right-from-bracket"></i></button>
+                        <button class="iconBtn" onclick="openDropModal(${event.eventID})">leave event</button>
                     `;
 
                     upcomingEventsContainer.appendChild(upcomingEvent);

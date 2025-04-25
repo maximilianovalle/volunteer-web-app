@@ -10,18 +10,18 @@
 const express = require('express');
 const router = express.Router();
 
-const { fetchAcceptedEvents, fetchUser, dropEvent, fetchNotifications, markAllRead } = require("../controllers/volunteer-controllers");
+const { fetchAcceptedEvents, fetchUser, dropEvent, fetchNotifications, markRead } = require("../controllers/volunteer-controllers");
 
 
 router.get("/accepted", fetchAcceptedEvents);
 
 router.get("/user", fetchUser);
 
-router.put("/drop", dropEvent)
+router.put("/drop", dropEvent);
+
+router.put("/markRead", markRead);
 
 router.get("/notifications", fetchNotifications);
-
-// router.put("/markRead", markAllRead);
 
 
 module.exports = router;

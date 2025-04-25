@@ -1,7 +1,5 @@
 //  Controller: responsible for handling incoming requests and sending responses back to the client - act as intermediaries between routes and application logic. They receive requests, process them using models or services, and then return the appropriate response.
 
-// ! - Controllers get the requested data from the models, create an HTML page displaying the data, and return it to the user.
-
 const db_con = require("../db");
 
 const USER = 2;
@@ -14,6 +12,7 @@ exports.fetchAcceptedEvents = async (req, res) => {
             eventID: event.EventID,
             name: event.Event_Name,
             description: event.Description,
+            city: event.Location_City,
             state: event.Location_State_Code,
             skill: event.Required_Skills,
             date: new Date(event.Event_Date).toLocaleDateString("en-US", {
@@ -59,19 +58,31 @@ exports.dropEvent = async (req, res) => {
     }
 }
 
+exports.markRead = async (req, res) => {
+    const { notifID } = req.body;
+
+    try {
+        await db_con.query("UPDATE notification SET Is_Read = '1' WHERE NotificationID = ?", [notifID]);
+
+        res.status(200).json({ message: "Marked notification as read." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.fetchNotifications = async (req, res) => {
     try {
         // get all unread notifs + 10 most recent read notifs
         const [notifications] = await db_con.query("( SELECT * FROM notification WHERE UserID = ? AND Is_Read = '0' ) UNION ALL ( SELECT * FROM notification WHERE UserID = 2 AND Is_Read = '1' ORDER BY Created_At DESC LIMIT 10 ) ORDER BY Created_At DESC", [USER]);
 
         const notificationArray = notifications.map(notification => ({
+            id: notification.NotificationID,
             type: notification.Type,
             text: notification.Notification_Text,
             date: notification.Created_At,
             isRead: notification.Is_Read,
         }))
-
-        console.log("Notifications", notificationArray);
 
         res.json(notificationArray);
     } catch (error) {
@@ -79,5 +90,3 @@ exports.fetchNotifications = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
-
-// exports.markAllRead
