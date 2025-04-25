@@ -90,8 +90,8 @@ app.get("/generate-event-pdf", async (req, res) => {
     SELECT 
         p.Full_Name AS name,
         h.Email AS email,
-        p.City AS city,
-        p.State_Code AS state,
+        e.Location_City AS city,
+        e.Location_State_Code AS state,
         e.Event_Name AS event,
         h.Participation_Date AS date
     FROM history_user h
@@ -123,7 +123,7 @@ app.get("/generate-event-pdf", async (req, res) => {
             .fontSize(12)
             .text(`Name: ${entry.name}`)
             .text(`Event: ${entry.event}`)
-            .text(`Location: ${entry.Location_City || "N/A"}, ${entry.Location_State_Code || ""}`)
+            .text(`Location: ${entry.city || "N/A"}, ${entry.state || ""}`)
             .text(`Date: ${new Date(entry.date).toLocaleDateString("en-US")}`)
             .moveDown();
   
