@@ -317,17 +317,18 @@ exports.exportAssignmentsCSV = async (req, res) => {
 exports.getVolunteerParticipationHistory = async (req, res) => {
     try {
         const [rows] = await db.query(`
-    SELECT 
-        p.Full_Name AS name,
-        h.Email AS email,
-        p.City AS city,
-        p.State_Code AS state,
-        e.Event_Name AS event,
-        h.Participation_Date AS date
-    FROM history_user h
-    JOIN profile_user p ON h.UserID = p.UserID
-    JOIN event_details e ON h.EventID = e.EventID
-    ORDER BY h.Participation_Date DESC;
+SELECT 
+    p.Full_Name AS name,
+    h.Email AS email,
+    e.Location_City AS city,
+    e.Location_State_Code AS state,
+    e.Event_Name AS event,
+    h.Participation_Date AS date
+FROM history_user h
+JOIN profile_user p ON h.UserID = p.UserID
+JOIN event_details e ON h.EventID = e.EventID
+ORDER BY h.Participation_Date DESC;
+
         `);
 
         res.json(rows);
@@ -345,8 +346,8 @@ exports.exportParticipationCSV = async (req, res) => {
     SELECT 
         p.Full_Name AS name,
         h.Email AS email,
-        p.City AS city,
-        p.State_Code AS state,
+        e.Location_City AS city,
+        e.Location_State_Code AS state,
         e.Event_Name AS event,
         h.Participation_Date AS date
     FROM history_user h
