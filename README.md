@@ -48,7 +48,7 @@ Updates and reminders for volunteers
 # Participation History
 Track all historical participation data by volunteer
 
-Export to CSV
+Export to CSV/PDF
 
 # Tech Stack
 Frontend:  HTML, CSS, JavaScript
@@ -63,12 +63,12 @@ File Exports: CSV using csv-writer and PDF using pdfkit
 
 #  Database Schema Overview
 
-Table	Description
-UserCredentials	Stores login info (ID, encrypted password)
-UserProfile	Stores name, address, state, zip, skills, preferences, availability
-EventDetails	Stores event metadata (name, date, location, skills, urgency)
-VolunteerHistory	Tracks past participation
-States	Stores U.S. state codes
+Table | Description
+**UserCredentials** – Stores login info (ID, encrypted password)  
+**UserProfile** – Stores name, address, state, zip, skills, preferences, availability  
+**EventDetails** – Stores event metadata (name, date, location, skills, urgency)  
+**VolunteerHistory** – Tracks past volunteer participation  
+**States** – Stores U.S. state codes  
 
 # Functional Modules
 Backend
