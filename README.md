@@ -16,7 +16,7 @@ The system provides both administrators and volunteers with tools to interact wi
 
 # Key Features
 # User & Volunteer Management
-Login & Registration (with email validation)
+Login & Registration
 
 Profile Management (full name, address, state, zip code, skills, preferences, availability)
 
