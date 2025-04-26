@@ -23,12 +23,12 @@
     "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.0",
-    "pdfkit": "^0.17.0",
-    "supertest": "^7.1.0"
+    "pdfkit": "^0.17.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
     "livereload": "^0.9.3",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.0"
   }
 }
