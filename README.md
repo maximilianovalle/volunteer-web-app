@@ -104,10 +104,9 @@ Code coverage maintained above 80%
 
 Run tests:
 
-bash
-Copy
-Edit
+```
 npm test
+```
 
 #  Getting Started
 Clone this repo
